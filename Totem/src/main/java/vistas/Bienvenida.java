@@ -1,28 +1,14 @@
-package vistas.box;
+package vistas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.FlowLayout;
-import javax.swing.border.LineBorder;
-import javax.swing.DropMode;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
+import java.awt.*;
 
 public class Bienvenida extends JFrame {
 
 	private JPanel container;
 	private JTextField textFieldMensaje;
-	private JTextField txtbienenido;
+	private JTextField txtbienvenido;
 
 	/**
 	 * Launch the application.
@@ -59,14 +45,15 @@ public class Bienvenida extends JFrame {
 		container.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		txtbienenido = new JTextField();
-		txtbienenido.setEditable(false);
-		txtbienenido.setHorizontalAlignment(SwingConstants.CENTER);
-		txtbienenido.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 60));
-		txtbienenido.setText("\u00A1BIENVENIDO!");
-		txtbienenido.setBackground(new Color(0, 191, 255));
-		panel.add(txtbienenido);
-		txtbienenido.setColumns(10);
+		txtbienvenido = new JTextField();
+		txtbienvenido.setEditable(false);
+		txtbienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+		txtbienvenido.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 60));
+		txtbienvenido.setText("\u00A1BIENVENIDO!");
+		txtbienvenido.setBackground(new Color(0, 191, 255));
+		panel.add(txtbienvenido);
+		txtbienvenido.setColumns(10);
+		txtbienvenido.setBorder(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(new Color(0, 0, 0));
@@ -74,8 +61,16 @@ public class Bienvenida extends JFrame {
 		container.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, BorderLayout.CENTER);
+		textFieldMensaje = new JTextField();
+		panel_1.add(textFieldMensaje, BorderLayout.CENTER);
+		textFieldMensaje.setForeground(new Color(0, 0, 0));
+		textFieldMensaje.setEditable(false);
+		textFieldMensaje.setBackground(new Color(0, 191, 255));
+		textFieldMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 30));
+		textFieldMensaje.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldMensaje.setText("Pulse el bot\u00F3n para registrarse");
+		textFieldMensaje.setColumns(1);
+		textFieldMensaje.setBorder(null);
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(0, 191, 255));
@@ -89,16 +84,6 @@ public class Bienvenida extends JFrame {
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(0, 191, 255));
 		panel_6.add(panel_2_1);
-		
-		textFieldMensaje = new JTextField();
-		panel_2_1.add(textFieldMensaje);
-		textFieldMensaje.setForeground(new Color(0, 0, 0));
-		textFieldMensaje.setEditable(false);
-		textFieldMensaje.setBackground(new Color(0, 191, 255));
-		textFieldMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 30));
-		textFieldMensaje.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldMensaje.setText("Pulse el bot\u00F3n para registrarse");
-		textFieldMensaje.setColumns(1);
 		
 		JPanel panel_2_2 = new JPanel();
 		panel_2_2.setBackground(new Color(0, 191, 255));
