@@ -9,18 +9,26 @@ import modelo.Atencion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -29,20 +37,31 @@ public class FilaDeEspera {
     @Getter
     @Setter
     private Integer tamañoMaximo;
-
     private Queue<Atencion> fila;
 
     public FilaDeEspera() {
-        DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
         try {
-            DocumentBuilder builder = domFactory.newDocumentBuilder();
-            Document dDoc = builder.parse("config.xml");
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            Node node = (Node) xPath.evaluate("//filaDeEspera/tamañoMaximo", dDoc, XPathConstants.NODE);
-            System.out.println(node);
-            this.tamañoMaximo = Integer.parseInt(node.getNodeValue());
-            System.out.println(this.tamañoMaximo);
-        } catch (Exception e) {
+            builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new File("config.xml"));
+            Element rootElement = document.getDocumentElement();
+            Node node = rootElement.getElementsByTagName("tamañoMaximo").item(0); //SE PUEDE MODIFICAR CON LO QUE NECESITEMOS METER EN EL CONFIG.XML
+            StringWriter buf = new StringWriter();
+            Transformer xform = TransformerFactory.newInstance().newTransformer();
+            xform.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes"); // optional
+            xform.setOutputProperty(OutputKeys.INDENT, "yes"); // optional
+            xform.transform(new DOMSource(node), new StreamResult(buf));
+            this.tamañoMaximo = Integer.parseInt(buf.toString().replaceAll("[<>a-zA-Z/ñ\n]", "")); //SE PUEDE MODIFICAR DEPENDIENDO DEL VALUE
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
             e.printStackTrace();
         }
 

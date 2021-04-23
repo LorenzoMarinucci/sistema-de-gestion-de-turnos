@@ -16,7 +16,7 @@ class FilaDeEsperaTest {
 
     @Test
     void cargaAtributosTest() {
-        assertEquals(10, filaDeEspera.getTamañoMaximo());
+        assertEquals(20, filaDeEspera.getTamañoMaximo());
     }
 
 }
