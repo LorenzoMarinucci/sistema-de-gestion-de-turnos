@@ -53,15 +53,7 @@ public class FilaDeEspera {
             xform.setOutputProperty(OutputKeys.INDENT, "yes"); // optional
             xform.transform(new DOMSource(node), new StreamResult(buf));
             this.tamañoMaximo = Integer.parseInt(buf.toString().replaceAll("[<>a-zA-Z/ñ\n]", "")); //SE PUEDE MODIFICAR DEPENDIENDO DEL VALUE
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
