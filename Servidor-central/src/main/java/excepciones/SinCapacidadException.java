@@ -1,4 +1,4 @@
 package excepciones;
 
-public class SinCapacidadException extends Throwable {
+public class SinCapacidadException extends Exception {
 }

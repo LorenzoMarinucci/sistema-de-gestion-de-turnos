@@ -1,4 +1,4 @@
 package excepciones;
 
-public class FilaDeEsperaVaciaException extends Throwable {
+public class FilaDeEsperaVaciaException extends Exception {
 }

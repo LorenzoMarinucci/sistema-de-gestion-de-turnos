@@ -1,4 +1,4 @@
 package excepciones;
 
-public class DniRepetidoException extends Throwable {
+public class DniRepetidoException extends Exception {
 }
