@@ -3,14 +3,21 @@ package vistas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Llamados extends JFrame {
+public class LlamadosImpl extends JFrame implements VistaLlamados {
 
 	private JPanel container;
 	private JTextField txtLlamados;
 	private JTextField txtDni;
 	private JTextField txtBox;
-	private JTextField textDNI1;
+	private Integer lugaresTelevisor;
+	
+	private Map<Integer, JTextField> textFieldsDNI = new HashMap<>();
+	private Map<Integer, JTextField> textFieldsBox = new HashMap<>();
+	
+	/*private JTextField textDNI1;
 	private JTextField textBox1;
 	private JTextField textDNI2;
 	private JTextField textBox2;
@@ -21,28 +28,12 @@ public class Llamados extends JFrame {
 	private JTextField textDNI5;
 	private JTextField textBox5;
 	private JTextField textDNI6;
-	private JTextField textBox6;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Llamados frame = new Llamados();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField textBox6;*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Llamados() {
+	public LlamadosImpl(Integer lugaresTelevisor) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		container = new JPanel();
@@ -52,7 +43,7 @@ public class Llamados extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		container.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(7, 0, 0, 0));
+		panel_1.setLayout(new GridLayout(lugaresTelevisor + 1, 0, 0, 0));
 		
 		JPanel panel = new JPanel();
 		panel_1.add(panel);
@@ -78,15 +69,15 @@ public class Llamados extends JFrame {
 		txtBox.setColumns(10);
 		txtBox.setBorder(null);
 		
-		JPanel panel_2 = new JPanel();
+		/* JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		
 		
 		textDNI1 = new JTextField();
 		textDNI1.setEditable(false);
 		textDNI1.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
 		textDNI1.setHorizontalAlignment(SwingConstants.CENTER);
-		textDNI1.setText("41854325");
 		textDNI1.setBackground(new Color(176, 224, 230));
 		panel_2.add(textDNI1);
 		textDNI1.setColumns(10);
@@ -96,7 +87,6 @@ public class Llamados extends JFrame {
 		textBox1.setEditable(false);
 		textBox1.setHorizontalAlignment(SwingConstants.CENTER);
 		textBox1.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textBox1.setText("1");
 		textBox1.setBackground(new Color(255, 255, 255));
 		panel_2.add(textBox1);
 		textBox1.setColumns(10);
@@ -110,7 +100,6 @@ public class Llamados extends JFrame {
 		textDNI2.setEditable(false);
 		textDNI2.setHorizontalAlignment(SwingConstants.CENTER);
 		textDNI2.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textDNI2.setText("41458650");
 		textDNI2.setBackground(new Color(176, 224, 230));
 		panel_3.add(textDNI2);
 		textDNI2.setColumns(10);
@@ -120,7 +109,6 @@ public class Llamados extends JFrame {
 		textBox2.setEditable(false);
 		textBox2.setHorizontalAlignment(SwingConstants.CENTER);
 		textBox2.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textBox2.setText("5");
 		textBox2.setBackground(new Color(255, 255, 255));
 		panel_3.add(textBox2);
 		textBox2.setColumns(10);
@@ -134,7 +122,6 @@ public class Llamados extends JFrame {
 		textDNI3.setEditable(false);
 		textDNI3.setHorizontalAlignment(SwingConstants.CENTER);
 		textDNI3.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textDNI3.setText("20633157");
 		textDNI3.setBackground(new Color(176, 224, 230));
 		panel_4.add(textDNI3);
 		textDNI3.setColumns(10);
@@ -144,7 +131,6 @@ public class Llamados extends JFrame {
 		textBox3.setEditable(false);
 		textBox3.setHorizontalAlignment(SwingConstants.CENTER);
 		textBox3.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textBox3.setText("3");
 		textBox3.setBackground(new Color(255, 255, 255));
 		panel_4.add(textBox3);
 		textBox3.setColumns(10);
@@ -158,7 +144,6 @@ public class Llamados extends JFrame {
 		textDNI4.setEditable(false);
 		textDNI4.setHorizontalAlignment(SwingConstants.CENTER);
 		textDNI4.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textDNI4.setText("18368298");
 		textDNI4.setBackground(new Color(176, 224, 230));
 		panel_5.add(textDNI4);
 		textDNI4.setColumns(10);
@@ -168,7 +153,6 @@ public class Llamados extends JFrame {
 		textBox4.setEditable(false);
 		textBox4.setHorizontalAlignment(SwingConstants.CENTER);
 		textBox4.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textBox4.setText("2");
 		textBox4.setBackground(new Color(255, 255, 255));
 		panel_5.add(textBox4);
 		textBox4.setColumns(10);
@@ -218,6 +202,11 @@ public class Llamados extends JFrame {
 		textBox6.setColumns(10);
 		textBox6.setBorder(null);
 		
+		*/
+		
+		inicializarTextFields(lugaresTelevisor, panel_1);
+		this.lugaresTelevisor = lugaresTelevisor;
+		
 		txtLlamados = new JTextField();
 		txtLlamados.setEditable(false);
 		txtLlamados.setBackground(new Color(51, 102, 255));
@@ -227,6 +216,54 @@ public class Llamados extends JFrame {
 		container.add(txtLlamados, BorderLayout.NORTH);
 		txtLlamados.setColumns(10);
 		txtLlamados.setBorder(null);
+		
+		this.setVisible(true);
+	}
+	
+	private void inicializarTextFields(Integer cantidad, JPanel panelBase) {
+		for (int i = 0; i < cantidad; i++) {
+			JPanel panel = new JPanel();
+			panelBase.add(panel);
+			panel.setLayout(new GridLayout(0, 2, 0, 0));
+			
+			JTextField textDNI = new JTextField();
+			textDNI.setEditable(false);
+			textDNI.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+			textDNI.setHorizontalAlignment(SwingConstants.CENTER);
+			textDNI.setBackground(new Color(176, 224, 230));
+			panel.add(textDNI);
+			textDNI.setColumns(10);
+			textDNI.setBorder(null);
+			
+			JTextField textBox = new JTextField();
+			textBox.setEditable(false);
+			textBox.setHorizontalAlignment(SwingConstants.CENTER);
+			textBox.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+			textBox.setBackground(new Color(255, 255, 255));
+			panel.add(textBox);
+			textBox.setColumns(10);
+			textBox.setBorder(null);
+			
+			textFieldsDNI.put(i, textDNI);
+			textFieldsBox.put(i, textBox);
+		}
+		
+	};
+
+	@Override
+	public void cargarLlamado(String DNI, String box, Integer posicion) {
+		textFieldsDNI.get(posicion).setText(DNI);
+		textFieldsBox.get(posicion).setText(box);
+	}
+
+	@Override
+	public void quitarLlamado(Integer posicion) {
+		for (int i = posicion; i < lugaresTelevisor - 1; i++) {
+			textFieldsDNI.get(posicion).setText(textFieldsDNI.get(posicion + 1).getText());
+			textFieldsBox.get(posicion).setText(textFieldsDNI.get(posicion + 1).getText());
+		}
+		textFieldsDNI.get(lugaresTelevisor - 1).setText("");
+		textFieldsBox.get(lugaresTelevisor - 1).setText("");
 	}
 
 }

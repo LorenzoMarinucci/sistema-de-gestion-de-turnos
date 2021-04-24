@@ -3,12 +3,18 @@ package vistas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class Bienvenida extends JFrame {
+public class BienvenidaImpl extends JFrame implements VistaBienvenida, MouseListener {
 
 	private JPanel container;
 	private JTextField textFieldMensaje;
 	private JTextField txtbienvenido;
+	private JButton btnRegistrarse;
+	private ActionListener actionListener;
 
 	/**
 	 * Launch the application.
@@ -17,7 +23,7 @@ public class Bienvenida extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Bienvenida frame = new Bienvenida();
+					BienvenidaImpl frame = new BienvenidaImpl();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +35,7 @@ public class Bienvenida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Bienvenida() {
+	public BienvenidaImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 717, 436);
 		container = new JPanel();
@@ -110,7 +116,9 @@ public class Bienvenida extends JFrame {
 		panel_6.add(panel_2_8);
 		panel_2_8.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.addMouseListener(this);
+		btnRegistrarse.addActionListener(this);
 		panel_2_8.add(btnRegistrarse);
 		
 		JPanel panel_2_5 = new JPanel();
@@ -152,6 +160,38 @@ public class Bienvenida extends JFrame {
 		JPanel panel_2_17 = new JPanel();
 		panel_2_17.setBackground(new Color(0, 191, 255));
 		panel_6.add(panel_2_17);
+		
+		this.setVisible(true);
 	}
 
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.btnRegistrarse.addActionListener(actionListener);
+		this.actionListener = actionListener;
+	}
+
+	@Override
+	public void cerrarVista() {
+		this.dispose();
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+		JButton boton = (JButton) e.getSource();
+		String command = boton.getActionCommand();
+		ActionEvent evento = new ActionEvent(boton, 0, command);
+		this.actionListener.actionPerformed(evento);
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
 }

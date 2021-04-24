@@ -3,8 +3,10 @@ package vistas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Fin extends JFrame {
+public class FinImpl extends JFrame implements VistaFin{
 
 	private JPanel container;
 	private JTextField textFieldTitulo;
@@ -18,7 +20,7 @@ public class Fin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fin frame = new Fin();
+					FinImpl frame = new FinImpl();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,7 +32,7 @@ public class Fin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Fin() {
+	public FinImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		container = new JPanel();
@@ -62,6 +64,25 @@ public class Fin extends JFrame {
 		container.add(textFieldMensaje);
 		textFieldMensaje.setColumns(10);
 		textFieldMensaje.setBorder(null);
+		
+		this.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cerrarVista() {
+		this.dispose();
 	}
 
 }
