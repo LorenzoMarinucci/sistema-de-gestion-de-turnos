@@ -1,36 +1,18 @@
-package vistas;
+package vistas.JFrame;
+
+import vistas.VistaFin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-
-public class FinImpl extends VistaAbstracta {
+public class FinImpl extends VistaAbstracta implements VistaFin {
 
 	private JPanel container;
 	private JTextField textFieldTitulo;
 	private JTextField textFieldMensaje;
 	private JPanel panel;
+	private Timer timer;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FinImpl frame = new FinImpl();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public FinImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -66,9 +48,10 @@ public class FinImpl extends VistaAbstracta {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void iniciarTimeout(Integer milisegundos) {
+		timer = new Timer(milisegundos, this.actionListener);
+		timer.setActionCommand("TIMEOUT FIN");
+		timer.setRepeats(false);
+		timer.start();
 	}
-
 }

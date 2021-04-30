@@ -1,12 +1,12 @@
 package main;
 
-import comunicacion.ComunicacionImpl;
+import comunicacion.TCP.ComunicacionImpl;
 import configuracion.ConfiguracionXML;
 import controlador.Controlador;
 import utilidades.ValidadorImpl;
-import vistas.BienvenidaImpl;
-import vistas.FinImpl;
-import vistas.RegistroImpl;
+import vistas.JFrame.BienvenidaImpl;
+import vistas.JFrame.FinImpl;
+import vistas.JFrame.RegistroImpl;
 
 public class Main {
 

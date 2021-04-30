@@ -1,10 +1,10 @@
-package vistas;
+package vistas.JFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
@@ -15,25 +15,6 @@ public class BienvenidaImpl extends VistaAbstracta implements MouseListener {
 	private JTextField txtbienvenido;
 	private JButton btnRegistrarse;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BienvenidaImpl frame = new BienvenidaImpl();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public BienvenidaImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 717, 436);
@@ -117,7 +98,6 @@ public class BienvenidaImpl extends VistaAbstracta implements MouseListener {
 		
 		btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addMouseListener(this);
-		btnRegistrarse.addActionListener(this);
 		panel_2_8.add(btnRegistrarse);
 		
 		JPanel panel_2_5 = new JPanel();
@@ -170,16 +150,18 @@ public class BienvenidaImpl extends VistaAbstracta implements MouseListener {
 	}
 	public void mousePressed(MouseEvent e) {
 		JButton boton = (JButton) e.getSource();
-		String command = boton.getActionCommand();
-		ActionEvent evento = new ActionEvent(boton, 0, command);
-		this.actionListener.actionPerformed(evento);
+		if (boton.getActionCommand().equals("Registrarse")) {
+			String command = "REGISTRARSE";
+			ActionEvent evento = new ActionEvent(boton, 0, command);
+			this.actionListener.actionPerformed(evento);
+		}
 	}
 	public void mouseReleased(MouseEvent e) {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
+	public void setActionListener(ActionListener actionListener) {
+		super.setActionListener(actionListener);
 	}
 
 }

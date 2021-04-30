@@ -1,5 +1,7 @@
-package comunicacion;
+package comunicacion.TCP;
 
+import comunicacion.Comunicacion;
+import comunicacion.InformeRegistro;
 import configuracion.ConfiguracionComunicacion;
 
 import java.io.ObjectInputStream;

@@ -10,31 +10,34 @@ import vistas.*;
 
 public class Controlador implements ActionListener {
 	
-	private final Long TIEMPO_ESPERA_NUEVO_REGISTRO = 5000L;
+	private final Integer TIEMPO_ESPERA_NUEVO_REGISTRO = 5000;
 
 	private Vista UIBienvenida;
 	private VistaRegistro UIRegistro;
-	private Vista UIFin;
+	private VistaFin UIFin;
 	private Validador validador;
 	private Comunicacion comunicador;
 
-	public Controlador(Vista UIBienvenida, VistaRegistro UIRegistro, Vista UIFin, Validador validador,
+	public Controlador(Vista UIBienvenida, VistaRegistro UIRegistro, VistaFin UIFin, Validador validador,
 					   Comunicacion comunicador) {
 		this.UIBienvenida = UIBienvenida;
 		this.UIRegistro = UIRegistro;
 		this.UIFin = UIFin;
 		this.validador = validador;
 		this.comunicador = comunicador;
-		UIBienvenida.abrirVista(this);
+		this.UIBienvenida.setActionListener(this);
+		this.UIRegistro.setActionListener(this);
+		this.UIFin.setActionListener(this);
+		this.UIBienvenida.abrirVista();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		if (command.equals("Registrarse")) {
+		if (command.equals("REGISTRARSE")) {
 			UIBienvenida.cerrarVista();
-			UIRegistro.abrirVista(this);
-		} else if (command.equals("Finalizar registro")) {
+			UIRegistro.abrirVista();
+		} else if (command.equals("FINALIZAR REGISTRO")) {
 			String DNI = UIRegistro.getDNI();
 			if (validador.DNIesValido(DNI)) {
 				procesarRegistro(DNI);
@@ -42,20 +45,17 @@ public class Controlador implements ActionListener {
 			else {
 				UIRegistro.DNInoValido();
 			}
+		} else if (command.equals("TIMEOUT FIN")) {
+			UIFin.cerrarVista();
+			UIBienvenida.abrirVista();
 		}
 	}
 	
 	private void procesarRegistro(String DNI) {
 		UIRegistro.cerrarVista();
-		InformeRegistro informe = comunicador.enviarDNI(DNI);
-		UIFin.abrirVista(this);
-		try {
-			Thread.sleep(TIEMPO_ESPERA_NUEVO_REGISTRO);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		UIFin.cerrarVista();
-		UIBienvenida.abrirVista(this);
+		//InformeRegistro informe = comunicador.enviarDNI(DNI);
+		UIFin.abrirVista();
+		UIFin.iniciarTimeout(TIEMPO_ESPERA_NUEVO_REGISTRO);
 	}
 
 }

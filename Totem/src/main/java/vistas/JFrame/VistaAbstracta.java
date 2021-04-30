@@ -1,11 +1,13 @@
-package vistas;
+package vistas.JFrame;
+
+import vistas.Vista;
 
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
 public abstract class VistaAbstracta extends JFrame implements Vista {
-	
+
 	protected ActionListener actionListener;
 
 	@Override
@@ -14,9 +16,13 @@ public abstract class VistaAbstracta extends JFrame implements Vista {
 	}
 
 	@Override
-	public void abrirVista(ActionListener actionListener) {
-		this.actionListener = actionListener;
+	public void abrirVista() {
 		this.setVisible(true);
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener){
+		this.actionListener = actionListener;
 	}
 
 }
