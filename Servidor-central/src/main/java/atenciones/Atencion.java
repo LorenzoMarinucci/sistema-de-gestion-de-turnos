@@ -1,18 +1,21 @@
-package modelo;
+package atenciones;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Comparator;
 
-@Data
+@Getter
+@Setter
 public class Atencion {
 
     private Integer DNI;
-    private Estado estado;
-    private Empleado empleado;
+    private Tipo tipo;
     private Integer prioridad;
 
     public Atencion(Integer DNI) {
         this.DNI = DNI;
+        this.tipo = Tipo.NUEVA;
     }
 }
