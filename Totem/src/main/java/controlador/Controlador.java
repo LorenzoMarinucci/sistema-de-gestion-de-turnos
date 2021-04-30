@@ -53,8 +53,9 @@ public class Controlador implements ActionListener {
 	
 	private void procesarRegistro(String DNI) {
 		UIRegistro.cerrarVista();
-		//InformeRegistro informe = comunicador.enviarDNI(DNI);
+		InformeRegistro informe = comunicador.enviarDNI(DNI);
 		UIFin.abrirVista();
+		UIFin.informarResultado(informe.isRegistroExitoso(), informe.getMensaje());
 		UIFin.iniciarTimeout(TIEMPO_ESPERA_NUEVO_REGISTRO);
 	}
 

@@ -26,9 +26,9 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
 
     public void agregarAtencion(Integer DNI) throws SinCapacidadException, DniRepetidoException {
         if (fila.size() == tamañoMaximo)
-            throw new SinCapacidadException();
+            throw new SinCapacidadException("Ya ha sido alcanzada la capacidad máxima de la fila de espera");
         if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI())))
-            throw new DniRepetidoException();
+            throw new DniRepetidoException("El número de DNI tiene una atención pendiente en espera");
         Atencion atencion = new Atencion(DNI);
         atencion.setPrioridad(prioridades.getOrDefault(atencion.getTipo(), 0));
         fila.add(atencion);
@@ -36,7 +36,7 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
 
     public Atencion sacarNuevaAtencion() throws FilaDeEsperaVaciaException {
         if (fila.isEmpty()) {
-            throw new FilaDeEsperaVaciaException();
+            throw new FilaDeEsperaVaciaException("No hay ninguna atencion en espera");
         }
         return fila.poll();
     }

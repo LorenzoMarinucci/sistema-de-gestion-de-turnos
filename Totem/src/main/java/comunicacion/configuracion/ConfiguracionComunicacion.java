@@ -1,4 +1,4 @@
-package configuracion;
+package comunicacion.configuracion;
 
 public interface ConfiguracionComunicacion {
 

@@ -1,14 +1,15 @@
 package comunicacion;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+import java.io.Serializable;
+
+@Data
 @AllArgsConstructor
-public class InformeRegistro {
+public class InformeRegistro implements Serializable {
 
 	private boolean registroExitoso;
+
 	private String mensaje;
-	
-	
 }

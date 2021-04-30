@@ -17,6 +17,7 @@ public abstract class VistaAbstracta extends JFrame implements Vista {
 
 	@Override
 	public void abrirVista() {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 	}
 

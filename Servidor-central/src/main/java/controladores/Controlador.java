@@ -27,9 +27,10 @@ public class Controlador {
             informeRegistro = new InformeRegistro(true, "Registro realizado con éxito");
         } catch (DniRepetidoException e) {
             e.printStackTrace();
-            informeRegistro = new InformeRegistro(false, "El DNI ya se encuentra en la fila de espera");
+            informeRegistro = new InformeRegistro(false, e.getMessage());
         } catch (SinCapacidadException e) {
-            informeRegistro = new InformeRegistro(false, "Ya ha sido alcanzada la capacidad máxima de la fila de espera");
+            e.printStackTrace();
+            informeRegistro = new InformeRegistro(false, e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }

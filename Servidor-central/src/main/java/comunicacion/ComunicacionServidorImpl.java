@@ -20,19 +20,15 @@ public class ComunicacionServidorImpl implements ComunicacionServidor{
     public void recibirDNI() {
         new Thread(() -> {
             try {
-                ServerSocket s = new ServerSocket(9999);
+                ServerSocket s = new ServerSocket(10451);
                 while (true) {
                     Socket socket = s.accept();
-                    //PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    //System.out.println("llego");
+                    ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String DNI = in.readLine();
-                    in.close();
                     System.out.println(DNI);
                     InformeRegistro informeRegistro = controlador.realizarRegistro(DNI);
-                    ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                     out.writeObject(informeRegistro);
-                    out.close();
                 }
 
             } catch (Exception e) {

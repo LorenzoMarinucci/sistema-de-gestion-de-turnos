@@ -2,6 +2,6 @@ package comunicacion;
 
 public interface Comunicacion {
 	
-	InformeRegistro enviarDNI(String dni);
+	InformeRegistro enviarDNI(String DNI);
 
 }

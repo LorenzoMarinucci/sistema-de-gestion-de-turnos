@@ -12,6 +12,9 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 	private JTextField textFieldMensaje;
 	private JPanel panel;
 	private Timer timer;
+	private final String MENSAJE_EXITO = "Por favor, aguarde a ser llamado en la sala de espera";
+	private final String TITULO_EXITO = "Registro exitoso";
+	private final String TITULO_FALLO = "No ha podido realizarse el registro";
 
 	public FinImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +33,7 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 		textFieldTitulo.setEditable(false);
 		textFieldTitulo.setBackground(new Color(0, 191, 255));
 		textFieldTitulo.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 40));
-		textFieldTitulo.setText("Registro exitoso");
+		textFieldTitulo.setText("");
 		textFieldTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		container.add(textFieldTitulo);
 		textFieldTitulo.setColumns(10);
@@ -40,7 +43,7 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 		textFieldMensaje.setEditable(false);
 		textFieldMensaje.setBackground(new Color(0, 191, 255));
 		textFieldMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textFieldMensaje.setText("Por favor, aguarde en la sala de espera a ser llamado");
+		textFieldMensaje.setText("");
 		textFieldMensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		container.add(textFieldMensaje);
 		textFieldMensaje.setColumns(10);
@@ -53,5 +56,17 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 		timer.setActionCommand("TIMEOUT FIN");
 		timer.setRepeats(false);
 		timer.start();
+	}
+
+	@Override
+	public void informarResultado(Boolean exitoso, String mensaje) {
+		if (exitoso) {
+			this.textFieldTitulo.setText(TITULO_EXITO);
+			this.textFieldMensaje.setText(MENSAJE_EXITO);
+		}
+		else {
+			this.textFieldTitulo.setText(TITULO_FALLO);
+			this.textFieldMensaje.setText(mensaje);
+		}
 	}
 }

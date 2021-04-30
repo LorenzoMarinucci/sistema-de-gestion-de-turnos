@@ -1,4 +1,4 @@
-package configuracion;
+package comunicacion.configuracion;
 
 import lombok.Getter;
 import org.w3c.dom.Document;
