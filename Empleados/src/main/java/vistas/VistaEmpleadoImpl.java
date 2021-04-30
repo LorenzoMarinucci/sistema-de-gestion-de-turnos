@@ -6,20 +6,34 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import atenciones.AtencionEmpleado;
+
 import java.awt.GridLayout;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
-public class UI extends JFrame {
+public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmpleado {
 
 	private JPanel container;
 	private JTextField txtDni;
 	private JTextField txtStatus;
-	private JTextField textField;
-	private JTextField txtEnCurso;
+	private JTextField textFieldDNI;
+	private JTextField txtFieldStatus;
+	private JButton btnFinalizar;
+	private JButton btnConfirmar;
+	private JButton btnSiguiente;
+	private JButton btnCancelar;
+	private JButton btnAnular;
+	private final String NO_ASIGNADO = "Sin asignar";
+	private ActionListener actionListener;
 
 	/**
 	 * Launch the application.
@@ -28,7 +42,7 @@ public class UI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UI frame = new UI();
+					VistaEmpleadoImpl frame = new VistaEmpleadoImpl();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +54,7 @@ public class UI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UI() {
+	public VistaEmpleadoImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 583, 320);
 		container = new JPanel();
@@ -68,14 +82,13 @@ public class UI extends JFrame {
 		panel_14.setBackground(new Color(0, 191, 255));
 		panel_12.add(panel_14);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setText("41854325");
-		panel_12.add(textField);
-		textField.setColumns(10);
-		textField.setBorder(null);
+		textFieldDNI = new JTextField();
+		textFieldDNI.setEditable(false);
+		textFieldDNI.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+		textFieldDNI.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_12.add(textFieldDNI);
+		textFieldDNI.setColumns(10);
+		textFieldDNI.setBorder(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 191, 255));
@@ -100,14 +113,13 @@ public class UI extends JFrame {
 		panel_15.setBackground(new Color(0, 191, 255));
 		panel_13.add(panel_15);
 		
-		txtEnCurso = new JTextField();
-		txtEnCurso.setEditable(false);
-		txtEnCurso.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-		txtEnCurso.setText("En curso");
-		txtEnCurso.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_13.add(txtEnCurso);
-		txtEnCurso.setColumns(10);
-		txtEnCurso.setBorder(null);
+		txtFieldStatus = new JTextField();
+		txtFieldStatus.setEditable(false);
+		txtFieldStatus.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+		txtFieldStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_13.add(txtFieldStatus);
+		txtFieldStatus.setColumns(10);
+		txtFieldStatus.setBorder(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(0, 191, 255));
@@ -126,10 +138,10 @@ public class UI extends JFrame {
 		panel_2.add(panel_16);
 		panel_16.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton_2 = new JButton("Siguiente");
-		panel_16.add(btnNewButton_2, BorderLayout.CENTER);
-		btnNewButton_2.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
-		btnNewButton_2.setEnabled(false);
+		btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.addMouseListener(this);
+		panel_16.add(btnSiguiente, BorderLayout.CENTER);
+		btnSiguiente.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
 		
 		JPanel panel_17 = new JPanel();
 		panel_17.setBackground(new Color(0, 191, 255));
@@ -152,10 +164,11 @@ public class UI extends JFrame {
 		panel_3.add(panel_21);
 		panel_21.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton_2_1 = new JButton("Anular");
-		panel_21.add(btnNewButton_2_1, BorderLayout.CENTER);
-		btnNewButton_2_1.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
-		btnNewButton_2_1.setEnabled(false);
+		btnAnular = new JButton("Anular");
+		btnAnular.addMouseListener(this);
+		panel_21.add(btnAnular, BorderLayout.CENTER);
+		btnAnular.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
+		btnAnular.setEnabled(false);
 		
 		JPanel panel_22 = new JPanel();
 		panel_22.setBackground(new Color(0, 191, 255));
@@ -178,10 +191,11 @@ public class UI extends JFrame {
 		panel_4.add(panel_24);
 		panel_24.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton_2_1_1 = new JButton("Cancelar");
-		panel_24.add(btnNewButton_2_1_1, BorderLayout.CENTER);
-		btnNewButton_2_1_1.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
-		btnNewButton_2_1_1.setEnabled(false);
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addMouseListener(this);
+		panel_24.add(btnCancelar, BorderLayout.CENTER);
+		btnCancelar.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
+		btnCancelar.setEnabled(false);
 		
 		JPanel panel_25 = new JPanel();
 		panel_25.setBackground(new Color(0, 191, 255));
@@ -213,10 +227,11 @@ public class UI extends JFrame {
 		panel_7.add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton_2_1_1_1 = new JButton("Confirmar");
-		panel_19.add(btnNewButton_2_1_1_1, BorderLayout.CENTER);
-		btnNewButton_2_1_1_1.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
-		btnNewButton_2_1_1_1.setEnabled(false);
+		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.addMouseListener(this);
+		panel_19.add(btnConfirmar, BorderLayout.CENTER);
+		btnConfirmar.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
+		btnConfirmar.setEnabled(false);
 		
 		JPanel panel_27 = new JPanel();
 		panel_27.setBackground(new Color(0, 191, 255));
@@ -244,9 +259,11 @@ public class UI extends JFrame {
 		panel_9.add(panel_20);
 		panel_20.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton_2_1_1_1_1 = new JButton("Finalizar");
-		panel_20.add(btnNewButton_2_1_1_1_1, BorderLayout.CENTER);
-		btnNewButton_2_1_1_1_1.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
+		btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.addMouseListener(this);
+		btnFinalizar.setEnabled(false);
+		panel_20.add(btnFinalizar, BorderLayout.CENTER);
+		btnFinalizar.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 11));
 		
 		JPanel panel_29 = new JPanel();
 		panel_29.setBackground(new Color(0, 191, 255));
@@ -259,6 +276,83 @@ public class UI extends JFrame {
 		JPanel panel_10 = new JPanel();
 		panel_10.setBackground(new Color(0, 191, 255));
 		container.add(panel_10);
+		
+		this.setVisible(true);
+		this.textFieldDNI.setText(NO_ASIGNADO);
+		this.txtFieldStatus.setText(NO_ASIGNADO);
 	}
 
+	public void mouseClicked(MouseEvent e) {
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+		JButton boton = (JButton) e.getSource();
+		String command = boton.getActionCommand();
+		ActionEvent evento = new ActionEvent(boton, 0, command);
+		this.actionListener.actionPerformed(evento);
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelarAtencion() {
+		this.textFieldDNI.setText(NO_ASIGNADO);
+		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.btnAnular.setEnabled(false);
+		this.btnCancelar.setEnabled(false);
+		this.btnConfirmar.setEnabled(false);
+		this.btnSiguiente.setEnabled(true);
+	}
+
+	@Override
+	public void confirmarAtencion(AtencionEmpleado atencionEmpleado) {
+		this.txtFieldStatus.setText(atencionEmpleado.getEstado().toString());
+		this.btnAnular.setEnabled(false);
+		this.btnCancelar.setEnabled(false);
+		this.btnConfirmar.setEnabled(false);
+		this.btnFinalizar.setEnabled(true);
+	}
+
+	@Override
+	public void finalizarAtencion() {
+		this.textFieldDNI.setText(NO_ASIGNADO);
+		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.btnFinalizar.setEnabled(false);
+		this.btnSiguiente.setEnabled(true);
+	}
+
+	@Override
+	public void asignarAtencion(AtencionEmpleado atencionEmpleado) {
+		this.textFieldDNI.setText(atencionEmpleado.getDNI().toString());
+		this.txtFieldStatus.setText(atencionEmpleado.getEstado().toString());
+		this.btnAnular.setEnabled(true);
+		this.btnCancelar.setEnabled(true);
+		this.btnConfirmar.setEnabled(true);
+		this.btnSiguiente.setEnabled(false);
+	}
+
+	@Override
+	public void anularAtencion() {
+		this.textFieldDNI.setText(NO_ASIGNADO);
+		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.btnAnular.setEnabled(false);
+		this.btnCancelar.setEnabled(false);
+		this.btnConfirmar.setEnabled(false);
+		this.btnSiguiente.setEnabled(true);
+	}
 }

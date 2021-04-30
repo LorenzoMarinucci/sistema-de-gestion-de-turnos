@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class RegistroImpl extends JFrame implements VistaRegistro, MouseListener {
+public class RegistroImpl extends VistaRegistroAbstracta implements MouseListener {
 
 	private final Integer MAXIMO_DIGITOS = 8;
 	private final String MENSAJE_ERROR = "El DNI introducido es inválido";
@@ -16,7 +16,6 @@ public class RegistroImpl extends JFrame implements VistaRegistro, MouseListener
 	private JTextField txtIngreseSuDni;
 	private JTextField textFieldErrorDNI;
 	private JTextField textFieldDNIIngresado;
-	private ActionListener actionListener;
 	private String DNI = "";
 
 	/**
@@ -177,23 +176,11 @@ public class RegistroImpl extends JFrame implements VistaRegistro, MouseListener
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(0, 191, 255));
 		container.add(panel_4, BorderLayout.WEST);
-
-		this.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-	}
-
-	@Override
-	public void setActionListener(ActionListener actionListener) {
-		this.actionListener = actionListener;
-	}
-
-	@Override
-	public void cerrarVista() {
-		this.dispose();
 	}
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -206,6 +193,7 @@ public class RegistroImpl extends JFrame implements VistaRegistro, MouseListener
 		String command = boton.getActionCommand();
 		ActionEvent evento = new ActionEvent(boton, 0, command);
 		if (command.equals("Finalizar registro")) {
+
 			this.actionListener.actionPerformed(evento);
 		} else if (command.equals("Borrar")) {
 			if (!this.DNI.isEmpty()) {
@@ -232,6 +220,14 @@ public class RegistroImpl extends JFrame implements VistaRegistro, MouseListener
 	@Override
 	public String getDNI() {
 		return this.textFieldDNIIngresado.getText();
+	}
+
+	@Override
+	public void abrirVista(ActionListener actionListener){
+		super.abrirVista(actionListener);
+		this.DNI = "";
+		this.textFieldDNIIngresado.setText("");
+		this.textFieldErrorDNI.setText("");
 	}
 	
 }

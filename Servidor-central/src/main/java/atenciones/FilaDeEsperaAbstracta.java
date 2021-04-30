@@ -1,15 +1,15 @@
 package atenciones;
 
-import excepciones.SinCapacidadException;
-import modelo.Atencion;
-
 import java.util.Queue;
 
-public abstract class FilaDeEspera {
+public abstract class FilaDeEsperaAbstracta implements FilaDeEspera {
 
-    private Queue<Atencion> fila;
+    protected Queue<Atencion> fila;
+    protected Integer tamañoMaximo = Integer.MAX_VALUE;
 
-    public abstract void agregarAtencion(Integer DNI) throws Exception;
-    public abstract Atencion sacarNuevaAtencion() throws Exception;
+    @Override
+    public void setTamañoMaximo(Integer tamañoMaximo) {
+        this.tamañoMaximo = tamañoMaximo;
+    }
 
 }

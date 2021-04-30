@@ -1,4 +1,8 @@
 package vistas;
 
-public class VistaRegistro {
+public interface VistaRegistro extends Vista {
+
+    void DNInoValido();
+    String getDNI();
+
 }

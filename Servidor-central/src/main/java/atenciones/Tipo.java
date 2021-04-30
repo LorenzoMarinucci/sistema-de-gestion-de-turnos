@@ -1,2 +1,5 @@
-package atenciones;public enum Tipo {
+package atenciones;
+
+public enum Tipo {
+    NUEVA, REINGRESADA
 }

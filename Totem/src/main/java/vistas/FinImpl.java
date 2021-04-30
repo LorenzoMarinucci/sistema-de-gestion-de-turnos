@@ -4,9 +4,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class FinImpl extends JFrame implements VistaFin{
+public class FinImpl extends VistaAbstracta {
 
 	private JPanel container;
 	private JTextField textFieldTitulo;
@@ -64,25 +63,12 @@ public class FinImpl extends JFrame implements VistaFin{
 		container.add(textFieldMensaje);
 		textFieldMensaje.setColumns(10);
 		textFieldMensaje.setBorder(null);
-		
-		this.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void setActionListener(ActionListener actionListener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cerrarVista() {
-		this.dispose();
 	}
 
 }

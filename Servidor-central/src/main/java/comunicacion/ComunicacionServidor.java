@@ -1,2 +1,7 @@
-package comunicacion;public interface ComunicacionServidor {
+package comunicacion;
+
+public interface ComunicacionServidor {
+
+    void recibirDNI();
+
 }

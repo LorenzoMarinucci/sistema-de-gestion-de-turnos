@@ -1,8 +1,8 @@
 package utilidades;
 
-public class Validador {
+public class ValidadorImpl implements Validador {
 
-	public static boolean DNIesValido(String DNI) {
+	public boolean DNIesValido(String DNI) {
 		return !DNI.isEmpty() && DNI.charAt(0) != '0';
 	}
 	

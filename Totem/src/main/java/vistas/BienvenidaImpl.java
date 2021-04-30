@@ -8,13 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-public class BienvenidaImpl extends JFrame implements VistaBienvenida, MouseListener {
+public class BienvenidaImpl extends VistaAbstracta implements MouseListener {
 
 	private JPanel container;
 	private JTextField textFieldMensaje;
 	private JTextField txtbienvenido;
 	private JButton btnRegistrarse;
-	private ActionListener actionListener;
 
 	/**
 	 * Launch the application.
@@ -161,18 +160,6 @@ public class BienvenidaImpl extends JFrame implements VistaBienvenida, MouseList
 		panel_2_17.setBackground(new Color(0, 191, 255));
 		panel_6.add(panel_2_17);
 		
-		this.setVisible(true);
-	}
-
-	@Override
-	public void setActionListener(ActionListener actionListener) {
-		this.btnRegistrarse.addActionListener(actionListener);
-		this.actionListener = actionListener;
-	}
-
-	@Override
-	public void cerrarVista() {
-		this.dispose();
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -194,4 +181,5 @@ public class BienvenidaImpl extends JFrame implements VistaBienvenida, MouseList
 	public void actionPerformed(ActionEvent e) {
 		
 	}
+
 }
