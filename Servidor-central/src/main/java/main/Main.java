@@ -1,7 +1,7 @@
 package main;
 
-import atenciones.FilaDeEsperaPQ;
-import atenciones.Tipo;
+import atencion.Tipo;
+import espera.FilaDeEsperaPQ;
 import comunicacion.ComunicacionServidor;
 import comunicacion.ComunicacionServidorImpl;
 import configuracion.ConfiguracionXML;

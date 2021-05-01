@@ -1,8 +1,11 @@
-package atenciones;
+package espera;
+
+import atencion.Atencion;
+import mensaje.Registro;
 
 public interface FilaDeEspera {
 
-    void agregarAtencion(Integer DNI) throws Exception;
+    Registro agregarAtencion(Integer DNI) throws Exception;
     Atencion sacarNuevaAtencion() throws Exception;
     void reingresarAtencion(Atencion atencion);
     void setTamañoMaximo(Integer tamañoMaximo);

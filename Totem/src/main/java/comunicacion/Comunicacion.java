@@ -1,7 +1,9 @@
 package comunicacion;
 
+import mensaje.Registro;
+
 public interface Comunicacion {
 	
-	InformeRegistro enviarDNI(String DNI);
+	Registro enviarDNI(String DNI);
 
 }

@@ -2,14 +2,14 @@ package vistas;
 
 import java.awt.event.ActionListener;
 
-import atenciones.AtencionEmpleado;
+import atencion.Atencion;
 
-public interface VistaEmpleado extends ActionListener {
+public interface VistaEmpleado {
 	
 	void cancelarAtencion();
-	void confirmarAtencion(AtencionEmpleado atencionEmpleado);
+	void confirmarAtencion();
 	void finalizarAtencion();
-	void asignarAtencion(AtencionEmpleado atencionEmpleado);
+	void asignarAtencion(Atencion atencion);
 	void anularAtencion();
 	void setActionListener(ActionListener actionListener);
 

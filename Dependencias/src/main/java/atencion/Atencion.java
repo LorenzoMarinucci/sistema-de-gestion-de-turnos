@@ -1,18 +1,17 @@
-package atenciones;
+package atencion;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.Comparator;
+import java.io.Serializable;
 
-@Getter
-@Setter
-public class Atencion {
+@Data
+public class Atencion implements Serializable {
 
     private Integer DNI;
     private Tipo tipo;
     private Integer prioridad;
+    private Integer box;
+    private Estado estado;
 
     public Atencion(Integer DNI) {
         this.DNI = DNI;

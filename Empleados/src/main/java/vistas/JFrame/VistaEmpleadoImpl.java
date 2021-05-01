@@ -1,13 +1,13 @@
-package vistas;
+package vistas.JFrame;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import atenciones.AtencionEmpleado;
+import atencion.Atencion;
+import vistas.VistaEmpleado;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -32,28 +32,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 	private JButton btnSiguiente;
 	private JButton btnCancelar;
 	private JButton btnAnular;
-	private final String NO_ASIGNADO = "Sin asignar";
 	private ActionListener actionListener;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaEmpleadoImpl frame = new VistaEmpleadoImpl();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VistaEmpleadoImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 583, 320);
@@ -278,8 +258,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		container.add(panel_10);
 		
 		this.setVisible(true);
-		this.textFieldDNI.setText(NO_ASIGNADO);
-		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.textFieldDNI.setText("");
+		this.txtFieldStatus.setText("");
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -297,22 +277,15 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 	public void mouseReleased(MouseEvent e) {
 	}
 
-
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void cancelarAtencion() {
-		this.textFieldDNI.setText(NO_ASIGNADO);
-		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.textFieldDNI.setText("");
+		this.txtFieldStatus.setText("");
 		this.btnAnular.setEnabled(false);
 		this.btnCancelar.setEnabled(false);
 		this.btnConfirmar.setEnabled(false);
@@ -320,8 +293,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 	}
 
 	@Override
-	public void confirmarAtencion(AtencionEmpleado atencionEmpleado) {
-		this.txtFieldStatus.setText(atencionEmpleado.getEstado().toString());
+	public void confirmarAtencion() {
+		this.txtFieldStatus.setText("CONFIRMADA");
 		this.btnAnular.setEnabled(false);
 		this.btnCancelar.setEnabled(false);
 		this.btnConfirmar.setEnabled(false);
@@ -330,16 +303,16 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 
 	@Override
 	public void finalizarAtencion() {
-		this.textFieldDNI.setText(NO_ASIGNADO);
-		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.textFieldDNI.setText("");
+		this.txtFieldStatus.setText("");
 		this.btnFinalizar.setEnabled(false);
 		this.btnSiguiente.setEnabled(true);
 	}
 
 	@Override
-	public void asignarAtencion(AtencionEmpleado atencionEmpleado) {
-		this.textFieldDNI.setText(atencionEmpleado.getDNI().toString());
-		this.txtFieldStatus.setText(atencionEmpleado.getEstado().toString());
+	public void asignarAtencion(Atencion atencion) {
+		this.textFieldDNI.setText(atencion.getDNI().toString());
+		this.txtFieldStatus.setText(atencion.getEstado().toString());
 		this.btnAnular.setEnabled(true);
 		this.btnCancelar.setEnabled(true);
 		this.btnConfirmar.setEnabled(true);
@@ -348,8 +321,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 
 	@Override
 	public void anularAtencion() {
-		this.textFieldDNI.setText(NO_ASIGNADO);
-		this.txtFieldStatus.setText(NO_ASIGNADO);
+		this.textFieldDNI.setText("");
+		this.txtFieldStatus.setText("");
 		this.btnAnular.setEnabled(false);
 		this.btnCancelar.setEnabled(false);
 		this.btnConfirmar.setEnabled(false);

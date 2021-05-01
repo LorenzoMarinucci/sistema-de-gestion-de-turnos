@@ -1,4 +1,6 @@
-package atenciones;
+package espera;
+
+import atencion.Atencion;
 
 import java.util.Queue;
 

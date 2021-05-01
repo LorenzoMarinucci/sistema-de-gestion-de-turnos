@@ -1,13 +1,11 @@
 package controladores;
 
-import atenciones.FilaDeEspera;
-import atenciones.FilaDeEsperaPQ;
-import comunicacion.ComunicacionServidor;
-import comunicacion.InformeRegistro;
+import atencion.Atencion;
+import espera.FilaDeEspera;
 import configuracion.Configuracion;
-import configuracion.ConfiguracionXML;
 import excepciones.DniRepetidoException;
 import excepciones.SinCapacidadException;
+import mensaje.Registro;
 
 public class Controlador {
 
@@ -20,22 +18,37 @@ public class Controlador {
         filaDeEspera.setTamañoMaximo(configuracion.getTamañoMaximo());
     }
 
-    public InformeRegistro realizarRegistro(String DNI) {
-        InformeRegistro informeRegistro = null;
+    public Registro realizarRegistro(String DNI) {
+        Registro informeRegistro = null;
+        System.out.println("Nueva solicitud de registro. DNI: " + DNI);
         try {
             filaDeEspera.agregarAtencion(Integer.parseInt(DNI));
-            informeRegistro = new InformeRegistro(true, "Registro realizado con éxito");
+            informeRegistro = new Registro(true, "Registro realizado con éxito");
         } catch (DniRepetidoException e) {
             e.printStackTrace();
-            informeRegistro = new InformeRegistro(false, e.getMessage());
+            informeRegistro = new Registro(false, e.getMessage());
         } catch (SinCapacidadException e) {
             e.printStackTrace();
-            informeRegistro = new InformeRegistro(false, e.getMessage());
+            informeRegistro = new Registro(false, e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return informeRegistro;
     }
 
+    public Atencion solicitudAtencion() {
+        Atencion atencion = null;
+        System.out.println("Nueva solicitud de atencion");
+        try {
+            atencion = filaDeEspera.sacarNuevaAtencion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return atencion;
+    }
 
+
+    public void cancelarAtencion(Atencion atencion) {
+        filaDeEspera.reingresarAtencion(atencion);
+    }
 }

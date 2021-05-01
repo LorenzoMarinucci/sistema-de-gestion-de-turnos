@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import comunicacion.Comunicacion;
-import comunicacion.InformeRegistro;
+import mensaje.Registro;
 import utilidades.Validador;
 import vistas.*;
 
@@ -53,7 +53,7 @@ public class Controlador implements ActionListener {
 	
 	private void procesarRegistro(String DNI) {
 		UIRegistro.cerrarVista();
-		InformeRegistro informe = comunicador.enviarDNI(DNI);
+		Registro informe = comunicador.enviarDNI(DNI);
 		UIFin.abrirVista();
 		UIFin.informarResultado(informe.isRegistroExitoso(), informe.getMensaje());
 		UIFin.iniciarTimeout(TIEMPO_ESPERA_NUEVO_REGISTRO);

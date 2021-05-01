@@ -1,11 +1,9 @@
 package comunicacion.TCP;
 
 import comunicacion.Comunicacion;
-import comunicacion.InformeRegistro;
 import comunicacion.configuracion.ConfiguracionComunicacion;
+import mensaje.Registro;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -27,14 +25,14 @@ public class ComunicacionImpl implements Comunicacion {
     }
 
 	@Override
-	public InformeRegistro enviarDNI(String DNI) {
-        InformeRegistro informe = null;
+	public Registro enviarDNI(String DNI) {
+        Registro informe = null;
 		try {
             Socket socket = new Socket(host, port);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.println(DNI);
-            informe = (InformeRegistro) in.readObject();
+            informe = (Registro) in.readObject();
             out.close();
             in.close();
             socket.close();
