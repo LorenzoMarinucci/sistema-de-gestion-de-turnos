@@ -1,8 +1,8 @@
-package vistas;
+package empleado.vistas;
 
 import java.awt.event.ActionListener;
 
-import atencion.Atencion;
+import dependencias.atencion.Atencion;
 
 public interface VistaEmpleado {
 	
@@ -12,5 +12,6 @@ public interface VistaEmpleado {
 	void asignarAtencion(Atencion atencion);
 	void anularAtencion();
 	void setActionListener(ActionListener actionListener);
+	void informarMensaje(String mensaje);
 
 }

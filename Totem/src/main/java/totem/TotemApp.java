@@ -18,9 +18,11 @@ import java.net.UnknownHostException;
 
 public class TotemApp {
 
+	private static final String CONFIG_PATH = "totemConfig.xml";
+
 	public static void main(String[] args) {
 		try {
-			ConfiguracionTotem configuracion = cargarConfiguracion("totemConfig.xml");
+			ConfiguracionTotem configuracion = cargarConfiguracion();
 			Comunicacion comunicacion = new ComunicacionImpl(InetAddress.getLocalHost().getHostAddress(),
 					configuracion.getPuerto());
 			Controlador controlador = new Controlador(new BienvenidaImpl(), new RegistroImpl(), new FinImpl(),
@@ -30,11 +32,10 @@ public class TotemApp {
 		}
 	}
 
-	private static ConfiguracionTotem cargarConfiguracion(String path) throws JAXBException {
-		JAXBContext jaxbContext = null;
-		jaxbContext = JAXBContext.newInstance(ConfiguracionTotem.class);
+	private static ConfiguracionTotem cargarConfiguracion() throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionTotem.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		ConfiguracionTotem configuracionTotem = (ConfiguracionTotem) jaxbUnmarshaller.unmarshal(new File(path));
+		ConfiguracionTotem configuracionTotem = (ConfiguracionTotem) jaxbUnmarshaller.unmarshal(new File(CONFIG_PATH));
 		return configuracionTotem;
 	}
 

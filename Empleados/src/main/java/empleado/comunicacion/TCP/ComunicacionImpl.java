@@ -1,31 +1,26 @@
-package comunicacion;
+package empleado.comunicacion.TCP;
 
-import atencion.Atencion;
-import comunicacion.configuracion.ConfiguracionComunicacion;
-import mensaje.Solicitud;
+import dependencias.atencion.Atencion;
+import dependencias.mensaje.Solicitud;
+import empleado.comunicacion.Comunicacion;
+import empleado.excepciones.SolicitudException;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class ComunicacionImpl implements Comunicacion {
 
     private String host;
     private Integer port;
 
-    public ComunicacionImpl(ConfiguracionComunicacion configuracion) {
-        try {
-            host = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        port = configuracion.getPuerto();
+    public ComunicacionImpl(String host, Integer port) {
+        this.host = host;
+        this.port = port;
     }
 
     @Override
-    public Atencion solicitarAtencion() {
+    public Atencion solicitarAtencion() throws SolicitudException {
         Atencion atencion = null;
         Solicitud solicitud;
         try {
@@ -39,13 +34,13 @@ public class ComunicacionImpl implements Comunicacion {
             in.close();
             socket.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SolicitudException(e.getMessage());
         }
         return atencion;
     }
 
     @Override
-    public void cancelarAtencion(Atencion atencion) {
+    public void cancelarAtencion(Atencion atencion) throws SolicitudException {
         Solicitud solicitud;
         try {
             Socket socket = new Socket(host, port);
@@ -57,7 +52,7 @@ public class ComunicacionImpl implements Comunicacion {
             in.close();
             socket.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SolicitudException("Ha habido un fallo al establecer la conexión con el servidor");
         }
     }
 }

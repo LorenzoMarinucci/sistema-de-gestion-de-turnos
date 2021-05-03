@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<server>
-    <port>10400</port>
-</server>
+<configuracionComunicacion>
+    <puerto>10400</puerto>
+</configuracionComunicacion>

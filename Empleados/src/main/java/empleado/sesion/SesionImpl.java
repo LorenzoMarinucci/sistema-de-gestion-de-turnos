@@ -1,16 +1,15 @@
-package empleado;
+package empleado.sesion;
 
-import atencion.Atencion;
-import atencion.Estado;
-import empleado.configuracion.ConfiguracionEmpleado;
+import dependencias.atencion.Atencion;
+import dependencias.atencion.Estado;
 
 public class SesionImpl implements Sesion {
 
     private Integer numeroDeBox;
     private Atencion atencion = null;
 
-    public SesionImpl(ConfiguracionEmpleado configuracionEmpleado) {
-        this.numeroDeBox = configuracionEmpleado.getNumeroDeBox();
+    public SesionImpl(Integer numeroDeBox) {
+        this.numeroDeBox = numeroDeBox;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package vistas.JFrame;
+package empleado.vistas.JFrame;
 
 import java.awt.BorderLayout;
 
@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import atencion.Atencion;
-import vistas.VistaEmpleado;
+import dependencias.atencion.Atencion;
+import empleado.vistas.VistaEmpleado;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -280,6 +280,11 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
+	}
+
+	@Override
+	public void informarMensaje(String mensaje) {
+		// COMPLETAR
 	}
 
 	@Override

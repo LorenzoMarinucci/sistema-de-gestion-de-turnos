@@ -1,6 +1,6 @@
-package empleado;
+package empleado.sesion;
 
-import atencion.Atencion;
+import dependencias.atencion.Atencion;
 
 public interface Sesion {
 
