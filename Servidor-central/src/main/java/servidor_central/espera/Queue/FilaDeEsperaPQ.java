@@ -1,21 +1,20 @@
-package servidor_central.espera;
+package servidor_central.espera.Queue;
 
 import dependencias.atencion.Atencion;
 import dependencias.atencion.Tipo;
 import dependencias.mensaje.Registro;
-import servidor_central.excepciones.DniRepetidoException;
+import lombok.Synchronized;
 import servidor_central.excepciones.FilaDeEsperaVaciaException;
-import servidor_central.excepciones.SinCapacidadException;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
 public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
 
-    private Map<Tipo, Integer> prioridades = new HashMap<>();
+    private Map<Tipo, Integer> prioridades;
 
-    public FilaDeEsperaPQ(Map<Tipo, Integer> prioridades) {
+    public FilaDeEsperaPQ(Integer tamañoMaximo, Map<Tipo, Integer> prioridades) {
+        super(tamañoMaximo);
         fila = new PriorityQueue<>((Atencion atencion1, Atencion atencion2) -> {
             if (atencion1.getPrioridad() > atencion2.getPrioridad())
                 return -1;
@@ -27,7 +26,8 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
         this.prioridades = prioridades;
     }
 
-    public Registro agregarAtencion(Integer DNI) throws SinCapacidadException, DniRepetidoException {
+    @Synchronized
+    public Registro agregarAtencion(Integer DNI) {
         Registro registro;
         if (fila.size() == tamañoMaximo)
             registro = new Registro(false, "Ya ha sido alcanzada la capacidad máxima de la fila de servidor_central.espera");
@@ -42,6 +42,7 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
         return registro;
     }
 
+    @Synchronized
     public Atencion sacarNuevaAtencion() throws FilaDeEsperaVaciaException {
         if (fila.isEmpty()) {
             throw new FilaDeEsperaVaciaException("No hay ninguna atencion en servidor_central.espera");
@@ -49,6 +50,7 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
         return fila.poll();
     }
 
+    @Synchronized
     @Override
     public void reingresarAtencion(Atencion atencion) {
         atencion.setTipo(Tipo.REINGRESADA);

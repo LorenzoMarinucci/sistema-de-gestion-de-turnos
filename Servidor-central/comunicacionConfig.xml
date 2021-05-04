@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comunicacion>
+    <puertoEmpleados>10400</puertoEmpleados>
+    <puertoTotem>10401</puertoTotem>
+    <puertoTelevisor>10402</puertoTelevisor>
+</comunicacion>
