@@ -2,7 +2,8 @@ package servidor_central.espera.Queue;
 
 import dependencias.atencion.Atencion;
 import dependencias.atencion.Tipo;
-import dependencias.mensaje.Registro;
+import dependencias.mensajes.totem.Registro;
+import dependencias.mensajes.totem.RegistroFactory;
 import lombok.Synchronized;
 import servidor_central.excepciones.FilaDeEsperaVaciaException;
 
@@ -30,14 +31,14 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
     public Registro agregarAtencion(Integer DNI) {
         Registro registro;
         if (fila.size() == tamañoMaximo)
-            registro = new Registro(false, "Ya ha sido alcanzada la capacidad máxima de la fila de servidor_central.espera");
+            registro = RegistroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de servidor_central.espera");
         else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
-            registro = new Registro(false, "El número de DNI tiene una atención pendiente en servidor_central.espera");
+            registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en servidor_central.espera");
         } else {
             Atencion atencion = new Atencion(DNI);
             atencion.setPrioridad(prioridades.getOrDefault(atencion.getTipo(), 0));
             fila.add(atencion);
-            registro = new Registro(true, "Registro realizado con éxito.");
+            registro = RegistroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
         }
         return registro;
     }

@@ -1,14 +1,13 @@
 package listeners;
 
 import dependencias.atencion.Atencion;
-import dependencias.mensaje.Solicitud;
+import dependencias.mensajes.televisor.SolicitudTelevisor;
+import servicios.ServicioVisualizacion;
 import vistas.LlamadosImpl;
 import vistas.VistaLlamados;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
@@ -16,11 +15,12 @@ import java.util.logging.Logger;
 public class ListenerServidor extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerTotem");
-    private VistaLlamados UILlamados;
+    private ServicioVisualizacion servicioVisualizacion;
 
-    public ListenerServidor(String host, Integer port, Integer lugares) {
-        super(host, port);
-        UILlamados = new LlamadosImpl(lugares);
+    public ListenerServidor(Integer port, ServicioVisualizacion servicioVisualizacion) {
+        super(port);
+        this.servicioVisualizacion = servicioVisualizacion;
+        servicioVisualizacion.inicializar();
         comunicacionServidor();
     }
 
@@ -32,18 +32,15 @@ public class ListenerServidor extends Listener {
                     Socket socket = s.accept();
                     ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-                    Solicitud solicitud = (Solicitud) in.readObject();
+                    SolicitudTelevisor solicitud = (SolicitudTelevisor) in.readObject();
                     Atencion atencion = solicitud.getAtencion();
-                    if (solicitud.getOrden().equals("ASIGNAR")) {
-                        log.info("NUEVA SOLICITUD DE ASIGNACIÓN DESDE EMPLEADO");
-                        UILlamados.cargarLlamado(atencion.getDNI(), solicitud.getBox(), UILlamados.getUltimaPosicionLibre());
-                        out.writeObject(atencion);
-                        log.info("ATENCION ASIGNADA. DNI: " + atencion.getDNI());
+                    if (solicitud.getOrden().equals("MOSTRAR")) {
+                        log.info("NUEVA SOLICITUD DE MUESTRA. DNI: " + atencion.getDNI() + " BOX: " + atencion.getBox());
+                        servicioVisualizacion.mostrarAtencion(atencion);
                     }
-                    else if (solicitud.getOrden().equals("CANCELAR")){
-                        log.info("NUEVA SOLICITUD DE CANCELACIÓN DESDE EMPLEADO");
-                        UILlamados.quitarLlamado(0);
-                        log.info("ATENCION CANCELADA. DNI: " + atencion.getDNI());
+                    else if (solicitud.getOrden().equals("QUITAR")){
+                        log.info("NUEVA SOLICITUD DE QUITADO. DNI: " + atencion.getDNI() + " BOX: " + atencion.getBox());
+                        servicioVisualizacion.quitarAtencion(atencion);
                     }
                 }
 

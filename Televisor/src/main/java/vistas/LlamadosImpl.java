@@ -1,5 +1,7 @@
 package vistas;
 
+import dependencias.atencion.Atencion;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -13,27 +15,10 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	private JTextField txtDni;
 	private JTextField txtBox;
 	private Integer lugaresTelevisor;
-	private Integer ultimaPosicionLibre = 0;
 	
 	private Map<Integer, JTextField> textFieldsDNI = new HashMap<>();
 	private Map<Integer, JTextField> textFieldsBox = new HashMap<>();
-	
-	/*private JTextField textDNI1;
-	private JTextField textBox1;
-	private JTextField textDNI2;
-	private JTextField textBox2;
-	private JTextField textDNI3;
-	private JTextField textBox3;
-	private JTextField textDNI4;
-	private JTextField textBox4;
-	private JTextField textDNI5;
-	private JTextField textBox5;
-	private JTextField textDNI6;
-	private JTextField textBox6;*/
 
-	/**
-	 * Create the frame.
-	 */
 	public LlamadosImpl(Integer lugaresTelevisor) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -252,15 +237,9 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	};
 
 	@Override
-	public Integer getUltimaPosicionLibre() {
-		return this.ultimaPosicionLibre;
-	}
-
-	@Override
-	public void cargarLlamado(Integer DNI, Integer box, Integer posicion) {
-		textFieldsDNI.get(posicion).setText(DNI.toString());
-		textFieldsBox.get(posicion).setText(box.toString());
-		ultimaPosicionLibre++;
+	public void cargarLlamado(Atencion atencion, Integer posicion) {
+		textFieldsDNI.get(posicion).setText(atencion.getDNI().toString());
+		textFieldsBox.get(posicion).setText(atencion.getBox().toString());
 	}
 
 	@Override
@@ -271,7 +250,6 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 		}
 		textFieldsDNI.get(lugaresTelevisor - 1).setText("");
 		textFieldsBox.get(lugaresTelevisor - 1).setText("");
-		ultimaPosicionLibre--;
 	}
 
 }

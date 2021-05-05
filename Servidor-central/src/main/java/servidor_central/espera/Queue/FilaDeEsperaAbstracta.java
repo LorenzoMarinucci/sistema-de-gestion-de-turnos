@@ -1,7 +1,6 @@
 package servidor_central.espera.Queue;
 
 import dependencias.atencion.Atencion;
-import lombok.Synchronized;
 import servidor_central.espera.FilaDeEspera;
 
 import java.util.Queue;

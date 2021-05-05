@@ -2,11 +2,9 @@ package listeners;
 
 public abstract class Listener {
 
-    protected String host;
     protected Integer port;
 
-    public Listener(String host, Integer port) {
-        this.host = host;
+    public Listener(Integer port) {
         this.port = port;
     }
 

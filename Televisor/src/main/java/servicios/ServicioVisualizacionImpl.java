@@ -4,52 +4,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import dependencias.atencion.Atencion;
 import excepciones.LlamadoNoEncontradoException;
 import vistas.LlamadosImpl;
 import vistas.VistaLlamados;
 
 public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	
-	private Integer llamadosMaximosTelevisor;
-	private List<Llamado> llamadosEnTelevisor = new ArrayList<>();
-	private List<Llamado> llamadosEnEspera = new ArrayList<>();
+	private Integer atencionesMaximosTelevisor;
+	private List<Atencion> atencionesEnTelevisor = new ArrayList<>();
+	private List<Atencion> atencionesEnEspera = new ArrayList<>();
 	private VistaLlamados UILlamados;
 	
 	public ServicioVisualizacionImpl(Integer llamadosTelevisor) {
-		this.llamadosMaximosTelevisor = llamadosTelevisor;
+		this.atencionesMaximosTelevisor = llamadosTelevisor;
 	}
 
 	@Override
-	public void mostrarLlamado(String DNI, String box) {
-		Llamado llamado = new Llamado(DNI, box);
-		if (llamadosEnEspera.size() == llamadosMaximosTelevisor) {
-			llamadosEnEspera.add(llamado);
+	public void mostrarAtencion(Atencion atencion) {
+		if (atencionesEnEspera.size() == atencionesMaximosTelevisor) {
+			atencionesEnEspera.add(atencion);
 		}
 		else {
-			llamadosEnTelevisor.add(llamado);
-			UILlamados.cargarLlamado(Integer.parseInt(DNI), Integer.parseInt(box), llamadosEnTelevisor.indexOf(llamado));
+			atencionesEnTelevisor.add(atencion);
+			UILlamados.cargarLlamado(atencion, atencionesEnTelevisor.indexOf(atencion));
 		}
 	}
 
 	@Override
-	public void quitarLlamado(String DNI) throws LlamadoNoEncontradoException {
-		Optional<Llamado> OptionalLlamado = llamadosEnEspera.stream().filter(llamado -> llamado.getDNI().equals(DNI)).findFirst();
-		if (OptionalLlamado.isPresent()) {
-			llamadosEnEspera.remove(OptionalLlamado.get());
+	public void quitarAtencion(Atencion atencion) throws LlamadoNoEncontradoException {
+		Optional<Atencion> OptionalAtencion = atencionesEnEspera.stream().filter(atencionFila ->
+				atencionFila.getDNI().equals(atencion.getDNI())).findFirst();
+		if (OptionalAtencion.isPresent()) {
+			atencionesEnEspera.remove(OptionalAtencion.get());
 		}
 		else {
-			OptionalLlamado = llamadosEnTelevisor.stream().filter(llamado -> llamado.getDNI().equals(DNI)).findFirst();
-			if (OptionalLlamado.isEmpty()) {
+			OptionalAtencion = atencionesEnTelevisor.stream().filter(atencionTelevisor ->
+					atencionTelevisor.getDNI().equals(atencion.getDNI())).findFirst();
+			if (OptionalAtencion.isEmpty()) {
 				throw new LlamadoNoEncontradoException();
 			}
-			UILlamados.quitarLlamado(llamadosEnTelevisor.indexOf(OptionalLlamado.get()));
-			llamadosEnTelevisor.remove(OptionalLlamado.get());
+			UILlamados.quitarLlamado(atencionesEnTelevisor.indexOf(OptionalAtencion.get()));
+			atencionesEnTelevisor.remove(OptionalAtencion.get());
 		}
 		
 	}
 	
-	public void inicializarVista() {
-		UILlamados = new LlamadosImpl(llamadosMaximosTelevisor);
+	public void inicializar() {
+		UILlamados = new LlamadosImpl(atencionesMaximosTelevisor);
 	}
 
 }

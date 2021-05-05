@@ -1,6 +1,8 @@
 import configuracion.ConfiguracionComunicacion;
 import configuracion.ConfiguracionTelevisor;
 import listeners.ListenerServidor;
+import servicios.ServicioVisualizacion;
+import servicios.ServicioVisualizacionImpl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,8 +20,10 @@ public class TelevisorApp {
         try {
             ConfiguracionComunicacion configuracionComunicacion = cargarConfiguracionComunicacion();
             ConfiguracionTelevisor configuracionTelevisor = cargarConfiguracionTelevisor();
-            ListenerServidor listenerServidor = new ListenerServidor(InetAddress.getLocalHost().getHostAddress(), configuracionComunicacion.getPuerto(), configuracionTelevisor.getLugares());
-        } catch (JAXBException | UnknownHostException e) {
+            ServicioVisualizacion servicioVisualizacion = new ServicioVisualizacionImpl(configuracionTelevisor.getLugares());
+            ListenerServidor listenerServidor = new ListenerServidor(
+                    configuracionComunicacion.getPuerto(), servicioVisualizacion);
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }

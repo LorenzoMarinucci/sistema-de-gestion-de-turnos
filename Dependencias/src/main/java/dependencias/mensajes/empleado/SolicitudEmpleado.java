@@ -1,4 +1,4 @@
-package dependencias.mensaje;
+package dependencias.mensajes.empleado;
 
 import dependencias.atencion.Atencion;
 import lombok.AllArgsConstructor;
@@ -8,19 +8,19 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class Solicitud implements Serializable {
+public class SolicitudEmpleado implements Serializable {
 
     private String orden;
     private Integer box;
     private Atencion atencion;
 
-    public Solicitud(String orden, Integer box){
+    public SolicitudEmpleado(String orden, Integer box){
         this.orden = orden;
         this.box = box;
         this.atencion = null;
     }
 
-    public Solicitud(String orden, Atencion atencion){
+    public SolicitudEmpleado(String orden, Atencion atencion) {
         this.orden = orden;
         this.atencion = atencion;
     }

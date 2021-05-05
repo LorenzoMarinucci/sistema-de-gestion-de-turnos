@@ -1,10 +1,8 @@
 package servidor_central.espera;
 
 import dependencias.atencion.Atencion;
-import dependencias.mensaje.Registro;
-import servidor_central.excepciones.DniRepetidoException;
+import dependencias.mensajes.totem.Registro;
 import servidor_central.excepciones.FilaDeEsperaVaciaException;
-import servidor_central.excepciones.SinCapacidadException;
 
 public interface FilaDeEspera {
 

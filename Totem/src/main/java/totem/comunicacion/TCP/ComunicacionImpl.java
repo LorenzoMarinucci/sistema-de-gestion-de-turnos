@@ -1,6 +1,7 @@
 package totem.comunicacion.TCP;
 
-import dependencias.mensaje.Registro;
+import dependencias.mensajes.totem.Registro;
+import dependencias.mensajes.totem.RegistroFactory;
 import totem.comunicacion.Comunicacion;
 
 import java.io.ObjectInputStream;
@@ -30,7 +31,7 @@ public class ComunicacionImpl implements Comunicacion {
             in.close();
             socket.close();
         } catch (Exception e) {
-            informe = new Registro(false, "Ha habido un fallo al establer la conexión con el servidor.");
+            informe = RegistroFactory.nuevoRegistroFallido("Ha habido un fallo al establer la conexión con el servidor.");
         }
         return informe;
 	}

@@ -1,6 +1,6 @@
 package totem.comunicacion;
 
-import dependencias.mensaje.Registro;
+import dependencias.mensajes.totem.Registro;
 
 public interface Comunicacion {
 	

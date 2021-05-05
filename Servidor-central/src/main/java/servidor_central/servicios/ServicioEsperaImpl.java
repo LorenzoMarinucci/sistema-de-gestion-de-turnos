@@ -1,7 +1,7 @@
 package servidor_central.servicios;
 
 import dependencias.atencion.Atencion;
-import dependencias.mensaje.Registro;
+import dependencias.mensajes.totem.Registro;
 import servidor_central.espera.FilaDeEspera;
 
 import java.util.logging.Logger;
@@ -28,11 +28,12 @@ public class ServicioEsperaImpl implements ServicioEspera {
         return informeRegistro;
     }
 
-    public Atencion solicitudAtencion() {
-        log.info("SOLICITUD DE ATENCION");
+    public Atencion solicitudAtencion(Integer box) {
+        log.info("SOLICITUD DE ATENCION. BOX: " + box);
         Atencion atencion = null;
         try {
             atencion = filaDeEspera.sacarNuevaAtencion();
+            atencion.setBox(box);
         } catch (Exception e) {
             e.printStackTrace();
         }

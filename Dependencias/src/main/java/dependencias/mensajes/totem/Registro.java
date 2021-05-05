@@ -1,4 +1,4 @@
-package dependencias.mensaje;
+package dependencias.mensajes.totem;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,9 +8,8 @@ public abstract class Listener {
     protected String host;
     protected Integer port;
 
-    public Listener(ServicioEspera servicioEspera, String host, Integer port) {
+    public Listener(ServicioEspera servicioEspera, Integer port) {
         this.servicioEspera = servicioEspera;
-        this.host = host;
         this.port = port;
     }
 

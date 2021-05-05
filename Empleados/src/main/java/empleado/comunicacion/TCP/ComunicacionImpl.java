@@ -1,7 +1,8 @@
 package empleado.comunicacion.TCP;
 
 import dependencias.atencion.Atencion;
-import dependencias.mensaje.Solicitud;
+import dependencias.mensajes.empleado.SolicitudEmpleado;
+import dependencias.mensajes.empleado.SolicitudEmpleadoFactory;
 import empleado.comunicacion.Comunicacion;
 import empleado.excepciones.SolicitudException;
 
@@ -22,12 +23,11 @@ public class ComunicacionImpl implements Comunicacion {
     @Override
     public Atencion solicitarAtencion(Integer box) throws SolicitudException {
         Atencion atencion = null;
-        Solicitud solicitud;
+        SolicitudEmpleado solicitud = SolicitudEmpleadoFactory.nuevaSolicitudAsignacion(box);
         try {
             Socket socket = new Socket(host, port);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            solicitud = new Solicitud("ASIGNAR", box);
             out.writeObject(solicitud);
             atencion = (Atencion) in.readObject();
             out.close();
@@ -41,12 +41,11 @@ public class ComunicacionImpl implements Comunicacion {
 
     @Override
     public void cancelarAtencion(Atencion atencion) throws SolicitudException {
-        Solicitud solicitud;
+        SolicitudEmpleado solicitud = SolicitudEmpleadoFactory.nuevaSolicitucCancelacion(atencion);
         try {
             Socket socket = new Socket(host, port);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            solicitud = new Solicitud("CANCELAR", atencion);
             out.writeObject(solicitud);
             out.close();
             in.close();

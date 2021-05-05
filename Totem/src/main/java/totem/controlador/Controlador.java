@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 
-import dependencias.mensaje.Registro;
+import dependencias.mensajes.totem.Registro;
 import totem.comunicacion.Comunicacion;
 import totem.utilidades.Validador;
 import totem.vistas.*;

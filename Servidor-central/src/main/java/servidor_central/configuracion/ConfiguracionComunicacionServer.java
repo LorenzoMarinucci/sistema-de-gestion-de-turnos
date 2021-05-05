@@ -18,7 +18,7 @@ public class ConfiguracionComunicacionServer {
     private Integer puertoTotem;
 
     @Getter
-    @XmlElement(name = "puertoEmpleado")
+    @XmlElement(name = "puertoEmpleados")
     private Integer puertoEmpleado;
 
     @Getter

@@ -1,6 +1,8 @@
 package servidor_central;
 
 import dependencias.atencion.Tipo;
+import servidor_central.comunicacion.ComunicacionTelevisor;
+import servidor_central.comunicacion.TCP.ComunicacionTelevisorImpl;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;
 import servidor_central.configuracion.ConfiguracionFilaDeEspera;
 import servidor_central.espera.Queue.FilaDeEsperaPQ;
@@ -29,13 +31,15 @@ public class ServidorCentral {
         try {
             ConfiguracionComunicacionServer configuracionComunicacionServer = cargarConfiguracionComunicacion();
             ConfiguracionFilaDeEspera configuracionFilaDeEspera = cargarConfiguracionFilaDeEspera();
+            ComunicacionTelevisor comunicacionTelevisor = new ComunicacionTelevisorImpl(InetAddress.getLocalHost().getHostAddress(),
+                    configuracionComunicacionServer.getPuertoTelevisor());
             ServicioEspera servicioEspera = new ServicioEsperaImpl(
                     new FilaDeEsperaPQ(configuracionFilaDeEspera.getTamañoFila(), prioridades));
             ListenerEmpleado listenerEmpleado = new ListenerEmpleado(
-                    servicioEspera, InetAddress.getLocalHost().getHostAddress(),
+                    servicioEspera, comunicacionTelevisor,
                     configuracionComunicacionServer.getPuertoEmpleado());
             ListenerTotem listenerTotem = new ListenerTotem(
-                    servicioEspera, InetAddress.getLocalHost().getHostAddress(),
+                    servicioEspera,
                     configuracionComunicacionServer.getPuertoTotem());
         } catch (JAXBException | UnknownHostException e) {
             e.printStackTrace();

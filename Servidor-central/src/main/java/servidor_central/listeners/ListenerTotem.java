@@ -1,8 +1,6 @@
 package servidor_central.listeners;
 
-import dependencias.atencion.Atencion;
-import dependencias.mensaje.Registro;
-import dependencias.mensaje.Solicitud;
+import dependencias.mensajes.totem.Registro;
 import servidor_central.servicios.ServicioEspera;
 
 import java.io.*;
@@ -14,8 +12,8 @@ public class ListenerTotem extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerTotem");
 
-    public ListenerTotem(ServicioEspera servicioEspera, String host, Integer port) {
-        super(servicioEspera, host, port);
+    public ListenerTotem(ServicioEspera servicioEspera, Integer port) {
+        super(servicioEspera, port);
         recibirDNI();
     }
 

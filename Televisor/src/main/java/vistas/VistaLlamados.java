@@ -1,9 +1,10 @@
 package vistas;
 
+import dependencias.atencion.Atencion;
+
 public interface VistaLlamados {
 
-	Integer getUltimaPosicionLibre();
-	void cargarLlamado(Integer DNI, Integer box, Integer posicion);
+	void cargarLlamado(Atencion atencion, Integer posicion);
 	void quitarLlamado(Integer posicion);
 
 }

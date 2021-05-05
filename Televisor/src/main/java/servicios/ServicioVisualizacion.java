@@ -1,11 +1,12 @@
 package servicios;
 
+import dependencias.atencion.Atencion;
 import excepciones.LlamadoNoEncontradoException;
 
 public interface ServicioVisualizacion {
 	
-	void mostrarLlamado(String DNI, String box);
-	void quitarLlamado(String DNI) throws LlamadoNoEncontradoException;
-	void inicializarVista();
+	void mostrarAtencion(Atencion atencion);
+	void quitarAtencion(Atencion atencion) throws LlamadoNoEncontradoException;
+	void inicializar();
 
 }
