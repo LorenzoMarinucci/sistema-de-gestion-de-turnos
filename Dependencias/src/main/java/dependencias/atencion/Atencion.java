@@ -9,7 +9,6 @@ public class Atencion implements Serializable {
 
     private Integer DNI;
     private Tipo tipo;
-    private Integer prioridad;
     private Integer box;
     private Estado estado;
 
