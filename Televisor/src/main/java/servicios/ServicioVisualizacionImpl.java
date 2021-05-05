@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import dependencias.atencion.Atencion;
 import excepciones.LlamadoNoEncontradoException;
+import lombok.Synchronized;
 import vistas.LlamadosImpl;
 import vistas.VistaLlamados;
 
@@ -20,6 +21,7 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 		this.atencionesMaximosTelevisor = llamadosTelevisor;
 	}
 
+	@Synchronized
 	@Override
 	public void mostrarAtencion(Atencion atencion) {
 		if (atencionesEnEspera.size() == atencionesMaximosTelevisor) {
@@ -31,6 +33,7 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 		}
 	}
 
+	@Synchronized
 	@Override
 	public void quitarAtencion(Atencion atencion) throws LlamadoNoEncontradoException {
 		Optional<Atencion> OptionalAtencion = atencionesEnEspera.stream().filter(atencionFila ->
@@ -46,6 +49,9 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 			}
 			UILlamados.quitarLlamado(atencionesEnTelevisor.indexOf(OptionalAtencion.get()));
 			atencionesEnTelevisor.remove(OptionalAtencion.get());
+			if (!atencionesEnEspera.isEmpty()) {
+				mostrarAtencion(atencionesEnEspera.remove(0));
+			}
 		}
 		
 	}

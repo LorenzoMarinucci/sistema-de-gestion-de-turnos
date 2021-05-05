@@ -2,13 +2,17 @@ package vistas;
 
 import dependencias.atencion.Atencion;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LlamadosImpl extends JFrame implements VistaLlamados {
+
+	private final String AUDIO_PATH = "audio/campana.wav";
 
 	private JPanel container;
 	private JTextField txtLlamados;
@@ -240,6 +244,15 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	public void cargarLlamado(Atencion atencion, Integer posicion) {
 		textFieldsDNI.get(posicion).setText(atencion.getDNI().toString());
 		textFieldsBox.get(posicion).setText(atencion.getBox().toString());
+		AudioInputStream audioInputStream = null;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(new File(AUDIO_PATH).getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
