@@ -3,11 +3,9 @@ package totem.comunicacion.TCP;
 import dependencias.mensaje.Registro;
 import totem.comunicacion.Comunicacion;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class ComunicacionImpl implements Comunicacion {
 

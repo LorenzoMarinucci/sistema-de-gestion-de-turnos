@@ -5,7 +5,7 @@ import empleado.excepciones.SolicitudException;
 
 public interface Comunicacion {
 
-    Atencion solicitarAtencion() throws SolicitudException;
+    Atencion solicitarAtencion(Integer box) throws SolicitudException;
     void cancelarAtencion(Atencion atencion) throws SolicitudException;
 
 }

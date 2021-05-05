@@ -13,6 +13,7 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	private JTextField txtDni;
 	private JTextField txtBox;
 	private Integer lugaresTelevisor;
+	private Integer ultimaPosicionLibre = 0;
 	
 	private Map<Integer, JTextField> textFieldsDNI = new HashMap<>();
 	private Map<Integer, JTextField> textFieldsBox = new HashMap<>();
@@ -251,9 +252,15 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	};
 
 	@Override
-	public void cargarLlamado(String DNI, String box, Integer posicion) {
-		textFieldsDNI.get(posicion).setText(DNI);
-		textFieldsBox.get(posicion).setText(box);
+	public Integer getUltimaPosicionLibre() {
+		return this.ultimaPosicionLibre;
+	}
+
+	@Override
+	public void cargarLlamado(Integer DNI, Integer box, Integer posicion) {
+		textFieldsDNI.get(posicion).setText(DNI.toString());
+		textFieldsBox.get(posicion).setText(box.toString());
+		ultimaPosicionLibre++;
 	}
 
 	@Override
@@ -264,6 +271,7 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 		}
 		textFieldsDNI.get(lugaresTelevisor - 1).setText("");
 		textFieldsBox.get(lugaresTelevisor - 1).setText("");
+		ultimaPosicionLibre--;
 	}
 
 }

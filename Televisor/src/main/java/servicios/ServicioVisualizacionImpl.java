@@ -27,7 +27,7 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 		}
 		else {
 			llamadosEnTelevisor.add(llamado);
-			UILlamados.cargarLlamado(DNI, box, llamadosEnTelevisor.indexOf(llamado));
+			UILlamados.cargarLlamado(Integer.parseInt(DNI), Integer.parseInt(box), llamadosEnTelevisor.indexOf(llamado));
 		}
 	}
 

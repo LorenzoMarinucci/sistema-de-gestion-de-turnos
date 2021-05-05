@@ -1,11 +1,15 @@
 package servidor_central.listeners;
 
 import dependencias.atencion.Atencion;
+import dependencias.mensaje.Registro;
 import dependencias.mensaje.Solicitud;
 import servidor_central.servicios.ServicioEspera;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
@@ -31,13 +35,16 @@ public class ListenerEmpleado extends Listener {
                     if (solicitud.getOrden().equals("ASIGNAR")) {
                         log.info("NUEVA SOLICITUD DE ASIGNACIÓN DESDE EMPLEADO");
                         Atencion atencion = servicioEspera.solicitudAtencion();
+                        solicitud.setAtencion(atencion);
                         out.writeObject(atencion);
-                        log.info("ATENCION ASIGNADA. DNI: " + atencion.getDNI());
+                        comunicacionTelevisor(solicitud);
+                        log.info("ATENCION ASIGNADA. DNI: " + atencion.getDNI() + ", BOX: " + solicitud.getBox());
                     }
-                    else if (solicitud.getOrden().equals("CANCELAR")){
+                    else if (solicitud.getOrden().equals("CANCELAR")) {
                         log.info("NUEVA SOLICITUD DE CANCELACIÓN DESDE EMPLEADO");
                         Atencion atencion = solicitud.getAtencion();
                         servicioEspera.cancelarAtencion(atencion);
+                        comunicacionTelevisor(solicitud);
                         log.info("ATENCION CANCELADA. DNI: " + atencion.getDNI());
                     }
                 }
@@ -46,6 +53,21 @@ public class ListenerEmpleado extends Listener {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    private void comunicacionTelevisor(Solicitud solicitud) {
+        Socket socket = null;
+        try {
+            socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 10402);
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            out.writeObject(solicitud);
+            out.close();
+            in.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

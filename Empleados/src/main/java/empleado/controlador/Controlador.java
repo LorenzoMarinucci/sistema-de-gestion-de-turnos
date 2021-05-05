@@ -36,7 +36,7 @@ public class Controlador implements ActionListener {
                 vistaEmpleado.finalizarAtencion();
             } else if (command.equals("Siguiente")) {
             	log.info("SOLICITUD DE SIGUIENTE ATENCIÓN");
-                atencion = comunicacion.solicitarAtencion();
+                atencion = comunicacion.solicitarAtencion(sesion.getNumeroDeBox());
                 sesion.asignarAtencion(atencion);
                 vistaEmpleado.asignarAtencion(atencion);
             } else if (command.equals("Anular")) {
