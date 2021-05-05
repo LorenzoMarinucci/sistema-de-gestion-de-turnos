@@ -12,9 +12,9 @@ import java.util.PriorityQueue;
 
 public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
 
-    private Map<Tipo, Integer> prioridades;
+    private Map<String, Integer> prioridades;
 
-    public FilaDeEsperaPQ(Integer tamañoMaximo, Map<Tipo, Integer> prioridades) {
+    public FilaDeEsperaPQ(Integer tamañoMaximo, Map<String, Integer> prioridades) {
         super(tamañoMaximo);
         fila = new PriorityQueue<>((Atencion atencion1, Atencion atencion2) -> {
             if (atencion1.getPrioridad() > atencion2.getPrioridad())
@@ -36,7 +36,7 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
             registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en servidor_central.espera");
         } else {
             Atencion atencion = new Atencion(DNI);
-            atencion.setPrioridad(prioridades.getOrDefault(atencion.getTipo(), 0));
+            atencion.setPrioridad(prioridades.getOrDefault(atencion.getTipo().toString(), 0));
             fila.add(atencion);
             registro = RegistroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
         }
@@ -55,7 +55,7 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
     @Override
     public void reingresarAtencion(Atencion atencion) {
         atencion.setTipo(Tipo.REINGRESADA);
-        atencion.setPrioridad(prioridades.getOrDefault(atencion.getTipo(), 0));
+        atencion.setPrioridad(prioridades.getOrDefault(atencion.getTipo().toString(), 0));
         fila.add(atencion);
     }
 

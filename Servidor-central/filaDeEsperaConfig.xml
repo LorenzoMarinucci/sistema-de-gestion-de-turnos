@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <espera>
     <tamaño>10</tamaño>
+    <prioridades>
+        <entry>
+            <key>NUEVA</key>
+            <value>0</value>
+        </entry>
+        <entry>
+            <key>REINGRESADA</key>
+            <value>10</value>
+        </entry>
+    </prioridades>
 </espera>

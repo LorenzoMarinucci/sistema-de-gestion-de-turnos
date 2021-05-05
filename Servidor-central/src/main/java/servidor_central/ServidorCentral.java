@@ -26,11 +26,10 @@ public class ServidorCentral {
     private static final String COMUNICACION_PATH = "comunicacionConfig.xml";
 
     public static void main(String[] args) {
-        Map<Tipo, Integer> prioridades = new HashMap<>();
-        initPrioridades(prioridades);
         try {
             ConfiguracionComunicacionServer configuracionComunicacionServer = cargarConfiguracionComunicacion();
             ConfiguracionFilaDeEspera configuracionFilaDeEspera = cargarConfiguracionFilaDeEspera();
+            Map<String, Integer> prioridades = configuracionFilaDeEspera.getPrioridades();
             ComunicacionTelevisor comunicacionTelevisor = new ComunicacionTelevisorImpl(InetAddress.getLocalHost().getHostAddress(),
                     configuracionComunicacionServer.getPuertoTelevisor());
             ServicioEspera servicioEspera = new ServicioEsperaImpl(
