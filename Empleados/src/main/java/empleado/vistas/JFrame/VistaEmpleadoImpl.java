@@ -33,6 +33,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 	private JButton btnCancelar;
 	private JButton btnAnular;
 	private ActionListener actionListener;
+	private JTextField txtMensaje;
 
 	public VistaEmpleadoImpl() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,21 +42,26 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		container.setBackground(new Color(0, 191, 255));
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(container);
-		container.setLayout(new GridLayout(0, 5, 0, 0));
+		container.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelDeOpciones = new JPanel();
+		container.add(panelDeOpciones);
+		panelDeOpciones.setLayout(new GridLayout(0, 5, 0, 0));
+		panelDeOpciones.setBackground(new Color(0,191,255));
 		
 		txtDni = new JTextField();
+		panelDeOpciones.add(txtDni);
 		txtDni.setEditable(false);
 		txtDni.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 20));
 		txtDni.setBackground(new Color(0, 191, 255));
 		txtDni.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDni.setText("DNI:");
-		container.add(txtDni);
 		txtDni.setColumns(10);
 		txtDni.setBorder(null);
 		
 		JPanel panel_12 = new JPanel();
+		panelDeOpciones.add(panel_12);
 		panel_12.setBackground(new Color(0, 191, 255));
-		container.add(panel_12);
 		panel_12.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel panel_14 = new JPanel();
@@ -69,24 +75,25 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_12.add(textFieldDNI);
 		textFieldDNI.setColumns(10);
 		textFieldDNI.setBorder(null);
+		this.textFieldDNI.setText("");
 		
 		JPanel panel = new JPanel();
+		panelDeOpciones.add(panel);
 		panel.setBackground(new Color(0, 191, 255));
-		container.add(panel);
 		
 		txtStatus = new JTextField();
+		panelDeOpciones.add(txtStatus);
 		txtStatus.setEditable(false);
 		txtStatus.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 20));
 		txtStatus.setBackground(new Color(0, 191, 255));
 		txtStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		txtStatus.setText("Status:");
-		container.add(txtStatus);
 		txtStatus.setColumns(10);
 		txtStatus.setBorder(null);
 		
 		JPanel panel_13 = new JPanel();
+		panelDeOpciones.add(panel_13);
 		panel_13.setBackground(new Color(0, 191, 255));
-		container.add(panel_13);
 		panel_13.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel panel_15 = new JPanel();
@@ -100,14 +107,15 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_13.add(txtFieldStatus);
 		txtFieldStatus.setColumns(10);
 		txtFieldStatus.setBorder(null);
+		this.txtFieldStatus.setText("");
 		
 		JPanel panel_1 = new JPanel();
+		panelDeOpciones.add(panel_1);
 		panel_1.setBackground(new Color(0, 191, 255));
-		container.add(panel_1);
 		
 		JPanel panel_2 = new JPanel();
+		panelDeOpciones.add(panel_2);
 		panel_2.setBackground(new Color(0, 191, 255));
-		container.add(panel_2);
 		panel_2.setLayout(new GridLayout(3, 1, 0, 0));
 		
 		JPanel panel_11 = new JPanel();
@@ -132,8 +140,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_16.add(panel_18, BorderLayout.WEST);
 		
 		JPanel panel_3 = new JPanel();
+		panelDeOpciones.add(panel_3);
 		panel_3.setBackground(new Color(0, 191, 255));
-		container.add(panel_3);
 		panel_3.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel panel_11_1 = new JPanel();
@@ -159,8 +167,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_21.add(panel_23, BorderLayout.WEST);
 		
 		JPanel panel_4 = new JPanel();
+		panelDeOpciones.add(panel_4);
 		panel_4.setBackground(new Color(0, 191, 255));
-		container.add(panel_4);
 		panel_4.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel panel_11_1_1 = new JPanel();
@@ -186,16 +194,16 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_24.add(panel_26, BorderLayout.EAST);
 		
 		JPanel panel_5 = new JPanel();
+		panelDeOpciones.add(panel_5);
 		panel_5.setBackground(new Color(0, 191, 255));
-		container.add(panel_5);
 		
 		JPanel panel_6 = new JPanel();
+		panelDeOpciones.add(panel_6);
 		panel_6.setBackground(new Color(0, 191, 255));
-		container.add(panel_6);
 		
 		JPanel panel_7 = new JPanel();
+		panelDeOpciones.add(panel_7);
 		panel_7.setBackground(new Color(0, 191, 255));
-		container.add(panel_7);
 		panel_7.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel panel_11_1_1_1 = new JPanel();
@@ -222,12 +230,12 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_19.add(panel_28, BorderLayout.WEST);
 		
 		JPanel panel_8 = new JPanel();
+		panelDeOpciones.add(panel_8);
 		panel_8.setBackground(new Color(0, 191, 255));
-		container.add(panel_8);
 		
 		JPanel panel_9 = new JPanel();
+		panelDeOpciones.add(panel_9);
 		panel_9.setBackground(new Color(0, 191, 255));
-		container.add(panel_9);
 		panel_9.setLayout(new GridLayout(3, 0, 0, 0));
 		
 		JPanel panel_11_1_1_1_1 = new JPanel();
@@ -254,12 +262,17 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		panel_20.add(panel_30, BorderLayout.EAST);
 		
 		JPanel panel_10 = new JPanel();
+		panelDeOpciones.add(panel_10);
 		panel_10.setBackground(new Color(0, 191, 255));
-		container.add(panel_10);
+		
+		txtMensaje = new JTextField();
+		txtMensaje.setHorizontalAlignment(SwingConstants.CENTER);
+		container.add(txtMensaje, BorderLayout.SOUTH);
+		txtMensaje.setColumns(10);
+		txtMensaje.setBorder(null);
+		txtMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
 		
 		this.setVisible(true);
-		this.textFieldDNI.setText("");
-		this.txtFieldStatus.setText("");
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -272,6 +285,9 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		JButton boton = (JButton) e.getSource();
 		String command = boton.getActionCommand();
 		ActionEvent evento = new ActionEvent(boton, 0, command);
+		if (command.equals("Siguiente")) {
+			this.informarMensaje("Aguardando la llegada de una nueva atención...");
+		}
 		this.actionListener.actionPerformed(evento);
 	}
 	public void mouseReleased(MouseEvent e) {
@@ -284,7 +300,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 
 	@Override
 	public void informarMensaje(String mensaje) {
-		// COMPLETAR
+		this.txtMensaje.setText(mensaje);
 	}
 
 	@Override
@@ -322,6 +338,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 		this.btnCancelar.setEnabled(true);
 		this.btnConfirmar.setEnabled(true);
 		this.btnSiguiente.setEnabled(false);
+		this.txtMensaje.setText("");
 	}
 
 	@Override

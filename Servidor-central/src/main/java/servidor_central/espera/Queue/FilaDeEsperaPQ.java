@@ -5,7 +5,6 @@ import dependencias.atencion.Tipo;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.RegistroFactory;
 import lombok.Synchronized;
-import servidor_central.excepciones.FilaDeEsperaVaciaException;
 
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -29,34 +28,43 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
         this.prioridades = prioridades;
     }
 
-    @Synchronized
     public Registro agregarAtencion(Integer DNI) {
         Registro registro;
-        if (fila.size() == tamañoMaximo)
-            registro = RegistroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de servidor_central.espera");
-        else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
-            registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en servidor_central.espera");
-        } else {
-            Atencion atencion = new Atencion(DNI);
-            fila.add(atencion);
-            registro = RegistroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
+        synchronized (this.fila) {
+            if (fila.size() == tamañoMaximo)
+                registro = RegistroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de servidor_central.espera");
+            else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
+                registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en servidor_central.espera");
+            } else {
+                Atencion atencion = new Atencion(DNI);
+                fila.add(atencion);
+                registro = RegistroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
+                this.fila.notifyAll();
+            }
+            return registro;
         }
-        return registro;
     }
 
-    @Synchronized
-    public Atencion sacarNuevaAtencion() throws FilaDeEsperaVaciaException {
-        if (fila.isEmpty()) {
-            throw new FilaDeEsperaVaciaException("No hay ninguna atencion en servidor_central.espera");
+    public Atencion sacarNuevaAtencion() {
+        synchronized (this.fila) {
+            while (fila.isEmpty()) {
+                try {
+                    this.fila.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return fila.poll();
         }
-        return fila.poll();
     }
 
-    @Synchronized
     @Override
     public void reingresarAtencion(Atencion atencion) {
         atencion.setTipo(Tipo.REINGRESADA);
-        fila.add(atencion);
+        synchronized (this.fila) {
+            fila.add(atencion);
+            this.fila.notifyAll();
+        }
     }
 
 }

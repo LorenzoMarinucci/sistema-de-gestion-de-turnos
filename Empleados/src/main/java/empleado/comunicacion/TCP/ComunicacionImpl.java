@@ -41,7 +41,25 @@ public class ComunicacionImpl implements Comunicacion {
 
     @Override
     public void cancelarAtencion(Atencion atencion) throws SolicitudException {
-        SolicitudEmpleado solicitud = SolicitudEmpleadoFactory.nuevaSolicitucCancelacion(atencion);
+        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudCancelacion(atencion));
+    }
+
+    @Override
+    public void anularAtencion(Atencion atencion) throws SolicitudException {
+        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudAnular(atencion));
+    }
+
+    @Override
+    public void confirmarAtencion(Atencion atencion) throws SolicitudException {
+        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion));
+    }
+
+    @Override
+    public void finalizarAtencion(Atencion atencion) throws SolicitudException {
+        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudFinalizar(atencion));
+    }
+
+    private void enviarMensaje(SolicitudEmpleado solicitud) throws SolicitudException{
         try {
             Socket socket = new Socket(host, port);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

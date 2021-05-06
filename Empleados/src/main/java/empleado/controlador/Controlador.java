@@ -33,6 +33,7 @@ public class Controlador implements ActionListener {
             if (command.equals("Finalizar")) {
             	log.info("SOLICITUD DE FINALIZACIÓN DE ATENCIÓN");
                 atencion = sesion.finalizarAtencion();
+                comunicacion.finalizarAtencion(atencion);
                 vistaEmpleado.finalizarAtencion();
             } else if (command.equals("Siguiente")) {
             	log.info("SOLICITUD DE SIGUIENTE ATENCIÓN");
@@ -42,6 +43,7 @@ public class Controlador implements ActionListener {
             } else if (command.equals("Anular")) {
             	log.info("SOLICITUD DE ANULACIÓN DE ATENCIÓN");
                 atencion = sesion.finalizarAtencion();
+                comunicacion.anularAtencion(atencion);
                 vistaEmpleado.anularAtencion();
             } else if (command.equals("Cancelar")) {
             	log.info("SOLICITUD DE CANCELACIÓN DE ATENCIÓN");
@@ -51,11 +53,12 @@ public class Controlador implements ActionListener {
             } else if (command.equals("Confirmar")) {
             	log.info("SOLICITUD DE CONFIRMACIÓN DE ATENCIÓN");
                 atencion = sesion.confirmarAtencion();
+                comunicacion.confirmarAtencion(atencion);
                 vistaEmpleado.confirmarAtencion();
             }
         } catch (SolicitudException exception) {
-        	log.info("FALLO AL REALIZAR LA CONEXIÓN CON EL SERVIDOR");
-			vistaEmpleado.informarMensaje(exception.getMessage());
+        	log.info("FALLÓ AL REALIZAR LA CONEXIÓN CON EL SERVIDOR");
+			vistaEmpleado.informarMensaje("Hubo un fallo al realizar la conexión con el servidor");
         }
     }
 
