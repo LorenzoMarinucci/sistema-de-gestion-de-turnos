@@ -5,16 +5,21 @@ import dependencias.atencion.Tipo;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.RegistroFactory;
 import lombok.Synchronized;
+import servidor_central.configuracion.ConfiguracionFilaDeEspera;
+import servidor_central.espera.FilaDeEspera;
 
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
-public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
+public class FilaDeEsperaPQ implements FilaDeEspera {
 
     private Map<String, Integer> prioridades;
+    private Integer tamañoMaximo;
+    private Queue<Atencion> fila;
 
-    public FilaDeEsperaPQ(Integer tamañoMaximo, Map<String, Integer> prioridades) {
-        super(tamañoMaximo);
+    public FilaDeEsperaPQ(ConfiguracionFilaDeEspera configuracionFilaDeEspera) {
+        this.tamañoMaximo = configuracionFilaDeEspera.getTamañoFila();
         fila = new PriorityQueue<>((Atencion atencion1, Atencion atencion2) -> {
             Integer prioridad1 = prioridades.getOrDefault(atencion1.getTipo().toString(), 0);
             Integer prioridad2 = prioridades.getOrDefault(atencion2.getTipo().toString(), 0);
@@ -25,9 +30,10 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
             else
                 return 0;
         });
-        this.prioridades = prioridades;
+        this.prioridades = configuracionFilaDeEspera.getPrioridades();
     }
 
+    @Override
     public Registro agregarAtencion(Integer DNI) {
         Registro registro;
         synchronized (this.fila) {
@@ -45,6 +51,7 @@ public class FilaDeEsperaPQ extends FilaDeEsperaAbstracta {
         }
     }
 
+    @Override
     public Atencion sacarNuevaAtencion() {
         synchronized (this.fila) {
             while (fila.isEmpty()) {

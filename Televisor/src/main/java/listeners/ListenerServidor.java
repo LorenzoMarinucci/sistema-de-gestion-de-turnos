@@ -1,5 +1,6 @@
 package listeners;
 
+import configuracion.ConfiguracionComunicacion;
 import dependencias.atencion.Atencion;
 import dependencias.mensajes.televisor.SolicitudTelevisor;
 import servicios.ServicioVisualizacion;
@@ -17,8 +18,8 @@ public class ListenerServidor extends Listener {
     private Logger log = Logger.getLogger("log.server.listenerTotem");
     private ServicioVisualizacion servicioVisualizacion;
 
-    public ListenerServidor(Integer port, ServicioVisualizacion servicioVisualizacion) {
-        super(port);
+    public ListenerServidor(ConfiguracionComunicacion configuracionComunicacion, ServicioVisualizacion servicioVisualizacion) {
+        super(configuracionComunicacion.getPuerto());
         this.servicioVisualizacion = servicioVisualizacion;
         servicioVisualizacion.inicializar();
         comunicacionServidor();

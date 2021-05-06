@@ -1,8 +1,8 @@
 package empleado;
 
 import empleado.comunicacion.TCP.ComunicacionImpl;
-import empleado.configuracion.ConfiguracionComunicacion;
-import empleado.configuracion.ConfiguracionSesion;
+import empleado.configuracion.XML.ConfiguracionComunicacionImpl;
+import empleado.configuracion.XML.ConfiguracionSesionImpl;
 import empleado.controlador.Controlador;
 import empleado.sesion.SesionImpl;
 import empleado.vistas.JFrame.VistaEmpleadoImpl;
@@ -21,29 +21,29 @@ public class EmpleadoApp {
 
 	public static void main(String[] args) {
 		try {
-			ConfiguracionComunicacion configuracionComunicacionEmpleado = cargarConfiguracionComunicacion();
-			ConfiguracionSesion configuracionSesionEmpleado = cargarConfiguracionSesion();
+			ConfiguracionComunicacionImpl configuracionComunicacionEmpleado = cargarConfiguracionComunicacion();
+			ConfiguracionSesionImpl configuracionSesionEmpleado = cargarConfiguracionSesion();
 			Controlador controlador = new Controlador(new VistaEmpleadoImpl(),
 					new ComunicacionImpl(InetAddress.getLocalHost().getHostAddress(),
-							configuracionComunicacionEmpleado.getPuerto()),
-					new SesionImpl(configuracionSesionEmpleado.getBox()));
+							configuracionComunicacionEmpleado),
+					new SesionImpl(configuracionSesionEmpleado));
 		} catch (JAXBException | UnknownHostException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static ConfiguracionComunicacion cargarConfiguracionComunicacion() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionComunicacion.class);
+	private static ConfiguracionComunicacionImpl cargarConfiguracionComunicacion() throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionComunicacionImpl.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		ConfiguracionComunicacion configuracionComunicacion = (ConfiguracionComunicacion)
+		ConfiguracionComunicacionImpl configuracionComunicacion = (ConfiguracionComunicacionImpl)
 				jaxbUnmarshaller.unmarshal(new File(COMUNICACION_PATH));
 		return configuracionComunicacion;
 	}
 
-	private static ConfiguracionSesion cargarConfiguracionSesion() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionSesion.class);
+	private static ConfiguracionSesionImpl cargarConfiguracionSesion() throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionSesionImpl.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		ConfiguracionSesion configuracionSesion = (ConfiguracionSesion)
+		ConfiguracionSesionImpl configuracionSesion = (ConfiguracionSesionImpl)
 				jaxbUnmarshaller.unmarshal(new File(SESION_PATH));
 		return configuracionSesion;
 	}

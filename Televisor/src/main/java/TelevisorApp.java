@@ -1,5 +1,5 @@
-import configuracion.ConfiguracionComunicacion;
-import configuracion.ConfiguracionTelevisor;
+import configuracion.XML.ConfiguracionComunicacionImpl;
+import configuracion.XML.ConfiguracionTelevisorImpl;
 import listeners.ListenerServidor;
 import servicios.ServicioVisualizacion;
 import servicios.ServicioVisualizacionImpl;
@@ -8,8 +8,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class TelevisorApp {
 
@@ -18,28 +16,28 @@ public class TelevisorApp {
 
     public static void main(String[] args) {
         try {
-            ConfiguracionComunicacion configuracionComunicacion = cargarConfiguracionComunicacion();
-            ConfiguracionTelevisor configuracionTelevisor = cargarConfiguracionTelevisor();
-            ServicioVisualizacion servicioVisualizacion = new ServicioVisualizacionImpl(configuracionTelevisor.getLugares());
+            ConfiguracionComunicacionImpl configuracionComunicacion = cargarConfiguracionComunicacion();
+            ConfiguracionTelevisorImpl configuracionTelevisor = cargarConfiguracionTelevisor();
+            ServicioVisualizacion servicioVisualizacion = new ServicioVisualizacionImpl(configuracionTelevisor);
             ListenerServidor listenerServidor = new ListenerServidor(
-                    configuracionComunicacion.getPuerto(), servicioVisualizacion);
+                    configuracionComunicacion, servicioVisualizacion);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
 
-    private static ConfiguracionComunicacion cargarConfiguracionComunicacion() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionComunicacion.class);
+    private static ConfiguracionComunicacionImpl cargarConfiguracionComunicacion() throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionComunicacionImpl.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        ConfiguracionComunicacion configuracionComunicacion = (ConfiguracionComunicacion)
+        ConfiguracionComunicacionImpl configuracionComunicacion = (ConfiguracionComunicacionImpl)
                 jaxbUnmarshaller.unmarshal(new File(COMUNICACION_PATH));
         return configuracionComunicacion;
     }
 
-    private static ConfiguracionTelevisor cargarConfiguracionTelevisor() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionTelevisor.class);
+    private static ConfiguracionTelevisorImpl cargarConfiguracionTelevisor() throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionTelevisorImpl.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        ConfiguracionTelevisor configuracionTelevisor = (ConfiguracionTelevisor)
+        ConfiguracionTelevisorImpl configuracionTelevisor = (ConfiguracionTelevisorImpl)
                 jaxbUnmarshaller.unmarshal(new File(TELEVISOR_CONFIG_PATH));
         return configuracionTelevisor;
     }

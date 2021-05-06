@@ -3,8 +3,8 @@ package servidor_central;
 import dependencias.atencion.Tipo;
 import servidor_central.comunicacion.ComunicacionTelevisor;
 import servidor_central.comunicacion.TCP.ComunicacionTelevisorImpl;
-import servidor_central.configuracion.ConfiguracionComunicacionServer;
-import servidor_central.configuracion.ConfiguracionFilaDeEspera;
+import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
+import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
 import servidor_central.espera.Queue.FilaDeEsperaPQ;
 import servidor_central.listeners.ListenerEmpleado;
 import servidor_central.listeners.ListenerTotem;
@@ -17,7 +17,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ServidorCentral {
@@ -27,13 +26,13 @@ public class ServidorCentral {
 
     public static void main(String[] args) {
         try {
-            ConfiguracionComunicacionServer configuracionComunicacionServer = cargarConfiguracionComunicacion();
-            ConfiguracionFilaDeEspera configuracionFilaDeEspera = cargarConfiguracionFilaDeEspera();
+            ConfiguracionComunicacionServerImpl configuracionComunicacionServer = cargarConfiguracionComunicacion();
+            ConfiguracionFilaDeEsperaImpl configuracionFilaDeEspera = cargarConfiguracionFilaDeEspera();
             Map<String, Integer> prioridades = configuracionFilaDeEspera.getPrioridades();
             ComunicacionTelevisor comunicacionTelevisor = new ComunicacionTelevisorImpl(InetAddress.getLocalHost().getHostAddress(),
-                    configuracionComunicacionServer.getPuertoTelevisor());
+                    configuracionComunicacionServer);
             ServicioEspera servicioEspera = new ServicioEsperaImpl(
-                    new FilaDeEsperaPQ(configuracionFilaDeEspera.getTamañoFila(), prioridades));
+                    new FilaDeEsperaPQ(configuracionFilaDeEspera));
             ListenerEmpleado listenerEmpleado = new ListenerEmpleado(
                     servicioEspera, comunicacionTelevisor,
                     configuracionComunicacionServer.getPuertoEmpleado());
@@ -45,23 +44,18 @@ public class ServidorCentral {
         }
     }
 
-    private static void initPrioridades(Map<Tipo, Integer> prioridades) {
-        prioridades.put(Tipo.NUEVA, 0);
-        prioridades.put(Tipo.REINGRESADA, 10);
-    }
-
-    private static ConfiguracionFilaDeEspera cargarConfiguracionFilaDeEspera() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionFilaDeEspera.class);
+    private static ConfiguracionFilaDeEsperaImpl cargarConfiguracionFilaDeEspera() throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionFilaDeEsperaImpl.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        ConfiguracionFilaDeEspera configuracionFilaDeEspera = (ConfiguracionFilaDeEspera)
+        ConfiguracionFilaDeEsperaImpl configuracionFilaDeEspera = (ConfiguracionFilaDeEsperaImpl)
                 jaxbUnmarshaller.unmarshal(new File(FILA_DE_ESPERA_PATH));
         return configuracionFilaDeEspera;
     }
 
-    private static ConfiguracionComunicacionServer cargarConfiguracionComunicacion() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionComunicacionServer.class);
+    private static ConfiguracionComunicacionServerImpl cargarConfiguracionComunicacion() throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionComunicacionServerImpl.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        ConfiguracionComunicacionServer configuracionComunicacionServer = (ConfiguracionComunicacionServer)
+        ConfiguracionComunicacionServerImpl configuracionComunicacionServer = (ConfiguracionComunicacionServerImpl)
                 jaxbUnmarshaller.unmarshal(new File(COMUNICACION_PATH));
         return configuracionComunicacionServer;
     }

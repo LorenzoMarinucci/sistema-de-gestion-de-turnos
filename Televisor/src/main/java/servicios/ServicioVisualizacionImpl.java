@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import configuracion.ConfiguracionTelevisor;
 import dependencias.atencion.Atencion;
 import excepciones.LlamadoNoEncontradoException;
 import lombok.Synchronized;
@@ -17,14 +18,14 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	private List<Atencion> atencionesEnEspera = new ArrayList<>();
 	private VistaLlamados UILlamados;
 	
-	public ServicioVisualizacionImpl(Integer llamadosTelevisor) {
-		this.atencionesMaximosTelevisor = llamadosTelevisor;
+	public ServicioVisualizacionImpl(ConfiguracionTelevisor configuracionTelevisor) {
+		this.atencionesMaximosTelevisor = configuracionTelevisor.getLugares();
 	}
 
 	@Synchronized
 	@Override
 	public void mostrarAtencion(Atencion atencion) {
-		if (atencionesEnEspera.size() == atencionesMaximosTelevisor) {
+		if (atencionesEnTelevisor.size() == atencionesMaximosTelevisor) {
 			atencionesEnEspera.add(atencion);
 		}
 		else {

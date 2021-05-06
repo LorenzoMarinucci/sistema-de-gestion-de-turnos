@@ -3,6 +3,7 @@ package totem;
 import totem.comunicacion.Comunicacion;
 import totem.comunicacion.TCP.ComunicacionImpl;
 import totem.configuracion.ConfiguracionTotem;
+import totem.configuracion.XML.ConfiguracionTotemImpl;
 import totem.controlador.Controlador;
 import totem.utilidades.ValidadorImpl;
 import totem.vistas.JFrame.BienvenidaImpl;
@@ -24,7 +25,7 @@ public class TotemApp {
 		try {
 			ConfiguracionTotem configuracion = cargarConfiguracion();
 			Comunicacion comunicacion = new ComunicacionImpl(InetAddress.getLocalHost().getHostAddress(),
-					configuracion.getPuerto());
+					configuracion);
 			Controlador controlador = new Controlador(new BienvenidaImpl(), new RegistroImpl(), new FinImpl(),
 					new ValidadorImpl(), comunicacion);
 		} catch (UnknownHostException | JAXBException e) {
@@ -32,10 +33,10 @@ public class TotemApp {
 		}
 	}
 
-	private static ConfiguracionTotem cargarConfiguracion() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionTotem.class);
+	private static ConfiguracionTotemImpl cargarConfiguracion() throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConfiguracionTotemImpl.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		ConfiguracionTotem configuracionTotem = (ConfiguracionTotem) jaxbUnmarshaller.unmarshal(new File(CONFIG_PATH));
+		ConfiguracionTotemImpl configuracionTotem = (ConfiguracionTotemImpl) jaxbUnmarshaller.unmarshal(new File(CONFIG_PATH));
 		return configuracionTotem;
 	}
 

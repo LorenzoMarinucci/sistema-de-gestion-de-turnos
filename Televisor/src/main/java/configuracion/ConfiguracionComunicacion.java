@@ -1,20 +1,7 @@
 package configuracion;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+public interface ConfiguracionComunicacion {
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "comunicacionConfig")
-@XmlAccessorType(XmlAccessType.FIELD)
-@NoArgsConstructor
-public class ConfiguracionComunicacion {
-
-    @Getter
-    @XmlElement(name = "puerto")
-    private Integer puerto;
+    Integer getPuerto();
 
 }

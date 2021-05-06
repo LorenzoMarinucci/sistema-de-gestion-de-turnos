@@ -3,6 +3,7 @@ package totem.comunicacion.TCP;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.RegistroFactory;
 import totem.comunicacion.Comunicacion;
+import totem.configuracion.ConfiguracionTotem;
 
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
@@ -13,9 +14,9 @@ public class ComunicacionImpl implements Comunicacion {
     private String host;
     private Integer port;
 
-    public ComunicacionImpl(String host, Integer port) {
+    public ComunicacionImpl(String host, ConfiguracionTotem configuracionTotem) {
         this.host = host;
-        this.port = port;
+        this.port = configuracionTotem.getPuerto();
     }
 
 	@Override

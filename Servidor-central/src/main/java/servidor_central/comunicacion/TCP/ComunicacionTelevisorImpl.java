@@ -5,17 +5,22 @@ import dependencias.mensajes.televisor.SolicitudTelevisor;
 import dependencias.mensajes.televisor.SolicitudTelevisorFactory;
 import lombok.AllArgsConstructor;
 import servidor_central.comunicacion.ComunicacionTelevisor;
+import servidor_central.configuracion.ConfiguracionComunicacionServer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-@AllArgsConstructor
 public class ComunicacionTelevisorImpl implements ComunicacionTelevisor {
 
     private String host;
     private Integer port;
+
+    public ComunicacionTelevisorImpl(String host, ConfiguracionComunicacionServer configuracionComunicacionServer) {
+        this.host = host;
+        this.port = configuracionComunicacionServer.getPuertoTelevisor();
+    }
 
     @Override
     public void enviarSolicitudMostrar(Atencion atencion) {

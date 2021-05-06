@@ -4,6 +4,7 @@ import dependencias.atencion.Atencion;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
 import dependencias.mensajes.empleado.SolicitudEmpleadoFactory;
 import empleado.comunicacion.Comunicacion;
+import empleado.configuracion.ConfiguracionComunicacion;
 import empleado.excepciones.SolicitudException;
 
 import java.io.ObjectInputStream;
@@ -15,9 +16,9 @@ public class ComunicacionImpl implements Comunicacion {
     private String host;
     private Integer port;
 
-    public ComunicacionImpl(String host, Integer port) {
+    public ComunicacionImpl(String host, ConfiguracionComunicacion configuracionComunicacion) {
         this.host = host;
-        this.port = port;
+        this.port = configuracionComunicacion.getPuerto();
     }
 
     @Override
