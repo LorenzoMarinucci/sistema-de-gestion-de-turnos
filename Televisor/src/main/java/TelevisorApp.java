@@ -1,7 +1,6 @@
 import configuracion.XML.ConfiguracionComunicacionImpl;
 import configuracion.XML.ConfiguracionTelevisorImpl;
-import dependencias.interfaces.televisor.ServicioVisualizacion;
-import listeners.ListenerServidor;
+import listeners.ListenerVisualizacion;
 import servicios.ServicioVisualizacionImpl;
 
 import javax.xml.bind.JAXBContext;
@@ -19,8 +18,9 @@ public class TelevisorApp {
             ConfiguracionComunicacionImpl configuracionComunicacion = cargarConfiguracionComunicacion();
             ConfiguracionTelevisorImpl configuracionTelevisor = cargarConfiguracionTelevisor();
             ServicioVisualizacion servicioVisualizacion = new ServicioVisualizacionImpl(configuracionTelevisor);
-            ListenerServidor listenerServidor = new ListenerServidor(
+            ListenerVisualizacion listenerServidor = new ListenerVisualizacion(
                     configuracionComunicacion, servicioVisualizacion);
+            listenerServidor.iniciar();
         } catch (JAXBException e) {
             e.printStackTrace();
         }
