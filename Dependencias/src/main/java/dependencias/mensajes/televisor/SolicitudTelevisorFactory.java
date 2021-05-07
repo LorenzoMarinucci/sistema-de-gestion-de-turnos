@@ -12,4 +12,8 @@ public class SolicitudTelevisorFactory {
         return new SolicitudTelevisor("QUITAR", atencion);
     }
 
+    public static SolicitudTelevisor nuevaSolicitudInicializar() {
+        return new SolicitudTelevisor("INICIAR", null);
+    }
+
 }

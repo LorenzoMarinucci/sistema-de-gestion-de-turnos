@@ -1,7 +1,7 @@
 import configuracion.XML.ConfiguracionComunicacionImpl;
 import configuracion.XML.ConfiguracionTelevisorImpl;
+import dependencias.interfaces.televisor.ServicioVisualizacion;
 import listeners.ListenerServidor;
-import servicios.ServicioVisualizacion;
 import servicios.ServicioVisualizacionImpl;
 
 import javax.xml.bind.JAXBContext;
@@ -11,7 +11,7 @@ import java.io.File;
 
 public class TelevisorApp {
 
-    private static final String COMUNICACION_PATH = "comunicacionConfig.xml";
+    private static final String COMUNICACION_PATH = "comunicacionTelevisorConfig.xml";
     private static final String TELEVISOR_CONFIG_PATH = "televisorConfig.xml";
 
     public static void main(String[] args) {

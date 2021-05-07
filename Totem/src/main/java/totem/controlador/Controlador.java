@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 
+import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.mensajes.totem.Registro;
-import totem.comunicacion.Comunicacion;
 import totem.utilidades.Validador;
 import totem.vistas.*;
 
@@ -18,15 +18,14 @@ public class Controlador implements ActionListener {
 	private VistaRegistro UIRegistro;
 	private VistaFin UIFin;
 	private Validador validador;
-	private Comunicacion comunicador;
+	private RegistroTotem registroTotem;
 
-	public Controlador(Vista UIBienvenida, VistaRegistro UIRegistro, VistaFin UIFin, Validador validador,
-					   Comunicacion comunicador) {
+	public Controlador(Vista UIBienvenida, VistaRegistro UIRegistro, VistaFin UIFin, Validador validador, RegistroTotem registroTotem) {
 		this.UIBienvenida = UIBienvenida;
 		this.UIRegistro = UIRegistro;
 		this.UIFin = UIFin;
 		this.validador = validador;
-		this.comunicador = comunicador;
+		this.registroTotem = registroTotem;
 		this.UIBienvenida.setActionListener(this);
 		this.UIRegistro.setActionListener(this);
 		this.UIFin.setActionListener(this);
@@ -59,7 +58,7 @@ public class Controlador implements ActionListener {
 	private void procesarRegistro(String DNI) {
 		UIRegistro.cerrarVista();
 		log.info("PROCESAMIENTO DE NUEVO REGISTRO. DNI: " + DNI);
-		Registro informe = comunicador.enviarDNI(DNI);
+		Registro informe = registroTotem.agregarAtencion(Integer.parseInt(DNI));
 		if (informe.isRegistroExitoso()) {
 			log.info("PROCESAMIENTO FINALIZADO");
 		} else {

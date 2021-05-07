@@ -38,9 +38,9 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
         Registro registro;
         synchronized (this.fila) {
             if (fila.size() == tamañoMaximo)
-                registro = RegistroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de servidor_central.espera");
+                registro = RegistroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de espera.");
             else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
-                registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en servidor_central.espera");
+                registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en la fila de espera.");
             } else {
                 Atencion atencion = new Atencion(DNI);
                 fila.add(atencion);

@@ -268,6 +268,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         txtMensaje.setColumns(10);
         txtMensaje.setBorder(null);
         txtMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+        txtMensaje.setEditable(false);
 
         this.setVisible(true);
     }
@@ -309,6 +310,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         this.btnCancelar.setEnabled(false);
         this.btnConfirmar.setEnabled(false);
         this.btnSiguiente.setEnabled(true);
+        this.txtMensaje.setText("");
     }
 
     @Override
@@ -318,6 +320,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         this.btnCancelar.setEnabled(false);
         this.btnConfirmar.setEnabled(false);
         this.btnFinalizar.setEnabled(true);
+        this.txtMensaje.setText("");
     }
 
     @Override
@@ -326,6 +329,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         this.txtFieldStatus.setText("");
         this.btnFinalizar.setEnabled(false);
         this.btnSiguiente.setEnabled(true);
+        this.txtMensaje.setText("");
     }
 
     @Override
@@ -347,5 +351,6 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         this.btnCancelar.setEnabled(false);
         this.btnConfirmar.setEnabled(false);
         this.btnSiguiente.setEnabled(true);
+        this.txtMensaje.setText("");
     }
 }

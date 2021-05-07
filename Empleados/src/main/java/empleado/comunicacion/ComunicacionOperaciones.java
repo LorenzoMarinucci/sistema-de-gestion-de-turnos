@@ -1,43 +1,28 @@
-package empleado.comunicacion.TCP;
+package empleado.comunicacion;
 
 import dependencias.atencion.Atencion;
+import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
 import dependencias.mensajes.empleado.SolicitudEmpleadoFactory;
-import empleado.comunicacion.Comunicacion;
 import empleado.configuracion.ConfiguracionComunicacion;
-import empleado.excepciones.SolicitudException;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ComunicacionImpl implements Comunicacion {
+public class ComunicacionOperaciones implements OperacionesEmpleado {
 
     private String host;
     private Integer port;
 
-    public ComunicacionImpl(String host, ConfiguracionComunicacion configuracionComunicacion) {
+    public ComunicacionOperaciones(String host, ConfiguracionComunicacion configuracionComunicacion) {
         this.host = host;
         this.port = configuracionComunicacion.getPuerto();
     }
 
     @Override
     public Atencion solicitarAtencion(Integer box) throws SolicitudException {
-        Atencion atencion = null;
-        SolicitudEmpleado solicitud = SolicitudEmpleadoFactory.nuevaSolicitudAsignacion(box);
-        try {
-            Socket socket = new Socket(host, port);
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            out.writeObject(solicitud);
-            atencion = (Atencion) in.readObject();
-            out.close();
-            in.close();
-            socket.close();
-        } catch (Exception e) {
-            throw new SolicitudException(e.getMessage());
-        }
-        return atencion;
+        return enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudAsignacion(box));
     }
 
     @Override
@@ -51,8 +36,8 @@ public class ComunicacionImpl implements Comunicacion {
     }
 
     @Override
-    public void confirmarAtencion(Atencion atencion) throws SolicitudException {
-        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion));
+    public Atencion confirmarAtencion(Atencion atencion) throws SolicitudException {
+        return enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion));
     }
 
     @Override
@@ -60,15 +45,17 @@ public class ComunicacionImpl implements Comunicacion {
         enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudFinalizar(atencion));
     }
 
-    private void enviarMensaje(SolicitudEmpleado solicitud) throws SolicitudException{
+    private Atencion enviarMensaje(SolicitudEmpleado solicitud) throws SolicitudException{
         try {
             Socket socket = new Socket(host, port);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.writeObject(solicitud);
+            Atencion atencion = (Atencion) in.readObject();
             out.close();
             in.close();
             socket.close();
+            return atencion;
         } catch (Exception e) {
             throw new SolicitudException("Ha habido un fallo al establecer la conexión con el servidor");
         }

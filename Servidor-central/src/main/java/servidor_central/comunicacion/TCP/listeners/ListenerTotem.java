@@ -1,7 +1,8 @@
-package servidor_central.listeners;
+package servidor_central.comunicacion.TCP.listeners;
 
+import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.mensajes.totem.Registro;
-import servidor_central.servicios.ServicioEspera;
+import servidor_central.comunicacion.Listener;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -11,13 +12,14 @@ import java.util.logging.Logger;
 public class ListenerTotem extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerTotem");
+    private RegistroTotem registroTotem;
 
-    public ListenerTotem(ServicioEspera servicioEspera, Integer port) {
-        super(servicioEspera, port);
-        recibirDNI();
+    public ListenerTotem(RegistroTotem registroTotem, Integer port) {
+        super(port);
+        this.registroTotem = registroTotem;
     }
 
-    public void recibirDNI() {
+    private void recibirDNI() {
         new Thread(() -> {
             try {
                 ServerSocket s = new ServerSocket(port);
@@ -27,12 +29,17 @@ public class ListenerTotem extends Listener {
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String DNI = in.readLine();
                     log.info("NUEVO MENSAJE TOTEM. DNI " + DNI);
-                    Registro informeRegistro = servicioEspera.realizarRegistro(DNI);
+                    Registro informeRegistro = registroTotem.agregarAtencion(Integer.parseInt(DNI));
                     out.writeObject(informeRegistro);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    @Override
+    public void iniciar() {
+        recibirDNI();
     }
 }

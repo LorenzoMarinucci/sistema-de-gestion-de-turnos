@@ -1,6 +1,6 @@
 package configuracion.XML;
 
-import configuracion.ConfiguracionComunicacion;
+import configuracion.ConfiguracionComunicacionTelevisor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "comunicacionConfig")
 @XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
-public class ConfiguracionComunicacionImpl implements ConfiguracionComunicacion {
+public class ConfiguracionComunicacionImpl implements ConfiguracionComunicacionTelevisor {
 
     @Getter
     @XmlElement(name = "puerto")

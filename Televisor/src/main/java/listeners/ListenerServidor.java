@@ -1,11 +1,9 @@
 package listeners;
 
-import configuracion.ConfiguracionComunicacion;
+import configuracion.ConfiguracionComunicacionTelevisor;
 import dependencias.atencion.Atencion;
+import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.televisor.SolicitudTelevisor;
-import servicios.ServicioVisualizacion;
-import vistas.LlamadosImpl;
-import vistas.VistaLlamados;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,13 +11,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class ListenerServidor extends Listener {
+public class ListenerServidor {
 
-    private Logger log = Logger.getLogger("log.server.listenerTotem");
+    private Logger log = Logger.getLogger("log.televisor.listenerServidor");
+    private Integer puerto;
     private ServicioVisualizacion servicioVisualizacion;
 
-    public ListenerServidor(ConfiguracionComunicacion configuracionComunicacion, ServicioVisualizacion servicioVisualizacion) {
-        super(configuracionComunicacion.getPuerto());
+    public ListenerServidor(ConfiguracionComunicacionTelevisor configuracionComunicacion, ServicioVisualizacion servicioVisualizacion) {
+        this.puerto = configuracionComunicacion.getPuerto();
         this.servicioVisualizacion = servicioVisualizacion;
         servicioVisualizacion.inicializar();
         comunicacionServidor();

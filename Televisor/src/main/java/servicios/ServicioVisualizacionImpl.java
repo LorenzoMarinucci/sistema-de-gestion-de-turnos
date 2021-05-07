@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import configuracion.ConfiguracionTelevisor;
 import dependencias.atencion.Atencion;
-import excepciones.LlamadoNoEncontradoException;
+import dependencias.interfaces.televisor.ServicioVisualizacion;
 import lombok.Synchronized;
 import vistas.LlamadosImpl;
 import vistas.VistaLlamados;
@@ -36,7 +36,7 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 
 	@Synchronized
 	@Override
-	public void quitarAtencion(Atencion atencion) throws LlamadoNoEncontradoException {
+	public void quitarAtencion(Atencion atencion) {
 		Optional<Atencion> OptionalAtencion = atencionesEnEspera.stream().filter(atencionFila ->
 				atencionFila.getDNI().equals(atencion.getDNI())).findFirst();
 		if (OptionalAtencion.isPresent()) {
@@ -45,16 +45,14 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 		else {
 			OptionalAtencion = atencionesEnTelevisor.stream().filter(atencionTelevisor ->
 					atencionTelevisor.getDNI().equals(atencion.getDNI())).findFirst();
-			if (OptionalAtencion.isEmpty()) {
-				throw new LlamadoNoEncontradoException();
-			}
-			UILlamados.quitarLlamado(atencionesEnTelevisor.indexOf(OptionalAtencion.get()));
-			atencionesEnTelevisor.remove(OptionalAtencion.get());
-			if (!atencionesEnEspera.isEmpty()) {
-				mostrarAtencion(atencionesEnEspera.remove(0));
+			if (OptionalAtencion.isPresent()) {
+				UILlamados.quitarLlamado(atencionesEnTelevisor.indexOf(OptionalAtencion.get()));
+				atencionesEnTelevisor.remove(OptionalAtencion.get());
+				if (!atencionesEnEspera.isEmpty()) {
+					mostrarAtencion(atencionesEnEspera.remove(0));
+				}
 			}
 		}
-		
 	}
 	
 	public void inicializar() {

@@ -1,9 +1,10 @@
-package servidor_central.listeners;
+package servidor_central.comunicacion.TCP.listeners;
 
 import dependencias.atencion.Atencion;
+import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
+import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
-import servidor_central.comunicacion.ComunicacionTelevisor;
-import servidor_central.servicios.ServicioEspera;
+import servidor_central.comunicacion.Listener;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,12 +15,11 @@ import java.util.logging.Logger;
 public class ListenerEmpleado extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerTotem");
-    private ComunicacionTelevisor comunicacionTelevisor;
+    private OperacionesEmpleado operacionesEmpleado;
 
-    public ListenerEmpleado(ServicioEspera servicioEspera, ComunicacionTelevisor comunicacionTelevisor, Integer port) {
-        super(servicioEspera, port);
-        this.comunicacionTelevisor = comunicacionTelevisor;
-        comunicacionEmpleados();
+    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer port) {
+        super(port);
+        this.operacionesEmpleado = operacionesEmpleado;
     }
 
     public void comunicacionEmpleados() {
@@ -34,33 +34,34 @@ public class ListenerEmpleado extends Listener {
                     SolicitudEmpleado solicitud = (SolicitudEmpleado) in.readObject();
                     if (solicitud.getOrden().equals("ASIGNAR")) {
                         log.info("NUEVA SOLICITUD DE ASIGNACIÓN DESDE EMPLEADO");
-                        atencion = servicioEspera.solicitudAtencion(solicitud.getBox());
+                        atencion = operacionesEmpleado.solicitarAtencion(solicitud.getBox());
                         solicitud.setAtencion(atencion);
-                        out.writeObject(atencion);
                         log.info("ATENCION ASIGNADA. DNI: " + atencion.getDNI() + ", BOX: " + solicitud.getBox());
-                        comunicacionTelevisor.enviarSolicitudMostrar(atencion);
                     } else {
                         atencion = solicitud.getAtencion();
                         if (solicitud.getOrden().equals("FINALIZAR")) {
                             log.info("NUEVA SOLICITUD DE FINALIZACIÓN DESDE EMPLEADO");
+                            operacionesEmpleado.finalizarAtencion(atencion);
                             log.info("ATENCION FINALIZADA. DNI: " + atencion.getDNI());
                         } else {
                             if (solicitud.getOrden().equals("CANCELAR")) {
                                 log.info("NUEVA SOLICITUD DE CANCELACIÓN DESDE EMPLEADO");
-                                servicioEspera.cancelarAtencion(atencion);
+                                operacionesEmpleado.cancelarAtencion(atencion);
                                 log.info("ATENCION CANCELADA. DNI: " + atencion.getDNI());
                             }
                             else if (solicitud.getOrden().equals("ANULAR")) {
                                 log.info("NUEVA SOLICITUD DE ANULACIÓN DESDE EMPLEADO");
+                                operacionesEmpleado.anularAtencion(atencion);
                                 log.info("ATENCION ANULADA. DNI: " + atencion.getDNI());
                             }
                             else if (solicitud.getOrden().equals("CONFIRMAR")) {
                                 log.info("NUEVA SOLICITUD DE CONFIRMACIÓN DESDE EMPLEADO");
+                                operacionesEmpleado.confirmarAtencion(atencion);
                                 log.info("ATENCION CONFIRMADA. DNI: " + atencion.getDNI());
                             }
-                            comunicacionTelevisor.enviarSolicitudQuitar(atencion);
                         }
                     }
+                    out.writeObject(atencion);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -68,4 +69,8 @@ public class ListenerEmpleado extends Listener {
         }).start();
     }
 
+    @Override
+    public void iniciar() {
+        comunicacionEmpleados();
+    }
 }

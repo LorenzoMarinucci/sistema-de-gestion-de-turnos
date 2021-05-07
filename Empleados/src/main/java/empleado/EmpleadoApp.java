@@ -1,6 +1,6 @@
 package empleado;
 
-import empleado.comunicacion.TCP.ComunicacionImpl;
+import empleado.comunicacion.ComunicacionOperaciones;
 import empleado.configuracion.XML.ConfiguracionComunicacionImpl;
 import empleado.configuracion.XML.ConfiguracionSesionImpl;
 import empleado.controlador.Controlador;
@@ -16,7 +16,7 @@ import java.net.UnknownHostException;
 
 public class EmpleadoApp {
 
-	private static final String COMUNICACION_PATH = "comunicacionConfig.xml";
+	private static final String COMUNICACION_PATH = "comunicacionEmpleadoConfig.xml";
 	private static final String SESION_PATH = "sesionConfig.xml";
 
 	public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class EmpleadoApp {
 			ConfiguracionComunicacionImpl configuracionComunicacionEmpleado = cargarConfiguracionComunicacion();
 			ConfiguracionSesionImpl configuracionSesionEmpleado = cargarConfiguracionSesion();
 			Controlador controlador = new Controlador(new VistaEmpleadoImpl(),
-					new ComunicacionImpl(InetAddress.getLocalHost().getHostAddress(),
+					new ComunicacionOperaciones(InetAddress.getLocalHost().getHostAddress(),
 							configuracionComunicacionEmpleado),
 					new SesionImpl(configuracionSesionEmpleado));
 		} catch (JAXBException | UnknownHostException e) {
