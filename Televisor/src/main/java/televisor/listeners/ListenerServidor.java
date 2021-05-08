@@ -11,17 +11,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class ListenerServidor {
+public class ListenerVisualizacion {
 
     private Logger log = Logger.getLogger("log.televisor.listenerServidor");
     private Integer puerto;
     private ServicioVisualizacion servicioVisualizacion;
 
-    public ListenerServidor(ConfiguracionComunicacionTelevisor configuracionComunicacion, ServicioVisualizacion servicioVisualizacion) {
+    public ListenerVisualizacion(ConfiguracionComunicacionTelevisor configuracionComunicacion, ServicioVisualizacion servicioVisualizacion) {
         this.puerto = configuracionComunicacion.getPuerto();
         this.servicioVisualizacion = servicioVisualizacion;
         servicioVisualizacion.inicializar();
-        comunicacionServidor();
     }
 
     public void comunicacionServidor() {
@@ -48,6 +47,10 @@ public class ListenerServidor {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    public void iniciar() {
+        comunicacionServidor();
     }
 
 }
