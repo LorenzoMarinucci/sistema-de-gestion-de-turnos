@@ -1,10 +1,8 @@
-package servidor_central.comunicacion.TCP.listeners;
+package servidor_central.servicios.listeners;
 
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
-import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
-import servidor_central.comunicacion.Listener;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

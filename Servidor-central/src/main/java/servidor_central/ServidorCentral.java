@@ -1,13 +1,13 @@
 package servidor_central;
 
 import dependencias.interfaces.televisor.ServicioVisualizacion;
-import servidor_central.comunicacion.TCP.ComunicacionVisualizacion;
+import servidor_central.comunicacion.ComunicacionVisualizacion;
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
-import servidor_central.espera.Queue.FilaDeEsperaPQ;
-import servidor_central.comunicacion.TCP.listeners.ListenerEmpleado;
-import servidor_central.comunicacion.TCP.listeners.ListenerTotem;
+import servidor_central.espera.queue.FilaDeEsperaPQ;
 import servidor_central.servicios.ServicioEsperaImpl;
+import servidor_central.servicios.listeners.ListenerEmpleado;
+import servidor_central.servicios.listeners.ListenerTotem;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

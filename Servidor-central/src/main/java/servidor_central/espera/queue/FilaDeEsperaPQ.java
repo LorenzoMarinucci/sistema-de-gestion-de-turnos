@@ -1,10 +1,9 @@
-package servidor_central.espera.Queue;
+package servidor_central.espera.queue;
 
 import dependencias.atencion.Atencion;
 import dependencias.atencion.Tipo;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.RegistroFactory;
-import lombok.Synchronized;
 import servidor_central.configuracion.ConfiguracionFilaDeEspera;
 import servidor_central.espera.FilaDeEspera;
 

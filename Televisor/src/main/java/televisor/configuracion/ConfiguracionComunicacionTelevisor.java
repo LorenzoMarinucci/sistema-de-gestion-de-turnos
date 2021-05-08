@@ -1,4 +1,4 @@
-package configuracion;
+package televisor.configuracion;
 
 public interface ConfiguracionComunicacionTelevisor {
 

@@ -1,8 +1,7 @@
-package servidor_central.comunicacion.TCP.listeners;
+package servidor_central.servicios.listeners;
 
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.mensajes.totem.Registro;
-import servidor_central.comunicacion.Listener;
 
 import java.io.*;
 import java.net.ServerSocket;

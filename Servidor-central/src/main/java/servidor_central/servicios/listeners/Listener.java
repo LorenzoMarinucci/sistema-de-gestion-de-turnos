@@ -1,6 +1,4 @@
-package servidor_central.comunicacion;
-
-import dependencias.interfaces.filaDeEspera.RegistroTotem;
+package servidor_central.servicios.listeners;
 
 public abstract class Listener {
 

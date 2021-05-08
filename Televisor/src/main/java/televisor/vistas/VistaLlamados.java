@@ -1,4 +1,4 @@
-package vistas;
+package televisor.vistas;
 
 import dependencias.atencion.Atencion;
 

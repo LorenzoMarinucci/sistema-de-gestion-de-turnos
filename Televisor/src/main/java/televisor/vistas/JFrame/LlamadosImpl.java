@@ -1,6 +1,7 @@
-package vistas;
+package televisor.vistas.JFrame;
 
 import dependencias.atencion.Atencion;
+import televisor.vistas.VistaLlamados;
 
 import javax.sound.sampled.*;
 import javax.swing.*;

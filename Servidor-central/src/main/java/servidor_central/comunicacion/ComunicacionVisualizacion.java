@@ -1,4 +1,4 @@
-package servidor_central.comunicacion.TCP;
+package servidor_central.comunicacion;
 
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.televisor.ServicioVisualizacion;

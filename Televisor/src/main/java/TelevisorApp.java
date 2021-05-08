@@ -1,8 +1,8 @@
-import configuracion.XML.ConfiguracionComunicacionImpl;
-import configuracion.XML.ConfiguracionTelevisorImpl;
+import televisor.configuracion.XML.ConfiguracionComunicacionImpl;
+import televisor.configuracion.XML.ConfiguracionTelevisorImpl;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
-import listeners.ListenerServidor;
-import servicios.ServicioVisualizacionImpl;
+import televisor.listeners.ListenerServidor;
+import televisor.servicios.ServicioVisualizacionImpl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

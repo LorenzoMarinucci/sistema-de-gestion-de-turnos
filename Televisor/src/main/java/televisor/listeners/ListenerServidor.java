@@ -1,6 +1,6 @@
-package listeners;
+package televisor.listeners;
 
-import configuracion.ConfiguracionComunicacionTelevisor;
+import televisor.configuracion.ConfiguracionComunicacionTelevisor;
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.televisor.SolicitudTelevisor;

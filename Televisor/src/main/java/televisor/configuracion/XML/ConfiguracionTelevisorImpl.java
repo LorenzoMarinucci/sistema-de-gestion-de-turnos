@@ -1,6 +1,6 @@
-package configuracion.XML;
+package televisor.configuracion.XML;
 
-import configuracion.ConfiguracionTelevisor;
+import televisor.configuracion.ConfiguracionTelevisor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

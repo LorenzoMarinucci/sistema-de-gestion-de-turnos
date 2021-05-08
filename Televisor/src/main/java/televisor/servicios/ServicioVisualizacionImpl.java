@@ -1,15 +1,15 @@
-package servicios;
+package televisor.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import configuracion.ConfiguracionTelevisor;
+import televisor.configuracion.ConfiguracionTelevisor;
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import lombok.Synchronized;
-import vistas.LlamadosImpl;
-import vistas.VistaLlamados;
+import televisor.vistas.JFrame.LlamadosImpl;
+import televisor.vistas.VistaLlamados;
 
 public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	
