@@ -13,19 +13,19 @@ import televisor.vistas.VistaLlamados;
 
 public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	
-	private Integer atencionesMaximosTelevisor;
+	private Integer atencionesMaximasTelevisor;
 	private List<Atencion> atencionesEnTelevisor = new ArrayList<>();
 	private List<Atencion> atencionesEnEspera = new ArrayList<>();
 	private VistaLlamados UILlamados;
 	
 	public ServicioVisualizacionImpl(ConfiguracionTelevisor configuracionTelevisor) {
-		this.atencionesMaximosTelevisor = configuracionTelevisor.getLugares();
+		this.atencionesMaximasTelevisor = configuracionTelevisor.getLugares();
 	}
 
 	@Synchronized
 	@Override
 	public void mostrarAtencion(Atencion atencion) {
-		if (atencionesEnTelevisor.size() == atencionesMaximosTelevisor) {
+		if (atencionesEnTelevisor.size() == atencionesMaximasTelevisor) {
 			atencionesEnEspera.add(atencion);
 		}
 		else {
@@ -56,7 +56,7 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	}
 	
 	public void inicializar() {
-		UILlamados = new LlamadosImpl(atencionesMaximosTelevisor);
+		UILlamados = new LlamadosImpl(atencionesMaximasTelevisor);
 	}
 
 }

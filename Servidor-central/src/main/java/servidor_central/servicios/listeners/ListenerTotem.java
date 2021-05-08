@@ -2,6 +2,7 @@ package servidor_central.servicios.listeners;
 
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.mensajes.totem.Registro;
+import servidor_central.configuracion.ConfiguracionComunicacionServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -13,8 +14,8 @@ public class ListenerTotem extends Listener {
     private Logger log = Logger.getLogger("log.server.listenerTotem");
     private RegistroTotem registroTotem;
 
-    public ListenerTotem(RegistroTotem registroTotem, Integer port) {
-        super(port);
+    public ListenerTotem(RegistroTotem registroTotem, ConfiguracionComunicacionServer configuracionComunicacionServer) {
+        this.port = configuracionComunicacionServer.getPuertoTotem();
         this.registroTotem = registroTotem;
     }
 

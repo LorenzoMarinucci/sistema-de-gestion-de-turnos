@@ -32,10 +32,10 @@ public class ServidorCentral {
                     new FilaDeEsperaPQ(configuracionFilaDeEspera), servicioVisualizacion);
             ListenerEmpleado listenerEmpleado = new ListenerEmpleado(
                     servicioEspera,
-                    configuracionComunicacionServer.getPuertoEmpleado());
+                    configuracionComunicacionServer);
             ListenerTotem listenerTotem = new ListenerTotem(
                     servicioEspera,
-                    configuracionComunicacionServer.getPuertoTotem());
+                    configuracionComunicacionServer);
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
         } catch (JAXBException | UnknownHostException e) {

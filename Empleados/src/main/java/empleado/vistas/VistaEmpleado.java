@@ -7,7 +7,7 @@ import dependencias.atencion.Atencion;
 public interface VistaEmpleado {
 	
 	void cancelarAtencion();
-	void confirmarAtencion();
+	void confirmarAtencion(Atencion atencion);
 	void finalizarAtencion();
 	void asignarAtencion(Atencion atencion);
 	void anularAtencion();

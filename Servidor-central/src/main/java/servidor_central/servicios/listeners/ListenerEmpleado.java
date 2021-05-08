@@ -3,6 +3,7 @@ package servidor_central.servicios.listeners;
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
+import servidor_central.configuracion.ConfiguracionComunicacionServer;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,12 +16,12 @@ public class ListenerEmpleado extends Listener {
     private Logger log = Logger.getLogger("log.server.listenerTotem");
     private OperacionesEmpleado operacionesEmpleado;
 
-    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer port) {
-        super(port);
+    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, ConfiguracionComunicacionServer configuracionComunicacionServer) {
+        this.port = configuracionComunicacionServer.getPuertoEmpleado();
         this.operacionesEmpleado = operacionesEmpleado;
     }
 
-    public void comunicacionEmpleados() {
+    private void comunicacionEmpleados() {
         new Thread(() -> {
             try {
                 ServerSocket s = new ServerSocket(port);

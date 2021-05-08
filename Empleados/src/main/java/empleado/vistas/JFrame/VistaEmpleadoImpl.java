@@ -313,8 +313,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     }
 
     @Override
-    public void confirmarAtencion() {
-        this.txtFieldStatus.setText("CONFIRMADA");
+    public void confirmarAtencion(Atencion atencion) {
+        this.txtFieldStatus.setText(atencion.getEstado().toString());
         this.btnAnular.setEnabled(false);
         this.btnCancelar.setEnabled(false);
         this.btnConfirmar.setEnabled(false);

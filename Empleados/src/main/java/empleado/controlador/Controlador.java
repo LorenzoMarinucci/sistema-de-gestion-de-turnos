@@ -53,7 +53,7 @@ public class Controlador implements ActionListener {
                 log.info("SOLICITUD DE CONFIRMACIÓN DE ATENCIÓN");
                 atencion = operacionesEmpleado.confirmarAtencion(sesion.getAtencion());
                 sesion.setAtencion(atencion);
-                vistaEmpleado.confirmarAtencion();
+                vistaEmpleado.confirmarAtencion(atencion);
             }
         } catch (Exception exception) {
             log.info(exception.getMessage());
