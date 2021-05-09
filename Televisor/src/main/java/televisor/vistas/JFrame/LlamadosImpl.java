@@ -124,8 +124,8 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	@Override
 	public void quitarLlamado(Integer posicion) {
 		for (int i = posicion; i < lugaresTelevisor - 1; i++) {
-			textFieldsDNI.get(posicion).setText(textFieldsDNI.get(posicion + 1).getText());
-			textFieldsBox.get(posicion).setText(textFieldsDNI.get(posicion + 1).getText());
+			textFieldsDNI.get(i).setText(textFieldsDNI.get(i + 1).getText());
+			textFieldsBox.get(i).setText(textFieldsBox.get(i + 1).getText());
 		}
 		textFieldsDNI.get(lugaresTelevisor - 1).setText("");
 		textFieldsBox.get(lugaresTelevisor - 1).setText("");
