@@ -3,7 +3,7 @@ package dependencias.atencion;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class Atencion implements Serializable {
@@ -12,11 +12,11 @@ public class Atencion implements Serializable {
     private Tipo tipo;
     private Integer box;
     private Estado estado;
-    private LocalDate llegada;
+    private Date llegada;
 
     public Atencion(Integer DNI) {
         this.DNI = DNI;
         this.tipo = Tipo.NUEVA;
-        this.llegada = LocalDate.now();
+        this.llegada = new Date();
     }
 }

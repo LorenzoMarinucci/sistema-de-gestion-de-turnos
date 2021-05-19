@@ -22,11 +22,13 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
         fila = new PriorityQueue<>((Atencion atencion1, Atencion atencion2) -> {
             Integer prioridad1 = prioridades.getOrDefault(atencion1.getTipo().toString(), 0);
             Integer prioridad2 = prioridades.getOrDefault(atencion2.getTipo().toString(), 0);
+            System.out.println(prioridad1);
+            System.out.println(prioridad2);
             if (prioridad1 > prioridad2)
-                return 1;
-            else if (prioridad2 > prioridad1)
                 return -1;
-            else if (atencion1.getLlegada().isBefore(atencion2.getLlegada()))
+            else if (prioridad2 > prioridad1)
+                return 1;
+            else if (atencion1.getLlegada().before(atencion2.getLlegada()))
                 return -1;
             else
                 return 1;
