@@ -23,7 +23,7 @@ public class EmpleadoApp {
 		try {
 			ConfiguracionComunicacionImpl configuracionComunicacionEmpleado = cargarConfiguracionComunicacion();
 			ConfiguracionSesionImpl configuracionSesionEmpleado = cargarConfiguracionSesion();
-			Controlador controlador = new Controlador(new VistaEmpleadoImpl(),
+			Controlador controlador = new Controlador(new VistaEmpleadoImpl(configuracionSesionEmpleado.getBox()),
 					new ComunicacionOperaciones(InetAddress.getLocalHost().getHostAddress(),
 							configuracionComunicacionEmpleado),
 					new SesionImpl(configuracionSesionEmpleado));
