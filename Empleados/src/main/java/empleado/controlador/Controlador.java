@@ -22,6 +22,7 @@ public class Controlador implements ActionListener {
         this.sesion = sesion;
         this.operacionesEmpleado = operacionesEmpleado;
         vistaEmpleado.setActionListener(this);
+        vistaEmpleado.inicializarVista(sesion);
     }
 
     @Override

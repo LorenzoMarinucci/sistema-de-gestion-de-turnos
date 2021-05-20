@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import dependencias.atencion.Atencion;
+import empleado.vistas.Sesion;
 import empleado.vistas.VistaEmpleado;
 
 import java.awt.GridLayout;
@@ -30,6 +31,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     private JButton btnAnular;
     private ActionListener actionListener;
     private JTextField txtMensaje;
+    private JTextField textFieldNroBox;
 
     public VistaEmpleadoImpl() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -268,6 +270,13 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         txtMensaje.setBorder(null);
         txtMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
         txtMensaje.setEditable(false);
+        
+        textFieldNroBox = new JTextField();
+        textFieldNroBox.setEditable(false);
+        textFieldNroBox.setBackground(new Color(0, 191, 255));
+        container.add(textFieldNroBox, BorderLayout.NORTH);
+        textFieldNroBox.setColumns(10);
+        textFieldNroBox.setBorder(null);
 
         this.setVisible(true);
     }
@@ -352,4 +361,9 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         this.btnSiguiente.setEnabled(true);
         this.txtMensaje.setText("");
     }
+
+	@Override
+	public void inicializarVista(Sesion sesion) {
+		this.textFieldNroBox.setText("Box: " + sesion.getNumeroDeBox());
+	}
 }
