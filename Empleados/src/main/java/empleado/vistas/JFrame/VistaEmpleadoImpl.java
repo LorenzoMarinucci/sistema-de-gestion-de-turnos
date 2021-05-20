@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import dependencias.atencion.Atencion;
-import empleado.vistas.Sesion;
+import empleado.sesion.Sesion;
 import empleado.vistas.VistaEmpleado;
 
 import java.awt.GridLayout;
@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.sql.SQLClientInfoException;
 
 public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmpleado {
 
@@ -277,6 +278,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         container.add(textFieldNroBox, BorderLayout.NORTH);
         textFieldNroBox.setColumns(10);
         textFieldNroBox.setBorder(null);
+        textFieldNroBox.setHorizontalAlignment(SwingConstants.CENTER);
+        textFieldNroBox.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 25));
 
         this.setVisible(true);
     }
