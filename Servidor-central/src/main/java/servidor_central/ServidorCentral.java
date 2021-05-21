@@ -5,6 +5,8 @@ import servidor_central.comunicacion.ComunicacionVisualizacion;
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
 import servidor_central.espera.queue.FilaDeEsperaPQ;
+import servidor_central.estado.EstadoServidor;
+import servidor_central.estado.EstadoServidorImpl;
 import servidor_central.servicios.ServicioEsperaImpl;
 import servidor_central.servicios.listeners.ListenerEmpleado;
 import servidor_central.servicios.listeners.ListenerTotem;
@@ -29,13 +31,14 @@ public class ServidorCentral {
             Map<String, Integer> prioridades = configuracionFilaDeEspera.getPrioridades();
             ServicioVisualizacion servicioVisualizacion = new ComunicacionVisualizacion(InetAddress.getLocalHost().getHostAddress(), configuracionComunicacionServer);
             ServicioEsperaImpl servicioEspera = new ServicioEsperaImpl(
-                    new FilaDeEsperaPQ(configuracionFilaDeEspera), servicioVisualizacion);
+                    new FilaDeEsperaPQ(configuracionFilaDeEspera), servicioVisualizacion, configuracionComunicacionServer.getPrimario());
+            EstadoServidor estadoServidor = new EstadoServidorImpl(configuracionComunicacionServer);
             ListenerEmpleado listenerEmpleado = new ListenerEmpleado(
                     servicioEspera,
-                    configuracionComunicacionServer);
+                    configuracionComunicacionServer, estadoServidor);
             ListenerTotem listenerTotem = new ListenerTotem(
                     servicioEspera,
-                    configuracionComunicacionServer);
+                    configuracionComunicacionServer, estadoServidor);
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
         } catch (JAXBException | UnknownHostException e) {

@@ -9,15 +9,18 @@ import empleado.configuracion.ConfiguracionComunicacion;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class ComunicacionOperaciones implements OperacionesEmpleado {
 
     private String host;
-    private Integer port;
+    private Integer portPrimario;
+    private List<Integer> portsSecundarios;
 
     public ComunicacionOperaciones(String host, ConfiguracionComunicacion configuracionComunicacion) {
         this.host = host;
-        this.port = configuracionComunicacion.getPuerto();
+        this.portPrimario = configuracionComunicacion.getPuertoPrimario();
+        this.portsSecundarios = configuracionComunicacion.getPuertosSecundarios();
     }
 
     @Override

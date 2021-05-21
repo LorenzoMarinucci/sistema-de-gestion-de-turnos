@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuracion>
-    <puerto>10401</puerto>
+    <primario>10500</primario>
+    <secundarios>
+        <integer>10501</integer>
+        <integer>10502</integer>
+    </secundarios>
 </configuracion>

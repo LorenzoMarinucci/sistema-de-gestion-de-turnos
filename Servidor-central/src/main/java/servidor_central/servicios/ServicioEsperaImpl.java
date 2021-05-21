@@ -6,19 +6,26 @@ import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.totem.Registro;
+import lombok.Getter;
+import lombok.Setter;
 import servidor_central.espera.FilaDeEspera;
 
 import java.util.logging.Logger;
 
 public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado {
 
+    @Getter
+    @Setter
+    private Boolean actualizarVisualizacion;
+
     private static final Logger log = Logger.getLogger("log.totem.servicioEspera");
     private ServicioVisualizacion servicioVisualizacion;
     private FilaDeEspera filaDeEspera;
 
-    public ServicioEsperaImpl(FilaDeEspera filaDeEspera, ServicioVisualizacion servicioVisualizacion) {
+    public ServicioEsperaImpl(FilaDeEspera filaDeEspera, ServicioVisualizacion servicioVisualizacion, Boolean actualizarVisualizacion) {
         this.filaDeEspera = filaDeEspera;
         this.servicioVisualizacion = servicioVisualizacion;
+        this.actualizarVisualizacion = actualizarVisualizacion;
     }
 
     @Override
@@ -28,7 +35,8 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado {
         atencion = filaDeEspera.sacarNuevaAtencion();
         atencion.setEstado(Estado.ASIGNADA);
         atencion.setBox(box);
-        servicioVisualizacion.mostrarAtencion(atencion);
+        if (actualizarVisualizacion)
+            servicioVisualizacion.mostrarAtencion(atencion);
         return atencion;
     }
 
@@ -37,13 +45,15 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado {
         atencion.setEstado(Estado.CANCELADA);
         log.info("CANCELANDO SOLICITUD DE ATENCIÓN");
         filaDeEspera.reingresarAtencion(atencion);
-        servicioVisualizacion.quitarAtencion(atencion);
+        if (actualizarVisualizacion)
+            servicioVisualizacion.quitarAtencion(atencion);
     }
 
     @Override
     public void anularAtencion(Atencion atencion) {
         atencion.setEstado(Estado.ANULADA);
-        servicioVisualizacion.quitarAtencion(atencion);
+        if (actualizarVisualizacion)
+            servicioVisualizacion.quitarAtencion(atencion);
     }
 
     @Override
@@ -54,7 +64,8 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado {
     @Override
     public Atencion confirmarAtencion(Atencion atencion) {
         atencion.setEstado(Estado.CONFIRMADA);
-        servicioVisualizacion.quitarAtencion(atencion);
+        if (actualizarVisualizacion)
+            servicioVisualizacion.quitarAtencion(atencion);
         return atencion;
     }
 

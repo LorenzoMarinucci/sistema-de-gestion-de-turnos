@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuracionComunicacion>
-    <puerto>10400</puerto>
+    <primario>10400</primario>
+    <secundarios>
+        <integer>10401</integer>
+        <integer>10402</integer>
+    </secundarios>
 </configuracionComunicacion>

@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @XmlRootElement(name = "configuracion")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,7 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ConfiguracionTotemImpl implements ConfiguracionTotem {
 
     @Getter
-    @XmlElement(name = "puerto")
-    private Integer puerto;
+    @XmlElement(name = "primario")
+    private Integer puertoPrimario;
+
+    @Getter
+    @XmlElement(name = "secundarios")
+    private List<Integer> puertosSecundarios;
 
 }
