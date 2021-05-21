@@ -34,7 +34,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     private JTextField txtMensaje;
     private JTextField textFieldNroBox;
 
-    public VistaEmpleadoImpl() {
+    public VistaEmpleadoImpl(Integer box) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 583, 320);
         container = new JPanel();
@@ -280,6 +280,7 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         textFieldNroBox.setBorder(null);
         textFieldNroBox.setHorizontalAlignment(SwingConstants.CENTER);
         textFieldNroBox.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 25));
+        textFieldNroBox.setText("Box: " + box.toString());
 
         this.setVisible(true);
     }
@@ -365,8 +366,4 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         this.txtMensaje.setText("");
     }
 
-	@Override
-	public void inicializarVista(Sesion sesion) {
-		this.textFieldNroBox.setText("Box: " + sesion.getNumeroDeBox());
-	}
 }

@@ -14,6 +14,5 @@ public interface VistaEmpleado {
 	void anularAtencion();
 	void setActionListener(ActionListener actionListener);
 	void informarMensaje(String mensaje);
-	void inicializarVista(Sesion sesion);
 
 }
