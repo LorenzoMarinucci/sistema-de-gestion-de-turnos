@@ -1,8 +1,11 @@
+package televisor;
+
 import televisor.configuracion.XML.ConfiguracionComunicacionImpl;
 import televisor.configuracion.XML.ConfiguracionTelevisorImpl;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import televisor.listeners.ListenerVisualizacion;
-import televisor.servicios.ServicioVisualizacionImpl;
+import televisor.listeners.ListenerVisualizacionFactory;
+import televisor.servicios.ServicioVisualizacionFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,9 +21,10 @@ public class TelevisorApp {
         try {
             ConfiguracionComunicacionImpl configuracionComunicacion = cargarConfiguracionComunicacion();
             ConfiguracionTelevisorImpl configuracionTelevisor = cargarConfiguracionTelevisor();
-            ServicioVisualizacion servicioVisualizacion = new ServicioVisualizacionImpl(configuracionTelevisor);
-            ListenerVisualizacion listenerVisualizacion = new ListenerVisualizacion(
-                    configuracionComunicacion, servicioVisualizacion);
+            ServicioVisualizacion servicioVisualizacion = ServicioVisualizacionFactory.getInstance().crearServicioVisualizacion(configuracionTelevisor);
+            ListenerVisualizacion listenerVisualizacion = ListenerVisualizacionFactory.getInstance().crearListenerVisualizacion(
+                    configuracionComunicacion, servicioVisualizacion
+            );
             listenerVisualizacion.iniciar();
         } catch (JAXBException e) {
             e.printStackTrace();

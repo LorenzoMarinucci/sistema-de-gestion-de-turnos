@@ -15,37 +15,40 @@ public class ComunicacionOperaciones implements OperacionesEmpleado {
 
     private String host;
     private Integer portPrimario;
-    private List<Integer> portsSecundarios;
+    private Integer portSecundario;
+    private SolicitudEmpleadoFactory solicitudEmpleadoFactory;
 
-    public ComunicacionOperaciones(String host, ConfiguracionComunicacion configuracionComunicacion) {
+    public ComunicacionOperaciones(String host, Integer portPrimario, Integer portSecundario,
+                                   SolicitudEmpleadoFactory solicitudEmpleadoFactory) {
         this.host = host;
-        this.portPrimario = configuracionComunicacion.getPuertoPrimario();
-        this.portsSecundarios = configuracionComunicacion.getPuertosSecundarios();
+        this.portPrimario = portPrimario;
+        this.portSecundario = portSecundario;
+        this.solicitudEmpleadoFactory = solicitudEmpleadoFactory;
     }
 
     @Override
     public Atencion solicitarAtencion(Integer box) throws SolicitudException {
-        return enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudAsignacion(box));
+        return enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudAsignacion(box));
     }
 
     @Override
     public void cancelarAtencion(Atencion atencion) throws SolicitudException {
-        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudCancelacion(atencion));
+        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudCancelacion(atencion));
     }
 
     @Override
     public void anularAtencion(Atencion atencion) throws SolicitudException {
-        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudAnular(atencion));
+        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudAnular(atencion));
     }
 
     @Override
     public Atencion confirmarAtencion(Atencion atencion) throws SolicitudException {
-        return enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion));
+        return enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion));
     }
 
     @Override
     public void finalizarAtencion(Atencion atencion) throws SolicitudException {
-        enviarMensaje(SolicitudEmpleadoFactory.nuevaSolicitudFinalizar(atencion));
+        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudFinalizar(atencion));
     }
 
     private Atencion enviarMensaje(SolicitudEmpleado solicitud) throws SolicitudException{

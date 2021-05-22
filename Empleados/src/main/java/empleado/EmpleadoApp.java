@@ -1,9 +1,13 @@
 package empleado;
 
+import dependencias.mensajes.empleado.SolicitudEmpleadoFactory;
+import dependencias.mensajes.empleado.SolicitudEmpleadoFactoryImpl;
 import empleado.comunicacion.ComunicacionOperaciones;
+import empleado.comunicacion.ComunicacionOperacionesFactory;
 import empleado.configuracion.XML.ConfiguracionComunicacionImpl;
 import empleado.configuracion.XML.ConfiguracionSesionImpl;
 import empleado.controlador.Controlador;
+import empleado.sesion.SesionFactory;
 import empleado.sesion.SesionImpl;
 import empleado.vistas.JFrame.VistaEmpleadoImpl;
 
@@ -24,9 +28,9 @@ public class EmpleadoApp {
 			ConfiguracionComunicacionImpl configuracionComunicacionEmpleado = cargarConfiguracionComunicacion();
 			ConfiguracionSesionImpl configuracionSesionEmpleado = cargarConfiguracionSesion();
 			Controlador controlador = new Controlador(new VistaEmpleadoImpl(configuracionSesionEmpleado.getBox()),
-					new ComunicacionOperaciones(InetAddress.getLocalHost().getHostAddress(),
-							configuracionComunicacionEmpleado),
-					new SesionImpl(configuracionSesionEmpleado));
+					ComunicacionOperacionesFactory.getInstance().crearComunicacionOperaciones(InetAddress.getLocalHost().getHostAddress(),
+							configuracionComunicacionEmpleado, SolicitudEmpleadoFactoryImpl.getInstance()),
+					SesionFactory.getInstance().crearSesion(configuracionSesionEmpleado));
 		} catch (JAXBException | UnknownHostException e) {
 			e.printStackTrace();
 		}

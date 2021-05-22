@@ -14,12 +14,15 @@ public class ComunicacionRegistro implements RegistroTotem {
 
     private String host;
     private Integer portPrimario;
-    private List<Integer> portsSecundarios;
+    private Integer portSecundario;
+    private RegistroFactory registroFactory;
 
-    public ComunicacionRegistro(String host, ConfiguracionTotem configuracionTotem) {
+    public ComunicacionRegistro(String host, Integer portPrimario,
+                                Integer portSecundario, RegistroFactory registroFactory) {
         this.host = host;
-        this.portPrimario = configuracionTotem.getPuertoPrimario();
-        this.portsSecundarios = configuracionTotem.getPuertosSecundarios();
+        this.portPrimario = portPrimario;
+        this.portSecundario = portSecundario;
+        this.registroFactory = registroFactory;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class ComunicacionRegistro implements RegistroTotem {
             establecerPrimario();
             informe = enviarDNI(DNI);
         } catch (Exception e) {
-            informe = RegistroFactory.nuevoRegistroFallido("Ha habido un fallo al establer la conexión con el servidor.");
+            informe = registroFactory.nuevoRegistroFallido("Ha habido un fallo al establer la conexión con el servidor.");
         }
         return informe;
     }

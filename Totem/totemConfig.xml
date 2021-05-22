@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuracion>
     <primario>10500</primario>
-    <secundarios>
-        <integer>10501</integer>
-        <integer>10502</integer>
-    </secundarios>
+    <secundario>10501</secundario>
 </configuracion>

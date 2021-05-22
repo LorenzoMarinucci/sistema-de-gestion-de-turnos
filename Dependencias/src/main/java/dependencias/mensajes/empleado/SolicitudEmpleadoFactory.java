@@ -2,26 +2,16 @@ package dependencias.mensajes.empleado;
 
 import dependencias.atencion.Atencion;
 
-public class SolicitudEmpleadoFactory {
+public interface SolicitudEmpleadoFactory {
 
-    public static SolicitudEmpleado nuevaSolicitudAsignacion(Integer box) {
-        return new SolicitudEmpleado("ASIGNAR", box);
-    }
+    public SolicitudEmpleado nuevaSolicitudAsignacion(Integer box, Boolean actualizarTelevisor);
 
-    public static SolicitudEmpleado nuevaSolicitudCancelacion(Atencion atencion) {
-        return new SolicitudEmpleado("CANCELAR", atencion);
-    }
+    public SolicitudEmpleado nuevaSolicitudCancelacion(Atencion atencion, Boolean actualizarTelevisor);
 
-    public static SolicitudEmpleado nuevaSolicitudConfirmar(Atencion atencion) {
-        return new SolicitudEmpleado("CONFIRMAR", atencion);
-    }
+    public SolicitudEmpleado nuevaSolicitudConfirmar(Atencion atencion, Boolean actualizarTelevisor);
 
-    public static SolicitudEmpleado nuevaSolicitudFinalizar(Atencion atencion) {
-        return new SolicitudEmpleado("FINALIZAR", atencion);
-    }
+    public SolicitudEmpleado nuevaSolicitudFinalizar(Atencion atencion);
 
-    public static SolicitudEmpleado nuevaSolicitudAnular(Atencion atencion) {
-        return new SolicitudEmpleado("ANULAR", atencion);
-    }
+    public SolicitudEmpleado nuevaSolicitudAnular(Atencion atencion, Boolean actualizarTelevisor);
 
 }

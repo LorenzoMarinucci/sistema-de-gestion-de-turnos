@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ConfiguracionComunicacion {
 
-    Integer getPuertoPrimario();
-    List<Integer> getPuertosSecundarios();
+    Integer getPrimario();
+    Integer getSecundario();
 
 }

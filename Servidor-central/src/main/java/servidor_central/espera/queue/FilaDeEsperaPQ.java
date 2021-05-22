@@ -16,9 +16,11 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
     private Map<String, Integer> prioridades;
     private Integer tamañoMaximo;
     private Queue<Atencion> fila;
+    private RegistroFactory registroFactory;
 
-    public FilaDeEsperaPQ(ConfiguracionFilaDeEspera configuracionFilaDeEspera) {
-        this.tamañoMaximo = configuracionFilaDeEspera.getTamañoFila();
+    public FilaDeEsperaPQ(Integer tamañoMaximo, Map<String, Integer> prioridades, RegistroFactory registroFactory) {
+        this.tamañoMaximo = tamañoMaximo;
+        this.registroFactory = registroFactory;
         fila = new PriorityQueue<>((Atencion atencion1, Atencion atencion2) -> {
             Integer prioridad1 = prioridades.getOrDefault(atencion1.getTipo().toString(), 0);
             Integer prioridad2 = prioridades.getOrDefault(atencion2.getTipo().toString(), 0);
@@ -31,7 +33,7 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
             else
                 return 1;
         });
-        this.prioridades = configuracionFilaDeEspera.getPrioridades();
+        this.prioridades = prioridades;
     }
 
     @Override
@@ -39,13 +41,13 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
         Registro registro;
         synchronized (this.fila) {
             if (fila.size() == tamañoMaximo)
-                registro = RegistroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de espera.");
+                registro = registroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de espera.");
             else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
-                registro = RegistroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en la fila de espera.");
+                registro = registroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en la fila de espera.");
             } else {
                 Atencion atencion = new Atencion(DNI);
                 fila.add(atencion);
-                registro = RegistroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
+                registro = registroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
                 this.fila.notifyAll();
             }
             return registro;

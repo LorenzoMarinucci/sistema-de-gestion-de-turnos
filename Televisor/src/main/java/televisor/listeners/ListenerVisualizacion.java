@@ -17,10 +17,10 @@ public class ListenerVisualizacion {
     private Integer puerto;
     private ServicioVisualizacion servicioVisualizacion;
 
-    public ListenerVisualizacion(ConfiguracionComunicacionTelevisor configuracionComunicacion, ServicioVisualizacion servicioVisualizacion) {
-        this.puerto = configuracionComunicacion.getPuerto();
+    public ListenerVisualizacion(Integer puerto, ServicioVisualizacion servicioVisualizacion) {
+        this.puerto = puerto;
         this.servicioVisualizacion = servicioVisualizacion;
-        servicioVisualizacion.inicializar();
+        //servicioVisualizacion.inicializar();
     }
 
     public void comunicacionServidor() {

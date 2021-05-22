@@ -1,7 +1,6 @@
 package empleado.sesion;
 
 import dependencias.atencion.Atencion;
-import empleado.configuracion.ConfiguracionSesion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +13,8 @@ public class SesionImpl implements Sesion {
     @Getter
     private Atencion atencion = null;
 
-    public SesionImpl(ConfiguracionSesion configuracionSesion) {
-        this.numeroDeBox = configuracionSesion.getBox();
+    public SesionImpl(Integer numeroDeBox) {
+        this.numeroDeBox = numeroDeBox;
     }
 
 }

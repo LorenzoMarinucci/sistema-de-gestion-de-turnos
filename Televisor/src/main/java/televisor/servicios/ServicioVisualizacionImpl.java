@@ -18,8 +18,9 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	private List<Atencion> atencionesEnEspera = new ArrayList<>();
 	private VistaLlamados UILlamados;
 	
-	public ServicioVisualizacionImpl(ConfiguracionTelevisor configuracionTelevisor) {
-		this.atencionesMaximasTelevisor = configuracionTelevisor.getLugares();
+	public ServicioVisualizacionImpl(VistaLlamados UILlamados, Integer atencionesMaximasTelevisor) {
+		this.UILlamados = UILlamados;
+		this.atencionesMaximasTelevisor = atencionesMaximasTelevisor;
 	}
 
 	@Synchronized
@@ -55,8 +56,8 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 		}
 	}
 	
-	public void inicializar() {
+	/* public void inicializar() {
 		UILlamados = new LlamadosImpl(atencionesMaximasTelevisor);
-	}
+	} */
 
 }

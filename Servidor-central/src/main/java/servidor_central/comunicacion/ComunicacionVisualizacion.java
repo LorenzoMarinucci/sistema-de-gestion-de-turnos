@@ -15,10 +15,12 @@ public class ComunicacionVisualizacion implements ServicioVisualizacion {
 
     private String host;
     private Integer port;
+    private SolicitudTelevisorFactory solicitudTelevisorFactory;
 
-    public ComunicacionVisualizacion(String host, ConfiguracionComunicacionServer configuracionComunicacionServer) {
+    public ComunicacionVisualizacion(String host, Integer port, SolicitudTelevisorFactory solicitudTelevisorFactory) {
         this.host = host;
-        this.port = configuracionComunicacionServer.getPuertoTelevisor();
+        this.port = port;
+        this.solicitudTelevisorFactory = solicitudTelevisorFactory;
     }
 
     private void enviarMensaje(SolicitudTelevisor solicitudTelevisor) {
@@ -38,16 +40,16 @@ public class ComunicacionVisualizacion implements ServicioVisualizacion {
 
     @Override
     public void mostrarAtencion(Atencion atencion) {
-        enviarMensaje(SolicitudTelevisorFactory.nuevaSolicitudMostrar(atencion));
+        enviarMensaje(solicitudTelevisorFactory.nuevaSolicitudMostrar(atencion));
     }
 
     @Override
     public void quitarAtencion(Atencion atencion) {
-        enviarMensaje(SolicitudTelevisorFactory.nuevaSolicitudQuitar(atencion));
+        enviarMensaje(solicitudTelevisorFactory.nuevaSolicitudQuitar(atencion));
     }
 
-    @Override
+   /* @Override
     public void inicializar() {
-        enviarMensaje(SolicitudTelevisorFactory.nuevaSolicitudInicializar());
-    }
+        enviarMensaje(solicitudTelevisorFactory.nuevaSolicitudInicializar());
+    }*/
 }

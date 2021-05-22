@@ -1,15 +1,21 @@
 package servidor_central;
 
 import dependencias.interfaces.televisor.ServicioVisualizacion;
+import dependencias.mensajes.televisor.SolicitudTelevisorFactory;
+import dependencias.mensajes.televisor.SolicitudTelevisorFactoryImpl;
+import dependencias.mensajes.totem.RegistroFactoryImpl;
 import servidor_central.comunicacion.ComunicacionVisualizacion;
+import servidor_central.comunicacion.ComunicacionVisualizacionFactory;
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
-import servidor_central.espera.queue.FilaDeEsperaPQ;
+import servidor_central.espera.queue.FilaDeEsperaFactory;
 import servidor_central.estado.EstadoServidor;
 import servidor_central.estado.EstadoServidorImpl;
 import servidor_central.servicios.ServicioEsperaImpl;
-import servidor_central.servicios.listeners.ListenerEmpleado;
-import servidor_central.servicios.listeners.ListenerTotem;
+import servidor_central.servicios.listeners.empleado.ListenerEmpleado;
+import servidor_central.servicios.listeners.empleado.ListenerEmpleadoFactory;
+import servidor_central.servicios.listeners.totem.ListenerTotem;
+import servidor_central.servicios.listeners.totem.ListenerTotemFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -29,16 +35,19 @@ public class ServidorCentral {
             ConfiguracionComunicacionServerImpl configuracionComunicacionServer = cargarConfiguracionComunicacion();
             ConfiguracionFilaDeEsperaImpl configuracionFilaDeEspera = cargarConfiguracionFilaDeEspera();
             Map<String, Integer> prioridades = configuracionFilaDeEspera.getPrioridades();
-            ServicioVisualizacion servicioVisualizacion = new ComunicacionVisualizacion(InetAddress.getLocalHost().getHostAddress(), configuracionComunicacionServer);
+            ServicioVisualizacion servicioVisualizacion = ComunicacionVisualizacionFactory.getInstance().crearComunicacionVisualizacion(
+                    InetAddress.getLocalHost().getHostAddress(), configuracionComunicacionServer, SolicitudTelevisorFactoryImpl.getInstance()
+            );
             ServicioEsperaImpl servicioEspera = new ServicioEsperaImpl(
-                    new FilaDeEsperaPQ(configuracionFilaDeEspera), servicioVisualizacion, configuracionComunicacionServer.getPrimario());
+                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, RegistroFactoryImpl.getInstance()),
+                    servicioVisualizacion, configuracionComunicacionServer.getPrimario());
             EstadoServidor estadoServidor = new EstadoServidorImpl(configuracionComunicacionServer);
-            ListenerEmpleado listenerEmpleado = new ListenerEmpleado(
-                    servicioEspera,
-                    configuracionComunicacionServer, estadoServidor);
-            ListenerTotem listenerTotem = new ListenerTotem(
-                    servicioEspera,
-                    configuracionComunicacionServer, estadoServidor);
+            ListenerEmpleado listenerEmpleado = ListenerEmpleadoFactory.getInstance().crearListenerEmpleado(
+                    servicioEspera, configuracionComunicacionServer, estadoServidor
+            );
+            ListenerTotem listenerTotem = ListenerTotemFactory.getInstance().crearListenerTotem(
+                    servicioEspera, configuracionComunicacionServer, estadoServidor
+            );
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
         } catch (JAXBException | UnknownHostException e) {

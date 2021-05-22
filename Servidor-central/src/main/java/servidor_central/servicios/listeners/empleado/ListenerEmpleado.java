@@ -1,10 +1,11 @@
-package servidor_central.servicios.listeners;
+package servidor_central.servicios.listeners.empleado;
 
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;
 import servidor_central.estado.EstadoServidor;
+import servidor_central.servicios.listeners.Listener;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,8 +18,8 @@ public class ListenerEmpleado extends Listener {
     private Logger log = Logger.getLogger("log.server.listenerTotem");
     private OperacionesEmpleado operacionesEmpleado;
 
-    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, ConfiguracionComunicacionServer configuracionComunicacionServer, EstadoServidor estadoServidor) {
-        this.portPrimario = configuracionComunicacionServer.getPuertoEmpleado();
+    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer portPrimario, EstadoServidor estadoServidor) {
+        this.portPrimario = portPrimario;
         this.operacionesEmpleado = operacionesEmpleado;
         this.estadoServidor = estadoServidor;
     }

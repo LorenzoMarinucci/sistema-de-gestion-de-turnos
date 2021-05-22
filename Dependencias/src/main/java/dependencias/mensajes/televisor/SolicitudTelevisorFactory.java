@@ -2,18 +2,12 @@ package dependencias.mensajes.televisor;
 
 import dependencias.atencion.Atencion;
 
-public class SolicitudTelevisorFactory {
+public interface SolicitudTelevisorFactory {
 
-    public static SolicitudTelevisor  nuevaSolicitudMostrar(Atencion atencion) {
-        return new SolicitudTelevisor("MOSTRAR", atencion);
-    }
+    public SolicitudTelevisor nuevaSolicitudMostrar(Atencion atencion);
 
-    public static SolicitudTelevisor nuevaSolicitudQuitar(Atencion atencion) {
-        return new SolicitudTelevisor("QUITAR", atencion);
-    }
+    public SolicitudTelevisor nuevaSolicitudQuitar(Atencion atencion);
 
-    public static SolicitudTelevisor nuevaSolicitudInicializar() {
-        return new SolicitudTelevisor("INICIAR", null);
-    }
+    //public SolicitudTelevisor nuevaSolicitudInicializar();
 
 }
