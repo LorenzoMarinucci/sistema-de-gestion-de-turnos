@@ -6,6 +6,5 @@ public interface ServicioVisualizacion {
 
     void mostrarAtencion(Atencion atencion);
     void quitarAtencion(Atencion atencion);
-    //void inicializar();
 
 }

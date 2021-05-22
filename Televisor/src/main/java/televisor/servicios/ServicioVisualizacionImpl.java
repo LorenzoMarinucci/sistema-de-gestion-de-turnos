@@ -55,9 +55,5 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 			}
 		}
 	}
-	
-	/* public void inicializar() {
-		UILlamados = new LlamadosImpl(atencionesMaximasTelevisor);
-	} */
 
 }

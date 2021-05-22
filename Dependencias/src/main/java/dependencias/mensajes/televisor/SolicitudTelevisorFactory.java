@@ -8,6 +8,4 @@ public interface SolicitudTelevisorFactory {
 
     public SolicitudTelevisor nuevaSolicitudQuitar(Atencion atencion);
 
-    //public SolicitudTelevisor nuevaSolicitudInicializar();
-
 }

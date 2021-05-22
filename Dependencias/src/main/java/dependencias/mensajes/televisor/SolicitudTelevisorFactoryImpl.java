@@ -20,8 +20,4 @@ public class SolicitudTelevisorFactoryImpl implements SolicitudTelevisorFactory 
         return new SolicitudTelevisor("QUITAR", atencion);
     }
 
-    /* public SolicitudTelevisor nuevaSolicitudInicializar() {
-        return new SolicitudTelevisor("INICIAR", null);
-    } */
-
 }
