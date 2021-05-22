@@ -20,13 +20,12 @@ public class ListenerVisualizacion {
     public ListenerVisualizacion(Integer puerto, ServicioVisualizacion servicioVisualizacion) {
         this.puerto = puerto;
         this.servicioVisualizacion = servicioVisualizacion;
-        //servicioVisualizacion.inicializar();
     }
 
     public void comunicacionServidor() {
         new Thread(() -> {
             try {
-                ServerSocket s = new ServerSocket(10402);
+                ServerSocket s = new ServerSocket(puerto);
                 while (true) {
                     Socket socket = s.accept();
                     ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

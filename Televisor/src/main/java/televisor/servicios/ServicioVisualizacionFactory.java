@@ -1,6 +1,5 @@
 package televisor.servicios;
 
-import dependencias.interfaces.televisor.ServicioVisualizacion;
 import televisor.configuracion.ConfiguracionTelevisor;
 import televisor.vistas.JFrame.LlamadosImpl;
 

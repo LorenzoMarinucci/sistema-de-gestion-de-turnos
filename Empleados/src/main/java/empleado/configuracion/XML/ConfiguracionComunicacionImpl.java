@@ -17,10 +17,10 @@ public class ConfiguracionComunicacionImpl implements ConfiguracionComunicacion 
 
     @Getter
     @XmlElement(name = "primario")
-    private Integer puertoPrimario;
+    private Integer primario;
 
     @Getter
-    @XmlElement(name = "secundarios")
-    private List<Integer> puertosSecundarios;
+    @XmlElement(name = "secundario")
+    private Integer secundario;
 
 }

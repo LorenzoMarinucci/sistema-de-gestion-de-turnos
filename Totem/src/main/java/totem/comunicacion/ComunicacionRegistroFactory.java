@@ -17,8 +17,8 @@ public class ComunicacionRegistroFactory {
 
     public ComunicacionRegistro crearComunicacionRegistro(String host, RegistroFactory registroFactory,
                                                           ConfiguracionTotem configuracionTotem) {
-        return new ComunicacionRegistro(host, configuracionTotem.getPuertoPrimario(),
-                configuracionTotem.getPuertoSecundario(), registroFactory);
+        return new ComunicacionRegistro(host, configuracionTotem.getPrimario(),
+                configuracionTotem.getSecundario(), registroFactory);
     }
 
 }

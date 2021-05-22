@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ConfiguracionTotem {
 
-    Integer getPuertoPrimario();
-    Integer getPuertoSecundario();
+    Integer getPrimario();
+    Integer getSecundario();
 
 }

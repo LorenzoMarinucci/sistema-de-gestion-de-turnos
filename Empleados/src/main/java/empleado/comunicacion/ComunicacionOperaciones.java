@@ -28,22 +28,22 @@ public class ComunicacionOperaciones implements OperacionesEmpleado {
 
     @Override
     public Atencion solicitarAtencion(Integer box) throws SolicitudException {
-        return enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudAsignacion(box));
+        return enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudAsignacion(box, true));
     }
 
     @Override
     public void cancelarAtencion(Atencion atencion) throws SolicitudException {
-        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudCancelacion(atencion));
+        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudCancelacion(atencion, true));
     }
 
     @Override
     public void anularAtencion(Atencion atencion) throws SolicitudException {
-        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudAnular(atencion));
+        enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudAnular(atencion, true));
     }
 
     @Override
     public Atencion confirmarAtencion(Atencion atencion) throws SolicitudException {
-        return enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion));
+        return enviarMensaje(solicitudEmpleadoFactory.nuevaSolicitudConfirmar(atencion, true));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ComunicacionOperaciones implements OperacionesEmpleado {
 
     private Atencion enviarMensaje(SolicitudEmpleado solicitud) throws SolicitudException{
         try {
-            Socket socket = new Socket(host, port);
+            Socket socket = new Socket(host, portPrimario);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             out.writeObject(solicitud);

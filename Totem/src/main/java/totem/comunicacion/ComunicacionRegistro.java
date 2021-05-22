@@ -29,7 +29,7 @@ public class ComunicacionRegistro implements RegistroTotem {
     public Registro agregarAtencion(Integer DNI) {
         Registro informe = null;
         try {
-            establecerPrimario();
+            //establecerPrimario();
             informe = enviarDNI(DNI);
         } catch (Exception e) {
             informe = registroFactory.nuevoRegistroFallido("Ha habido un fallo al establer la conexión con el servidor.");
@@ -37,7 +37,7 @@ public class ComunicacionRegistro implements RegistroTotem {
         return informe;
     }
 
-    private void establecerPrimario() {
+    /*private void establecerPrimario() {
         Boolean respuesta;
         try {
             Socket socket = new Socket(host, portPrimario);
@@ -70,7 +70,7 @@ public class ComunicacionRegistro implements RegistroTotem {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private Registro enviarDNI(Integer DNI) throws IOException, ClassNotFoundException {
         Registro informe;

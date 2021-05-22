@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <comunicacionConfig>
-    <ouerto>10600</ouerto>
+    <puerto>10600</puerto>
 </comunicacionConfig>
