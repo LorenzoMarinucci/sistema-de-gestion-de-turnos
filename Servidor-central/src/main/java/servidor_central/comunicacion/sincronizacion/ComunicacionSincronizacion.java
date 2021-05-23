@@ -26,7 +26,7 @@ public class ComunicacionSincronizacion implements Sincronizacion {
     @Override
     public Iterator<Atencion> obtenerAtenciones() {
         Iterator<Atencion> iterator = null;
-        log.info("INICIANDO SINCRONIZACIÓN");
+        log.info("INICIANDO SINCRONIZACIÓN CON PUERTO " + this.port);
         try {
             Socket socket = new Socket();
             socket.connect(new InetSocketAddress(host, port), TIEMPO_ESPERA);
@@ -38,9 +38,9 @@ public class ComunicacionSincronizacion implements Sincronizacion {
             in.close();
             out.close();
             socket.close();
+            log.info("SINCRONIZACION FINALIZADA CON ÉXITO");
         } catch (Exception e) {
-            log.info("SINCRONIZACIÓN FALLIDA");
-            e.printStackTrace();
+            log.info("SINCRONIZACIÓN FALLIDA - ERROR DE CONEXIÓN");
             iterator = Collections.emptyIterator();
         }
         return iterator;
