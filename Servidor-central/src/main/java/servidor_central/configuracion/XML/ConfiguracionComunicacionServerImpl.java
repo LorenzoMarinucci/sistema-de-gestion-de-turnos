@@ -27,6 +27,11 @@ public class ConfiguracionComunicacionServerImpl implements ConfiguracionComunic
     private Integer puertoTelevisor;
 
     @Getter
-    @XmlElement(name = "primario")
-    public Boolean primario;
+    @XmlElement(name = "puertoSincronizacion")
+    public Integer puertoSincronizacion;
+
+    @Getter
+    @XmlElement(name = "puertoSincronizar")
+    public Integer puertoSincronizar;
+
 }

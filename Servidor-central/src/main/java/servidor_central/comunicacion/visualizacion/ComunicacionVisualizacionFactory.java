@@ -1,4 +1,4 @@
-package servidor_central.comunicacion;
+package servidor_central.comunicacion.visualizacion;
 
 import dependencias.mensajes.televisor.SolicitudTelevisorFactory;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;

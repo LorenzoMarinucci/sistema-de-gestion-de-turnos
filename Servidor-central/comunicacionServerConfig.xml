@@ -3,5 +3,6 @@
     <puertoEmpleados>10400</puertoEmpleados>
     <puertoTotem>10500</puertoTotem>
     <puertoTelevisor>10600</puertoTelevisor>
-    <primario>true</primario>
+    <puertoSincronizacion>10701</puertoSincronizacion>
+    <puertoSincronizar>10700</puertoSincronizar>
 </comunicacion>

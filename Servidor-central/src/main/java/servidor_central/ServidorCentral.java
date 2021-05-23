@@ -1,15 +1,20 @@
 package servidor_central;
 
+import dependencias.interfaces.filaDeEspera.Sincronizacion;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.televisor.SolicitudTelevisorFactoryImpl;
 import dependencias.mensajes.totem.RegistroFactoryImpl;
-import servidor_central.comunicacion.ComunicacionVisualizacionFactory;
+import servidor_central.comunicacion.sincronizacion.ComunicacionSincronizacionFactory;
+import servidor_central.comunicacion.visualizacion.ComunicacionVisualizacionFactory;
+import servidor_central.configuracion.ConfiguracionComunicacionServer;
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
 import servidor_central.espera.queue.FilaDeEsperaFactory;
 import servidor_central.servicios.ServicioEsperaImpl;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleado;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleadoFactory;
+import servidor_central.servicios.listeners.servidor.ListenerServidor;
+import servidor_central.servicios.listeners.servidor.ListenerServidorFactory;
 import servidor_central.servicios.listeners.totem.ListenerTotem;
 import servidor_central.servicios.listeners.totem.ListenerTotemFactory;
 
@@ -34,15 +39,18 @@ public class ServidorCentral {
             ServicioVisualizacion servicioVisualizacion = ComunicacionVisualizacionFactory.getInstance().crearComunicacionVisualizacion(
                     InetAddress.getLocalHost().getHostAddress(), configuracionComunicacionServer, SolicitudTelevisorFactoryImpl.getInstance()
             );
+            Sincronizacion sincronizacion = ComunicacionSincronizacionFactory.getInstance().crearComunicacionSincronizacion(configuracionComunicacionServer, InetAddress.getLocalHost().getHostAddress());
             ServicioEsperaImpl servicioEspera = new ServicioEsperaImpl(
-                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, RegistroFactoryImpl.getInstance()));
+                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, RegistroFactoryImpl.getInstance(), sincronizacion));
             ListenerEmpleado listenerEmpleado = ListenerEmpleadoFactory.getInstance().crearListenerEmpleado(
                     servicioEspera, configuracionComunicacionServer, servicioVisualizacion);
             ListenerTotem listenerTotem = ListenerTotemFactory.getInstance().crearListenerTotem(
                     servicioEspera, configuracionComunicacionServer
             );
+            ListenerServidor listenerServidor = ListenerServidorFactory.getInstance().crearListenerServidor(servicioEspera, configuracionComunicacionServer);
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
+            listenerServidor.iniciar();
         } catch (JAXBException | UnknownHostException e) {
             e.printStackTrace();
         }

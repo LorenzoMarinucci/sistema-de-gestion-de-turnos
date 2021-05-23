@@ -5,13 +5,9 @@ import dependencias.atencion.Tipo;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.RegistroFactory;
 import lombok.Synchronized;
-import servidor_central.configuracion.ConfiguracionFilaDeEspera;
 import servidor_central.espera.FilaDeEspera;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class FilaDeEsperaPQ implements FilaDeEspera {
 
@@ -65,6 +61,16 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
     public void reingresarAtencion(Atencion atencion) {
         atencion.setTipo(Tipo.REINGRESADA);
         fila.add(atencion);
+    }
+
+    @Override
+    public void establecerFila(Iterator<Atencion> atenciones) {
+        atenciones.forEachRemaining(fila::add);
+    }
+
+    @Override
+    public Iterator<Atencion> obtenerFila() {
+        return this.fila.iterator();
     }
 
 }

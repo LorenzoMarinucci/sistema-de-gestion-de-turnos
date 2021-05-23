@@ -43,7 +43,6 @@ public class ListenerEmpleado extends Listener {
                 e.printStackTrace();
             }
         }).start();
-
     }
 
     private Atencion procesarSolicitud(SolicitudEmpleado solicitud) throws Exception {

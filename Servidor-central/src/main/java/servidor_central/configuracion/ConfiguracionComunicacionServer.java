@@ -5,6 +5,7 @@ public interface ConfiguracionComunicacionServer {
     Integer getPuertoTotem();
     Integer getPuertoEmpleado();
     Integer getPuertoTelevisor();
-    Boolean getPrimario();
+    Integer getPuertoSincronizacion();
+    Integer getPuertoSincronizar();
 
 }
