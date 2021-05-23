@@ -2,9 +2,8 @@ package servidor_central.servicios.listeners.empleado;
 
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
+import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
-import servidor_central.configuracion.ConfiguracionComunicacionServer;
-import servidor_central.estado.EstadoServidor;
 import servidor_central.servicios.listeners.Listener;
 
 import java.io.ObjectInputStream;
@@ -17,37 +16,27 @@ public class ListenerEmpleado extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerTotem");
     private OperacionesEmpleado operacionesEmpleado;
+    private ServicioVisualizacion servicioVisualizacion;
 
-    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer portPrimario, EstadoServidor estadoServidor) {
-        this.portPrimario = portPrimario;
+    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer port, ServicioVisualizacion servicioVisualizacion) {
+        this.port = port;
         this.operacionesEmpleado = operacionesEmpleado;
-        this.estadoServidor = estadoServidor;
+        this.servicioVisualizacion = servicioVisualizacion;
     }
 
     private void comunicacionEmpleados() {
         new Thread(() -> {
             try {
-                ServerSocket s = new ServerSocket(portPrimario);
+                ServerSocket s = new ServerSocket(port);
                 while (true) {
                     Socket socket = s.accept();
                     ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                     Object recibido = in.readObject();
-                    try {
-                        SolicitudEmpleado solicitud = (SolicitudEmpleado) recibido;
-                        Atencion atencion = procesarSolicitud(solicitud);
+                    SolicitudEmpleado solicitud = (SolicitudEmpleado) recibido;
+                    Atencion atencion = procesarSolicitud(solicitud);
+                    if (solicitud.getPrimario()){
                         out.writeObject(atencion);
-                    } catch (ClassCastException e) {
-                        String mensaje = (String) recibido;
-                        if (mensaje.equals("SET PRIMARIO")) {
-                            cambiarRol(true);
-                        }
-                        else if (mensaje.equals("SET SECUNDARRIO")) {
-                            cambiarRol(false);
-                        }
-                        else if (mensaje.equals("IS PRIMARIO")) {
-                            out.writeObject(estadoServidor.isPrimario());
-                        }
                     }
                 }
             } catch (Exception e) {
@@ -63,7 +52,14 @@ public class ListenerEmpleado extends Listener {
             log.info("NUEVA SOLICITUD DE ASIGNACIÓN DESDE EMPLEADO");
             atencion = operacionesEmpleado.solicitarAtencion(solicitud.getBox());
             solicitud.setAtencion(atencion);
-            log.info("ATENCION ASIGNADA. DNI: " + atencion.getDNI() + ", BOX: " + solicitud.getBox());
+            if (atencion != null) {
+                log.info("ATENCION ASIGNADA. DNI: " + atencion.getDNI() + ", BOX: " + solicitud.getBox());
+                if (solicitud.getPrimario()){
+                    servicioVisualizacion.mostrarAtencion(atencion);
+                }
+            } else {
+                log.info("NO HAY ATENCIONES EN LA FILA DE ESPERA");
+            }
         } else {
             atencion = solicitud.getAtencion();
             if (solicitud.getOrden().equals("FINALIZAR")) {
@@ -84,6 +80,9 @@ public class ListenerEmpleado extends Listener {
                     operacionesEmpleado.confirmarAtencion(atencion);
                     log.info("ATENCION CONFIRMADA. DNI: " + atencion.getDNI());
                 }
+                if (solicitud.getPrimario()){
+                    servicioVisualizacion.quitarAtencion(atencion);
+                }
             }
         }
         return atencion;
@@ -91,6 +90,7 @@ public class ListenerEmpleado extends Listener {
 
     @Override
     public void iniciar() {
+        log.info("LISTENER EMPLEADO INICIADO EN PUERTO " + this.port);
         comunicacionEmpleados();
     }
 }

@@ -1,16 +1,12 @@
 package servidor_central;
 
 import dependencias.interfaces.televisor.ServicioVisualizacion;
-import dependencias.mensajes.televisor.SolicitudTelevisorFactory;
 import dependencias.mensajes.televisor.SolicitudTelevisorFactoryImpl;
 import dependencias.mensajes.totem.RegistroFactoryImpl;
-import servidor_central.comunicacion.ComunicacionVisualizacion;
 import servidor_central.comunicacion.ComunicacionVisualizacionFactory;
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
 import servidor_central.espera.queue.FilaDeEsperaFactory;
-import servidor_central.estado.EstadoServidor;
-import servidor_central.estado.EstadoServidorImpl;
 import servidor_central.servicios.ServicioEsperaImpl;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleado;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleadoFactory;
@@ -39,14 +35,11 @@ public class ServidorCentral {
                     InetAddress.getLocalHost().getHostAddress(), configuracionComunicacionServer, SolicitudTelevisorFactoryImpl.getInstance()
             );
             ServicioEsperaImpl servicioEspera = new ServicioEsperaImpl(
-                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, RegistroFactoryImpl.getInstance()),
-                    servicioVisualizacion, configuracionComunicacionServer.getPrimario());
-            EstadoServidor estadoServidor = new EstadoServidorImpl(configuracionComunicacionServer);
+                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, RegistroFactoryImpl.getInstance()));
             ListenerEmpleado listenerEmpleado = ListenerEmpleadoFactory.getInstance().crearListenerEmpleado(
-                    servicioEspera, configuracionComunicacionServer, estadoServidor
-            );
+                    servicioEspera, configuracionComunicacionServer, servicioVisualizacion);
             ListenerTotem listenerTotem = ListenerTotemFactory.getInstance().crearListenerTotem(
-                    servicioEspera, configuracionComunicacionServer, estadoServidor
+                    servicioEspera, configuracionComunicacionServer
             );
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();

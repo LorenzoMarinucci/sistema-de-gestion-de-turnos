@@ -1,6 +1,7 @@
 package totem.comunicacion;
 
 import dependencias.mensajes.totem.RegistroFactory;
+import dependencias.mensajes.totem.SolicitudTotemFactory;
 import totem.configuracion.ConfiguracionTotem;
 
 public class ComunicacionRegistroFactory {
@@ -16,9 +17,9 @@ public class ComunicacionRegistroFactory {
     }
 
     public ComunicacionRegistro crearComunicacionRegistro(String host, RegistroFactory registroFactory,
-                                                          ConfiguracionTotem configuracionTotem) {
+                                                          ConfiguracionTotem configuracionTotem, SolicitudTotemFactory solicitudTotemFactory) {
         return new ComunicacionRegistro(host, configuracionTotem.getPrimario(),
-                configuracionTotem.getSecundario(), registroFactory);
+                configuracionTotem.getSecundario(), registroFactory, solicitudTotemFactory);
     }
 
 }

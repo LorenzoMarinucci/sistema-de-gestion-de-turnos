@@ -49,6 +49,7 @@ public class ListenerVisualizacion {
     }
 
     public void iniciar() {
+        log.info("LISTENER VISUALIZACIÓN INCIALIZADO EN PUERTO " + this.puerto);
         comunicacionServidor();
     }
 

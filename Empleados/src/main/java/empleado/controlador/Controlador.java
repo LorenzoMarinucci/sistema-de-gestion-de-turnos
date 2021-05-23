@@ -2,6 +2,7 @@ package empleado.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import dependencias.atencion.Atencion;
@@ -26,8 +27,8 @@ public class Controlador implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
         Atencion atencion;
+        String command = e.getActionCommand();
         try {
             if (command.equals("Finalizar")) {
                 log.info("SOLICITUD DE FINALIZACIÓN DE ATENCIÓN");
@@ -37,8 +38,12 @@ public class Controlador implements ActionListener {
             } else if (command.equals("Siguiente")) {
                 log.info("SOLICITUD DE SIGUIENTE ATENCIÓN");
                 atencion = operacionesEmpleado.solicitarAtencion(this.sesion.getNumeroDeBox());
-                sesion.setAtencion(atencion);
-                vistaEmpleado.asignarAtencion(atencion);
+                if (atencion != null) {
+                    sesion.setAtencion(atencion);
+                    vistaEmpleado.asignarAtencion(atencion);
+                } else {
+                    vistaEmpleado.informarMensaje("No hay atenciones en espera, intente más tarde");
+                }
             } else if (command.equals("Anular")) {
                 log.info("SOLICITUD DE ANULACIÓN DE ATENCIÓN");
                 operacionesEmpleado.anularAtencion(sesion.getAtencion());

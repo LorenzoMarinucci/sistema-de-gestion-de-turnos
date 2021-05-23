@@ -4,7 +4,6 @@ import dependencias.atencion.Atencion;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.televisor.SolicitudTelevisor;
 import dependencias.mensajes.televisor.SolicitudTelevisorFactory;
-import servidor_central.configuracion.ConfiguracionComunicacionServer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,8 +47,4 @@ public class ComunicacionVisualizacion implements ServicioVisualizacion {
         enviarMensaje(solicitudTelevisorFactory.nuevaSolicitudQuitar(atencion));
     }
 
-   /* @Override
-    public void inicializar() {
-        enviarMensaje(solicitudTelevisorFactory.nuevaSolicitudInicializar());
-    }*/
 }

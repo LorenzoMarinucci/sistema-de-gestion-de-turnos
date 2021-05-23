@@ -3,6 +3,8 @@ package totem;
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.mensajes.totem.RegistroFactory;
 import dependencias.mensajes.totem.RegistroFactoryImpl;
+import dependencias.mensajes.totem.SolicitudTotemFactory;
+import dependencias.mensajes.totem.SolicitudTotemFactoryImpl;
 import totem.comunicacion.ComunicacionRegistro;
 import totem.comunicacion.ComunicacionRegistroFactory;
 import totem.configuracion.ConfiguracionTotem;
@@ -28,7 +30,7 @@ public class TotemApp {
 		try {
 			ConfiguracionTotem configuracion = cargarConfiguracion();
 			RegistroTotem registroTotem = ComunicacionRegistroFactory.getInstance().crearComunicacionRegistro(
-					InetAddress.getLocalHost().getHostAddress(), RegistroFactoryImpl.getInstance(), configuracion);
+					InetAddress.getLocalHost().getHostAddress(), RegistroFactoryImpl.getInstance(), configuracion, SolicitudTotemFactoryImpl.getInstance());
 			Controlador controlador = new Controlador(new BienvenidaImpl(), new RegistroImpl(), new FinImpl(),
 					new ValidadorImpl(), registroTotem);
 		} catch (UnknownHostException | JAXBException e) {

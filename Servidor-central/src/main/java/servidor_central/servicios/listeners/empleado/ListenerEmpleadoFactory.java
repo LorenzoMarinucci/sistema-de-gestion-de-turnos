@@ -1,8 +1,8 @@
 package servidor_central.servicios.listeners.empleado;
 
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
+import dependencias.interfaces.televisor.ServicioVisualizacion;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;
-import servidor_central.estado.EstadoServidor;
 
 public class ListenerEmpleadoFactory {
 
@@ -16,9 +16,7 @@ public class ListenerEmpleadoFactory {
         return INSTANCE;
     }
 
-    public ListenerEmpleado crearListenerEmpleado(OperacionesEmpleado operacionesEmpleado, ConfiguracionComunicacionServer configuracionComunicacionServer,
-                                                  EstadoServidor estadoServidor) {
-        return new ListenerEmpleado(operacionesEmpleado, configuracionComunicacionServer.getPuertoEmpleado(),
-                estadoServidor);
+    public ListenerEmpleado crearListenerEmpleado(OperacionesEmpleado operacionesEmpleado, ConfiguracionComunicacionServer configuracionComunicacionServer, ServicioVisualizacion servicioVisualizacion) {
+        return new ListenerEmpleado(operacionesEmpleado, configuracionComunicacionServer.getPuertoEmpleado(), servicioVisualizacion);
     }
 }

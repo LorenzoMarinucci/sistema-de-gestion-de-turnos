@@ -12,24 +12,24 @@ public class SolicitudEmpleadoFactoryImpl implements SolicitudEmpleadoFactory {
         return INSTANCE;
     }
 
-    public SolicitudEmpleado nuevaSolicitudAsignacion(Integer box, Boolean actualizarTelevisor) {
-        return new SolicitudEmpleado("ASIGNAR", box, null, actualizarTelevisor);
+    public SolicitudEmpleado nuevaSolicitudAsignacion(Integer box, Boolean primario) {
+        return new SolicitudEmpleado("ASIGNAR", box, null, primario);
     }
 
-    public SolicitudEmpleado nuevaSolicitudCancelacion(Atencion atencion, Boolean actualizarTelevisor) {
-        return new SolicitudEmpleado("CANCELAR", atencion, actualizarTelevisor);
+    public SolicitudEmpleado nuevaSolicitudCancelacion(Atencion atencion, Boolean primario) {
+        return new SolicitudEmpleado("CANCELAR", atencion, primario);
     }
 
-    public SolicitudEmpleado nuevaSolicitudConfirmar(Atencion atencion, Boolean actualizarTelevisor) {
-        return new SolicitudEmpleado("CONFIRMAR", atencion, actualizarTelevisor);
+    public SolicitudEmpleado nuevaSolicitudConfirmar(Atencion atencion, Boolean primario) {
+        return new SolicitudEmpleado("CONFIRMAR", atencion, primario);
     }
 
-    public SolicitudEmpleado nuevaSolicitudFinalizar(Atencion atencion) {
-        return new SolicitudEmpleado("FINALIZAR", atencion);
+    public SolicitudEmpleado nuevaSolicitudFinalizar(Atencion atencion, Boolean primario) {
+        return new SolicitudEmpleado("FINALIZAR", atencion, primario);
     }
 
-    public SolicitudEmpleado nuevaSolicitudAnular(Atencion atencion, Boolean actualizarTelevisor) {
-        return new SolicitudEmpleado("ANULAR", atencion, actualizarTelevisor);
+    public SolicitudEmpleado nuevaSolicitudAnular(Atencion atencion, Boolean primario) {
+        return new SolicitudEmpleado("ANULAR", atencion, primario);
     }
 
 }

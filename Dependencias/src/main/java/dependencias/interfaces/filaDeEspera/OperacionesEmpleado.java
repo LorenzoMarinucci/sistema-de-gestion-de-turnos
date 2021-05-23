@@ -2,6 +2,8 @@ package dependencias.interfaces.filaDeEspera;
 
 import dependencias.atencion.Atencion;
 
+import java.util.Optional;
+
 public interface OperacionesEmpleado {
 
     Atencion solicitarAtencion(Integer numeroDeBox) throws Exception;

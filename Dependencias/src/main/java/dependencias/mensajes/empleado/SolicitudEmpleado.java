@@ -13,18 +13,18 @@ public class SolicitudEmpleado implements Serializable {
     private String orden;
     private Integer box;
     private Atencion atencion;
-    private Boolean actualizarTelevisor;
+    private Boolean primario;
 
-    public SolicitudEmpleado(String orden, Integer box, Boolean actualizarTelevisor){
+    public SolicitudEmpleado(String orden, Integer box, Boolean primario){
         this.orden = orden;
         this.box = box;
-        this.actualizarTelevisor = actualizarTelevisor;
+        this.primario = primario;
     }
 
-    public SolicitudEmpleado(String orden, Atencion atencion, Boolean actualizarTelevisor) {
+    public SolicitudEmpleado(String orden, Atencion atencion, Boolean primario) {
         this.orden = orden;
         this.atencion = atencion;
-        this.actualizarTelevisor = actualizarTelevisor;
+        this.primario = primario;
     }
 
     public SolicitudEmpleado(String orden, Atencion atencion) {

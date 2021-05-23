@@ -4,10 +4,12 @@ import dependencias.atencion.Atencion;
 import dependencias.atencion.Tipo;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.RegistroFactory;
+import lombok.Synchronized;
 import servidor_central.configuracion.ConfiguracionFilaDeEspera;
 import servidor_central.espera.FilaDeEspera;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -36,45 +38,33 @@ public class FilaDeEsperaPQ implements FilaDeEspera {
         this.prioridades = prioridades;
     }
 
+    @Synchronized
     @Override
     public Registro agregarAtencion(Integer DNI) {
         Registro registro;
-        synchronized (this.fila) {
-            if (fila.size() == tamañoMaximo)
-                registro = registroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de espera.");
-            else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
-                registro = registroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en la fila de espera.");
-            } else {
-                Atencion atencion = new Atencion(DNI);
-                fila.add(atencion);
-                registro = registroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
-                this.fila.notifyAll();
-            }
-            return registro;
+        if (fila.size() == tamañoMaximo)
+            registro = registroFactory.nuevoRegistroFallido("Ya ha sido alcanzada la capacidad máxima de la fila de espera.");
+        else if (fila.stream().anyMatch(atencionEnEspera -> DNI.equals(atencionEnEspera.getDNI()))) {
+            registro = registroFactory.nuevoRegistroFallido("El número de DNI tiene una atención pendiente en la fila de espera.");
+        } else {
+            Atencion atencion = new Atencion(DNI);
+            fila.add(atencion);
+            registro = registroFactory.nuevoRegistroExitoso("Registro realizado con éxito.");
         }
+        return registro;
     }
 
+    @Synchronized
     @Override
-    public Atencion sacarNuevaAtencion() {
-        synchronized (this.fila) {
-            while (fila.isEmpty()) {
-                try {
-                    this.fila.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return fila.poll();
-        }
+    public Optional<Atencion> sacarNuevaAtencion() {
+        return Optional.ofNullable(fila.poll());
     }
 
+    @Synchronized
     @Override
     public void reingresarAtencion(Atencion atencion) {
         atencion.setTipo(Tipo.REINGRESADA);
-        synchronized (this.fila) {
-            fila.add(atencion);
-            this.fila.notifyAll();
-        }
+        fila.add(atencion);
     }
 
 }
