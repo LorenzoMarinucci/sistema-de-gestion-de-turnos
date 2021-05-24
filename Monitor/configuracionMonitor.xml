@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <comunicacion>
-    <puertosMonitoreo>10800 10801</puertosMonitoreo>
+    <puertosMonitoreo>
+        <puerto>10800</puerto>
+        <puerto>10801</puerto>
+    </puertosMonitoreo>
 </comunicacion>

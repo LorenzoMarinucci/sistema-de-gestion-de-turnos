@@ -23,6 +23,7 @@ public class Controlador {
     }
 
     private void iniciarMonitoreo() {
+        log.info("INICIANDO MONITOREO");
         new Thread(() -> {
             while (true) {
             for (Integer puerto:puertos) {
@@ -33,7 +34,7 @@ public class Controlador {
                 }
             }
             try {
-                this.wait(TIEMPO_REVISION);
+                Thread.sleep(TIEMPO_REVISION);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

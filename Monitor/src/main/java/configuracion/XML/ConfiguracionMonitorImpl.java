@@ -13,8 +13,8 @@ import java.util.List;
 public class ConfiguracionMonitorImpl implements ConfiguracionMonitor {
 
     @Getter
-    @XmlElement(name = "puertosMonitoreo")
-    @XmlList
+    @XmlElementWrapper(name = "puertosMonitoreo")
+    @XmlElement(name = "puerto")
     private List<Integer> puertosMonitoreo;
 
 }
