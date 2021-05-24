@@ -12,6 +12,8 @@ import servidor_central.espera.queue.FilaDeEsperaFactory;
 import servidor_central.servicios.ServicioEsperaImpl;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleado;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleadoFactory;
+import servidor_central.servicios.listeners.monitor.ListenerMonitor;
+import servidor_central.servicios.listeners.monitor.ListenerMonitorFactory;
 import servidor_central.servicios.listeners.servidor.ListenerSincronizacion;
 import servidor_central.servicios.listeners.servidor.ListenerSincronizacionFactory;
 import servidor_central.servicios.listeners.totem.ListenerTotem;
@@ -47,9 +49,11 @@ public class ServidorCentral {
                     servicioEspera, configuracionComunicacionServer
             );
             ListenerSincronizacion listenerServidor = ListenerSincronizacionFactory.getInstance().crearListenerServidor(servicioEspera, configuracionComunicacionServer);
+            ListenerMonitor listenerMonitor = ListenerMonitorFactory.getInstance().crearListenerMonitor(configuracionComunicacionServer);
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
             listenerServidor.iniciar();
+            listenerMonitor.iniciar();
         } catch (JAXBException | UnknownHostException e) {
             e.printStackTrace();
         }

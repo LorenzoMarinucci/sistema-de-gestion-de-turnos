@@ -15,7 +15,7 @@ public class ControladorFactory {
         return INSTANCE;
     }
 
-    public Controlador crearListenerTotem(String host, Monitoreo monitoreo, ConfiguracionMonitor configuracionMonitor) {
-        return new Controlador(monitoreo,host,configuracionMonitor.getPuertos());
+    public Controlador crearControlador(String host, Monitoreo monitoreo, ConfiguracionMonitor configuracionMonitor) {
+        return new Controlador(monitoreo,host,configuracionMonitor.getPuertosMonitoreo());
     }
 }

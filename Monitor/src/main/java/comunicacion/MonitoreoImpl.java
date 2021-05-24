@@ -11,9 +11,13 @@ import java.util.logging.Logger;
 
 public class MonitoreoImpl implements Monitoreo {
 
-    private final Integer TIEMPO_ESPERA = 1000;
+    private Integer tiempoEspera;
 
     private Logger log = Logger.getLogger("log.monitor.Monitoreo");
+
+    public MonitoreoImpl(Integer tiempoEspera) {
+        this.tiempoEspera = tiempoEspera;
+    }
 
     @Override
     public Boolean obtenerRespuesta(String host, Integer port) {
@@ -21,8 +25,8 @@ public class MonitoreoImpl implements Monitoreo {
         Boolean respuesta = false;
         try {
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress(host, port), TIEMPO_ESPERA);
-            socket.setSoTimeout(TIEMPO_ESPERA);
+            socket.connect(new InetSocketAddress(host, port), tiempoEspera);
+            socket.setSoTimeout(tiempoEspera);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out.println("PING");
