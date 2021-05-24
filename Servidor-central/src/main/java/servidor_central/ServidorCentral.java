@@ -6,15 +6,14 @@ import dependencias.mensajes.televisor.SolicitudTelevisorFactoryImpl;
 import dependencias.mensajes.totem.RegistroFactoryImpl;
 import servidor_central.comunicacion.sincronizacion.ComunicacionSincronizacionFactory;
 import servidor_central.comunicacion.visualizacion.ComunicacionVisualizacionFactory;
-import servidor_central.configuracion.ConfiguracionComunicacionServer;
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
 import servidor_central.espera.queue.FilaDeEsperaFactory;
 import servidor_central.servicios.ServicioEsperaImpl;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleado;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleadoFactory;
-import servidor_central.servicios.listeners.servidor.ListenerServidor;
-import servidor_central.servicios.listeners.servidor.ListenerServidorFactory;
+import servidor_central.servicios.listeners.servidor.ListenerSincronizacion;
+import servidor_central.servicios.listeners.servidor.ListenerSincronizacionFactory;
 import servidor_central.servicios.listeners.totem.ListenerTotem;
 import servidor_central.servicios.listeners.totem.ListenerTotemFactory;
 
@@ -47,7 +46,7 @@ public class ServidorCentral {
             ListenerTotem listenerTotem = ListenerTotemFactory.getInstance().crearListenerTotem(
                     servicioEspera, configuracionComunicacionServer
             );
-            ListenerServidor listenerServidor = ListenerServidorFactory.getInstance().crearListenerServidor(servicioEspera, configuracionComunicacionServer);
+            ListenerSincronizacion listenerServidor = ListenerSincronizacionFactory.getInstance().crearListenerServidor(servicioEspera, configuracionComunicacionServer);
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
             listenerServidor.iniciar();

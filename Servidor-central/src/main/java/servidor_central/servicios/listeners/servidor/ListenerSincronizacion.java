@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ListenerServidor extends Listener {
+public class ListenerSincronizacion extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerServidor");
 
     private Sincronizacion sincronizacion;
 
-    public ListenerServidor(Integer port, Sincronizacion sincronizacion) {
+    public ListenerSincronizacion(Integer port, Sincronizacion sincronizacion) {
         this.port = port;
         this.sincronizacion = sincronizacion;
     }
@@ -33,20 +33,22 @@ public class ListenerServidor extends Listener {
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String mensaje = in.readLine();
                     if (mensaje.equals("SINCRONIZACION")) {
-                        log.info("NUEVA SOLICITUD DE SINCRONIZACION");
+                        log.info("NUEVA SOLICITUD DE SINCRONIZACIÓN");
                         List<Atencion> atenciones = new ArrayList<>();
                         sincronizacion.obtenerAtenciones().forEachRemaining(atenciones::add);
                         out.writeObject(atenciones);
                     }
+                    log.info("SOLICITUD DE SINCRONIZACIÓN SATISFECHA");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.info("FALLO AL SATISFACER LA SOLICITUD DE SINCRONIZACIÓN");
             }
         }).start();
     }
 
     @Override
     public void iniciar() {
+        log.info("LISTENER DE SINCRONIZACIÓN INICIADO EN PUERTO " + this.port);
         procesarSincronizacion();
     }
 }
