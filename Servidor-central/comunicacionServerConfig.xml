@@ -5,4 +5,5 @@
     <puertoTelevisor>10600</puertoTelevisor>
     <puertoSincronizacion>10701</puertoSincronizacion>
     <puertoSincronizar>10700</puertoSincronizar>
+    <puertoMonitoreo>10800</puertoMonitoreo>
 </comunicacion>

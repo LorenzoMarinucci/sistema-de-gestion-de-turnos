@@ -7,5 +7,6 @@ public interface ConfiguracionComunicacionServer {
     Integer getPuertoTelevisor();
     Integer getPuertoSincronizacion();
     Integer getPuertoSincronizar();
+    Integer getPuertoMonitoreo();
 
 }

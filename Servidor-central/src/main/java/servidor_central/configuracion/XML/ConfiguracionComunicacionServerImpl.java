@@ -34,4 +34,8 @@ public class ConfiguracionComunicacionServerImpl implements ConfiguracionComunic
     @XmlElement(name = "puertoSincronizar")
     public Integer puertoSincronizar;
 
+    @Getter
+    @XmlElement(name = "puertoMonitoreo")
+    public Integer puertoMonitoreo;
+
 }

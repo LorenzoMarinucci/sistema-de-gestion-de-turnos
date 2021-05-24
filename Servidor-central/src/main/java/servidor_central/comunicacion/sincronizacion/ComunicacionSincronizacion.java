@@ -40,7 +40,6 @@ public class ComunicacionSincronizacion implements Sincronizacion {
             socket.close();
         } catch (Exception e) {
             log.info("SINCRONIZACIÓN FALLIDA");
-            e.printStackTrace();
             iterator = Collections.emptyIterator();
         }
         return iterator;

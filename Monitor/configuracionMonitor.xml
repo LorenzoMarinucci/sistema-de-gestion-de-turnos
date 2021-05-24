@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comunicacion>
+    <puertos>
+        <Integer>10800</Integer>
+        <Integer>10801</Integer>
+    </puertos>
+</comunicacion>
