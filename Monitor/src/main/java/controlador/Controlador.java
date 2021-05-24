@@ -27,11 +27,7 @@ public class Controlador {
         new Thread(() -> {
             while (true) {
             for (Integer puerto:puertos) {
-                if (monitoreo.obtenerRespuesta(host,puerto)) {
-                    log.info("MONITOREO EXITOSO DEL PUERTO " + puerto);
-                } else {
-                    log.info("MONITOREO FALLIDO DEL PUERTO " + puerto);
-                }
+                monitoreo.obtenerRespuesta(host,puerto);
             }
             try {
                 Thread.sleep(TIEMPO_REVISION);
