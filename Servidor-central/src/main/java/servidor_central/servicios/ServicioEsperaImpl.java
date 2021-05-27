@@ -5,15 +5,15 @@ import dependencias.atencion.Estado;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.interfaces.filaDeEspera.Sincronizacion;
+import dependencias.interfaces.monitor.Monitoreo;
 import dependencias.mensajes.totem.Registro;
 import servidor_central.espera.FilaDeEspera;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, Sincronizacion {
+public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, Sincronizacion, Monitoreo {
 
     private static final Logger log = Logger.getLogger("log.totem.servicioEspera");
     private FilaDeEspera filaDeEspera;
@@ -72,5 +72,10 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, S
     @Override
     public Iterator<Atencion> obtenerAtenciones() {
         return this.filaDeEspera.obtenerFila();
+    }
+
+    @Override
+    public Boolean obtenerRespuesta() {
+        return true;
     }
 }

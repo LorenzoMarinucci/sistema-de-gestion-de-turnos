@@ -1,5 +1,6 @@
 package servidor_central.servicios.listeners.monitor;
 
+import dependencias.interfaces.monitor.Monitoreo;
 import servidor_central.servicios.listeners.Listener;
 
 import java.io.BufferedReader;
@@ -14,9 +15,11 @@ public class ListenerMonitor extends Listener {
     private Logger log = Logger.getLogger("log.server.listenerMonitoreo");
 
     private Integer port;
+    private Monitoreo monitoreo;
 
-    public ListenerMonitor(Integer port) {
+    public ListenerMonitor(Integer port, Monitoreo monitoreo) {
         this.port = port;
+        this.monitoreo = monitoreo;
     }
 
     private void recibirMensajes() {
@@ -30,7 +33,10 @@ public class ListenerMonitor extends Listener {
                     String mensaje = in.readLine();
                     if (mensaje.equals("PING")) {
                         log.info("NUEVA SOLICITUD DE MONITOREO");
-                        out.println("ACK");
+                        Boolean respuesta = monitoreo.obtenerRespuesta();
+                        if (respuesta) {
+                            out.println("ACK");
+                        }
                     }
                 }
             } catch (Exception e) {

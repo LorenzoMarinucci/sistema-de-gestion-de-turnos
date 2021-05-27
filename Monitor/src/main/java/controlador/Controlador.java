@@ -7,18 +7,15 @@ import java.util.logging.Logger;
 
 public class Controlador {
 
-    private final Integer TIEMPO_REVISION = 5000;
+    private Integer tiempoMonitoreo;
 
     private Logger log = Logger.getLogger("log.monitor.Controlador");
 
     private Monitoreo monitoreo;
-    private String host;
-    private List<Integer> puertos;
 
-    public Controlador(Monitoreo monitoreo, String host, List<Integer> puertos) {
+    public Controlador(Monitoreo monitoreo, Integer tiempoMonitoreo) {
         this.monitoreo = monitoreo;
-        this.host = host;
-        this.puertos = puertos;
+        this.tiempoMonitoreo = tiempoMonitoreo;
         iniciarMonitoreo();
     }
 
@@ -26,15 +23,14 @@ public class Controlador {
         log.info("INICIANDO MONITOREO");
         new Thread(() -> {
             while (true) {
-            for (Integer puerto:puertos) {
-                monitoreo.obtenerRespuesta(host,puerto);
+                monitoreo.obtenerRespuesta();
+                try {
+                    Thread.sleep(tiempoMonitoreo);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                Thread.sleep(TIEMPO_REVISION);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }}).start();
+        }).start();
     }
 
 }

@@ -49,7 +49,7 @@ public class ServidorCentral {
                     servicioEspera, configuracionComunicacionServer
             );
             ListenerSincronizacion listenerServidor = ListenerSincronizacionFactory.getInstance().crearListenerServidor(servicioEspera, configuracionComunicacionServer);
-            ListenerMonitor listenerMonitor = ListenerMonitorFactory.getInstance().crearListenerMonitor(configuracionComunicacionServer);
+            ListenerMonitor listenerMonitor = ListenerMonitorFactory.getInstance().crearListenerMonitor(configuracionComunicacionServer, servicioEspera);
             listenerEmpleado.iniciar();
             listenerTotem.iniciar();
             listenerServidor.iniciar();

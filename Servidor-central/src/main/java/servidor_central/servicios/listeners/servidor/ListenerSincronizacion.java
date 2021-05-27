@@ -2,7 +2,6 @@ package servidor_central.servicios.listeners.servidor;
 
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.filaDeEspera.Sincronizacion;
-import dependencias.mensajes.empleado.SolicitudEmpleado;
 import servidor_central.servicios.listeners.Listener;
 
 import java.io.*;

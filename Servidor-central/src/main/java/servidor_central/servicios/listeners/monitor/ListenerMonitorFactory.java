@@ -1,5 +1,6 @@
 package servidor_central.servicios.listeners.monitor;
 
+import dependencias.interfaces.monitor.Monitoreo;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;
 
 public class ListenerMonitorFactory {
@@ -14,7 +15,7 @@ public class ListenerMonitorFactory {
         return INSTANCE;
     }
 
-    public ListenerMonitor crearListenerMonitor(ConfiguracionComunicacionServer configuracionComunicacionServer) {
-        return new ListenerMonitor(configuracionComunicacionServer.getPuertoMonitoreo());
+    public ListenerMonitor crearListenerMonitor(ConfiguracionComunicacionServer configuracionComunicacionServer, Monitoreo monitoreo) {
+        return new ListenerMonitor(configuracionComunicacionServer.getPuertoMonitoreo(), monitoreo);
     }
 }
