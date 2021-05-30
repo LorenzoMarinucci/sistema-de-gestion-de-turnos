@@ -14,7 +14,6 @@ public class ListenerMonitor extends Listener {
 
     private Logger log = Logger.getLogger("log.server.listenerMonitoreo");
 
-    private Integer port;
     private Monitoreo monitoreo;
 
     public ListenerMonitor(Integer port, Monitoreo monitoreo) {

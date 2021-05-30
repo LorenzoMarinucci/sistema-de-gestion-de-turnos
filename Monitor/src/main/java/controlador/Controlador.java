@@ -2,7 +2,6 @@ package controlador;
 
 import dependencias.interfaces.monitor.Monitoreo;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 public class Controlador {
