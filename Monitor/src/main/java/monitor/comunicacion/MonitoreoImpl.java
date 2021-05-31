@@ -1,4 +1,4 @@
-package comunicacion;
+package monitor.comunicacion;
 
 import dependencias.interfaces.monitor.Monitoreo;
 

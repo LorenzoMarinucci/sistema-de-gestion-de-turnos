@@ -1,4 +1,4 @@
-package controlador;
+package monitor.controlador;
 
 import dependencias.interfaces.monitor.Monitoreo;
 

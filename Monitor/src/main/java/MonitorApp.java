@@ -1,8 +1,8 @@
-import comunicacion.MonitoreoImpl;
-import configuracion.ConfiguracionMonitor;
-import configuracion.XML.ConfiguracionMonitorImpl;
-import controlador.Controlador;
-import comunicacion.MonitoreoFactory;
+import monitor.comunicacion.MonitoreoImpl;
+import monitor.configuracion.ConfiguracionMonitor;
+import monitor.configuracion.XML.ConfiguracionMonitorImpl;
+import monitor.controlador.Controlador;
+import monitor.comunicacion.MonitoreoFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

@@ -1,6 +1,6 @@
-package comunicacion;
+package monitor.comunicacion;
 
-import configuracion.ConfiguracionMonitor;
+import monitor.configuracion.ConfiguracionMonitor;
 
 public class MonitoreoFactory {
 

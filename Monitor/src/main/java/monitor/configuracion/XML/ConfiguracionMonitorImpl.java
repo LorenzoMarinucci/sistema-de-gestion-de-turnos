@@ -1,13 +1,13 @@
-package configuracion.XML;
+package monitor.configuracion.XML;
 
-import configuracion.ConfiguracionMonitor;
+import monitor.configuracion.ConfiguracionMonitor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "comunicacion")
+@XmlRootElement(name = "monitor/comunicacion")
 @XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
 public class ConfiguracionMonitorImpl implements ConfiguracionMonitor {

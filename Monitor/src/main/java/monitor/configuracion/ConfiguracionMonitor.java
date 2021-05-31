@@ -1,4 +1,4 @@
-package configuracion;
+package monitor.configuracion;
 
 import java.util.List;
 
