@@ -57,7 +57,7 @@ public class ComunicacionRegistro implements RegistroTotem {
             try {
                 informe = enviarDNI(DNI,portPrimario,true);
             } catch (Exception exception) {
-                informe = registroFactory.nuevoRegistroFallido("Ha habido un fallo al establer la conexión con el servidor.");
+                informe = registroFactory.nuevoRegistroFallido("Ha habido un fallo al establer la conexión con el servidor.", null);
             }
         }
         return informe;

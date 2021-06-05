@@ -9,7 +9,9 @@ import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.interfaces.filaDeEspera.Sincronizacion;
 import dependencias.interfaces.monitor.Monitoreo;
 import dependencias.mensajes.totem.Registro;
+import dependencias.mensajes.totem.RegistroFactory;
 import servidor_central.espera.FilaDeEspera;
+import servidor_central.excepciones.FilaDeEsperaException;
 
 import java.util.Iterator;
 import java.util.Optional;
@@ -20,10 +22,12 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, S
     private static final Logger log = Logger.getLogger("log.totem.servicioEspera");
     private FilaDeEspera filaDeEspera;
     private ServicioClientes servicioClientes;
+    private RegistroFactory registroFactory;
 
-    public ServicioEsperaImpl(FilaDeEspera filaDeEspera, ServicioClientes servicioClientes) {
+    public ServicioEsperaImpl(FilaDeEspera filaDeEspera, ServicioClientes servicioClientes, RegistroFactory registroFactory) {
         this.filaDeEspera = filaDeEspera;
         this.servicioClientes = servicioClientes;
+        this.registroFactory = registroFactory;
     }
 
     @Override
@@ -65,12 +69,18 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, S
         log.info("REALIZANDO NUEVO REGISTRO. DNI: " + DNI);
         Registro informeRegistro = null;
         Cliente cliente = servicioClientes.obtenerCliente(DNI);
-        informeRegistro = filaDeEspera.agregarAtencion(cliente);
-        informeRegistro.setCliente(cliente);
-        if (informeRegistro.isRegistroExitoso()) {
-            log.info("REGISTRO EXITOSO");
+        if (cliente == null) {
+            log.info("CLIENTE NO ENCONTRADO");
+            informeRegistro = registroFactory.nuevoRegistroFallido("No hay ningun cliente registrado para el DNI " + DNI, cliente);
         } else {
-            log.info("REGISTRO FALLIDO. " + informeRegistro.getMensaje());
+            try {
+                filaDeEspera.agregarAtencion(cliente);
+                log.info("REGISTRO EXITOSO");
+                informeRegistro = registroFactory.nuevoRegistroExitoso("Registro realizado con exito", cliente);
+            } catch (FilaDeEsperaException e) {
+                log.info("REGISTRO FALLIDO: " + e.getMessage());
+                informeRegistro = registroFactory.nuevoRegistroFallido(e.getMessage(), cliente);
+            }
         }
         return informeRegistro;
     }

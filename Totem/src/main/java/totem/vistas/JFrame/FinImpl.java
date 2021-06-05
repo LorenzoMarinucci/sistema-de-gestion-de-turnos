@@ -1,5 +1,6 @@
 package totem.vistas.JFrame;
 
+import dependencias.mensajes.totem.Registro;
 import totem.vistas.VistaFin;
 
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 		textFieldTitulo = new JTextField();
 		textFieldTitulo.setEditable(false);
 		textFieldTitulo.setBackground(new Color(0, 191, 255));
-		textFieldTitulo.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 40));
+		textFieldTitulo.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 60));
 		textFieldTitulo.setText("");
 		textFieldTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		container.add(textFieldTitulo);
@@ -42,7 +43,7 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 		textFieldMensaje = new JTextField();
 		textFieldMensaje.setEditable(false);
 		textFieldMensaje.setBackground(new Color(0, 191, 255));
-		textFieldMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+		textFieldMensaje.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 30));
 		textFieldMensaje.setText("");
 		textFieldMensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		container.add(textFieldMensaje);
@@ -59,14 +60,14 @@ public class FinImpl extends VistaAbstracta implements VistaFin {
 	}
 
 	@Override
-	public void informarResultado(Boolean exitoso, String mensaje) {
-		if (exitoso) {
+	public void informarResultado(Registro registro) {
+		if (registro.isRegistroExitoso()) {
 			this.textFieldTitulo.setText(TITULO_EXITO);
-			this.textFieldMensaje.setText(MENSAJE_EXITO);
+			this.textFieldMensaje.setText("Bienvenido/a " + registro.getCliente().getNombre() + ". " + MENSAJE_EXITO);
 		}
 		else {
 			this.textFieldTitulo.setText(TITULO_FALLO);
-			this.textFieldMensaje.setText(mensaje);
+			this.textFieldMensaje.setText(registro.getMensaje());
 		}
 	}
 }

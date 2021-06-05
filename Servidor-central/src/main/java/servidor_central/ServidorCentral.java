@@ -33,6 +33,8 @@ public class ServidorCentral {
     private static final String FILA_DE_ESPERA_PATH = "filaDeEsperaConfig.xml";
     private static final String COMUNICACION_PATH = "comunicacionServerConfig.xml";
 
+    private static final String CLIENTES_PATH = "clientes.json";
+
     public static void main(String[] args) {
         try {
             ConfiguracionComunicacionServerImpl configuracionComunicacionServer = cargarConfiguracionComunicacion();
@@ -43,7 +45,7 @@ public class ServidorCentral {
             );
             Sincronizacion sincronizacion = ComunicacionSincronizacionFactory.getInstance().crearComunicacionSincronizacion(configuracionComunicacionServer, InetAddress.getLocalHost().getHostAddress());
             ServicioEsperaImpl servicioEspera = new ServicioEsperaImpl(
-                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, RegistroFactoryImpl.getInstance(), sincronizacion), new ServicioClientesImpl());
+                    FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, sincronizacion),  new ServicioClientesImpl(CLIENTES_PATH), RegistroFactoryImpl.getInstance());
             ListenerEmpleado listenerEmpleado = ListenerEmpleadoFactory.getInstance().crearListenerEmpleado(
                     servicioEspera, configuracionComunicacionServer, servicioVisualizacion);
             ListenerTotem listenerTotem = ListenerTotemFactory.getInstance().crearListenerTotem(

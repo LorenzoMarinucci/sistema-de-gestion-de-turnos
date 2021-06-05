@@ -1,0 +1,17 @@
+[
+  {
+    "DNI": 123,
+    "nombre": "Lucia",
+    "categoria": "B"
+  },
+  {
+    "DNI": 777,
+    "nombre": "Loren",
+    "categoria": "C"
+  },
+  {
+    "DNI": 111,
+    "nombre": "Chicha uwu",
+    "categoria": "A"
+  }
+]

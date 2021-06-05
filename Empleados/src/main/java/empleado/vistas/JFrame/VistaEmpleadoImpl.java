@@ -33,6 +33,10 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     private ActionListener actionListener;
     private JTextField txtMensaje;
     private JTextField textFieldNroBox;
+    private JTextField txtNombre;
+    private JTextField textFieldNombre;
+    private JTextField txtCategora;
+    private JTextField textFieldCategoria;
 
     public VistaEmpleadoImpl(Integer box) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,6 +111,66 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
         txtFieldStatus.setColumns(10);
         txtFieldStatus.setBorder(null);
         this.txtFieldStatus.setText("");
+        
+        txtNombre = new JTextField();
+        txtNombre.setText("Nombre:");
+        txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        txtNombre.setFont(new Font("Dialog", Font.PLAIN, 20));
+        txtNombre.setEditable(false);
+        txtNombre.setColumns(10);
+        txtNombre.setBorder(null);
+        txtNombre.setBackground(new Color(0, 191, 255));
+        panelDeOpciones.add(txtNombre);
+        
+        JPanel panel_12_1 = new JPanel();
+        panel_12_1.setBackground(new Color(0, 191, 255));
+        panelDeOpciones.add(panel_12_1);
+        panel_12_1.setLayout(new GridLayout(3, 0, 0, 0));
+        
+        JPanel panel_14_1 = new JPanel();
+        panel_14_1.setBackground(new Color(0, 191, 255));
+        panel_12_1.add(panel_14_1);
+        
+        textFieldNombre = new JTextField();
+        textFieldNombre.setText("");
+        textFieldNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        textFieldNombre.setFont(new Font("Dialog", Font.PLAIN, 15));
+        textFieldNombre.setEditable(false);
+        textFieldNombre.setColumns(10);
+        textFieldNombre.setBorder(null);
+        panel_12_1.add(textFieldNombre);
+        
+        JPanel panel_31 = new JPanel();
+        panel_31.setBackground(new Color(0, 191, 255));
+        panelDeOpciones.add(panel_31);
+        
+        txtCategora = new JTextField();
+        txtCategora.setText("Categoría:");
+        txtCategora.setHorizontalAlignment(SwingConstants.CENTER);
+        txtCategora.setFont(new Font("Dialog", Font.PLAIN, 20));
+        txtCategora.setEditable(false);
+        txtCategora.setColumns(10);
+        txtCategora.setBorder(null);
+        txtCategora.setBackground(new Color(0, 191, 255));
+        panelDeOpciones.add(txtCategora);
+        
+        JPanel panel_13_1 = new JPanel();
+        panel_13_1.setBackground(new Color(0, 191, 255));
+        panelDeOpciones.add(panel_13_1);
+        panel_13_1.setLayout(new GridLayout(3, 0, 0, 0));
+        
+        JPanel panel_15_1 = new JPanel();
+        panel_15_1.setBackground(new Color(0, 191, 255));
+        panel_13_1.add(panel_15_1);
+        
+        textFieldCategoria = new JTextField();
+        textFieldCategoria.setText("");
+        textFieldCategoria.setHorizontalAlignment(SwingConstants.CENTER);
+        textFieldCategoria.setFont(new Font("Dialog", Font.PLAIN, 15));
+        textFieldCategoria.setEditable(false);
+        textFieldCategoria.setColumns(10);
+        textFieldCategoria.setBorder(null);
+        panel_13_1.add(textFieldCategoria);
 
         JPanel panel_1 = new JPanel();
         panelDeOpciones.add(panel_1);
@@ -318,6 +382,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     public void cancelarAtencion() {
         this.textFieldDNI.setText("");
         this.txtFieldStatus.setText("");
+        this.textFieldCategoria.setText("");
+        this.textFieldNombre.setText("");
         this.btnAnular.setEnabled(false);
         this.btnCancelar.setEnabled(false);
         this.btnConfirmar.setEnabled(false);
@@ -339,6 +405,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     public void finalizarAtencion() {
         this.textFieldDNI.setText("");
         this.txtFieldStatus.setText("");
+        this.textFieldCategoria.setText("");
+        this.textFieldNombre.setText("");
         this.btnFinalizar.setEnabled(false);
         this.btnSiguiente.setEnabled(true);
         this.txtMensaje.setText("");
@@ -346,7 +414,9 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
 
     @Override
     public void asignarAtencion(Atencion atencion) {
-        this.textFieldDNI.setText(atencion.getDNI().toString());
+        this.textFieldDNI.setText(atencion.getCliente().getDNI().toString());
+        this.textFieldNombre.setText(atencion.getCliente().getNombre());
+        this.textFieldCategoria.setText(atencion.getCliente().getCategoria().toString());
         this.txtFieldStatus.setText(atencion.getEstado().toString());
         this.btnAnular.setEnabled(true);
         this.btnCancelar.setEnabled(true);
@@ -359,6 +429,8 @@ public class VistaEmpleadoImpl extends JFrame implements MouseListener, VistaEmp
     public void anularAtencion() {
         this.textFieldDNI.setText("");
         this.txtFieldStatus.setText("");
+        this.textFieldCategoria.setText("");
+        this.textFieldNombre.setText("");
         this.btnAnular.setEnabled(false);
         this.btnCancelar.setEnabled(false);
         this.btnConfirmar.setEnabled(false);

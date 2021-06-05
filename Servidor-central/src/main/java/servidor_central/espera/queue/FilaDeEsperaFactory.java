@@ -17,14 +17,14 @@ public class FilaDeEsperaFactory {
         return INSTANCE;
     }
 
-    public FilaDeEsperaPQ crearFilaDeEspera(ConfiguracionFilaDeEspera configuracionFilaDeEspera, RegistroFactory registroFactory) {
+    public FilaDeEsperaPQ crearFilaDeEspera(ConfiguracionFilaDeEspera configuracionFilaDeEspera) {
         Criterio criterio = obtenerCriterio(configuracionFilaDeEspera);
-        return new FilaDeEsperaPQ(configuracionFilaDeEspera.getTamañoFila(), registroFactory, criterio);
+        return new FilaDeEsperaPQ(configuracionFilaDeEspera.getTamañoFila(), criterio);
     }
 
-    public FilaDeEsperaPQ crearFilaDeEspera(ConfiguracionFilaDeEspera configuracionFilaDeEspera, RegistroFactory registroFactory, Sincronizacion sincronizacion) {
+    public FilaDeEsperaPQ crearFilaDeEspera(ConfiguracionFilaDeEspera configuracionFilaDeEspera, Sincronizacion sincronizacion) {
         Criterio criterio = obtenerCriterio(configuracionFilaDeEspera);
-        FilaDeEsperaPQ filaDeEsperaPQ = new FilaDeEsperaPQ(configuracionFilaDeEspera.getTamañoFila(), registroFactory, criterio);
+        FilaDeEsperaPQ filaDeEsperaPQ = new FilaDeEsperaPQ(configuracionFilaDeEspera.getTamañoFila(), criterio);
         filaDeEsperaPQ.establecerFila(sincronizacion.obtenerAtenciones());
         return filaDeEsperaPQ;
     }

@@ -33,11 +33,11 @@ public class ListenerVisualizacion {
                     SolicitudTelevisor solicitud = (SolicitudTelevisor) in.readObject();
                     Atencion atencion = solicitud.getAtencion();
                     if (solicitud.getOrden().equals("MOSTRAR")) {
-                        log.info("NUEVA SOLICITUD DE MUESTRA. DNI: " + atencion.getDNI() + " BOX: " + atencion.getBox());
+                        log.info("NUEVA SOLICITUD DE MUESTRA. DNI: " + atencion.getCliente().getDNI() + " BOX: " + atencion.getBox());
                         servicioVisualizacion.mostrarAtencion(atencion);
                     }
                     else if (solicitud.getOrden().equals("QUITAR")){
-                        log.info("NUEVA SOLICITUD DE QUITADO. DNI: " + atencion.getDNI() + " BOX: " + atencion.getBox());
+                        log.info("NUEVA SOLICITUD DE QUITADO. DNI: " + atencion.getCliente().getDNI() + " BOX: " + atencion.getBox());
                         servicioVisualizacion.quitarAtencion(atencion);
                     }
                 }

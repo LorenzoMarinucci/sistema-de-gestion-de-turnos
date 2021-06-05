@@ -1,14 +1,11 @@
 package empleado;
 
-import dependencias.mensajes.empleado.SolicitudEmpleadoFactory;
 import dependencias.mensajes.empleado.SolicitudEmpleadoFactoryImpl;
-import empleado.comunicacion.ComunicacionOperaciones;
 import empleado.comunicacion.ComunicacionOperacionesFactory;
 import empleado.configuracion.XML.ConfiguracionComunicacionImpl;
 import empleado.configuracion.XML.ConfiguracionSesionImpl;
 import empleado.controlador.Controlador;
 import empleado.sesion.SesionFactory;
-import empleado.sesion.SesionImpl;
 import empleado.vistas.JFrame.VistaEmpleadoImpl;
 
 import javax.xml.bind.JAXBContext;

@@ -17,11 +17,11 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 
 	private JPanel container;
 	private JTextField txtLlamados;
-	private JTextField txtDni;
+	private JTextField txtNombre;
 	private JTextField txtBox;
 	private Integer lugaresTelevisor;
 	
-	private Map<Integer, JTextField> textFieldsDNI = new HashMap<>();
+	private Map<Integer, JTextField> textFieldsNombre = new HashMap<>();
 	private Map<Integer, JTextField> textFieldsBox = new HashMap<>();
 
 	public LlamadosImpl(Integer lugaresTelevisor) {
@@ -40,15 +40,15 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 		panel_1.add(panel);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		txtDni = new JTextField();
-		txtDni.setEditable(false);
-		txtDni.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 20));
-		txtDni.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDni.setText("N\u00FAmero de DNI");
-		txtDni.setBackground(new Color(51, 153, 255));
-		panel.add(txtDni);
-		txtDni.setColumns(10);
-		txtDni.setBorder(null);
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 20));
+		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNombre.setText("Nombre");
+		txtNombre.setBackground(new Color(51, 153, 255));
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
+		txtNombre.setBorder(null);
 		
 		txtBox = new JTextField();
 		txtBox.setEditable(false);
@@ -82,14 +82,14 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 			panelBase.add(panel);
 			panel.setLayout(new GridLayout(0, 2, 0, 0));
 			
-			JTextField textDNI = new JTextField();
-			textDNI.setEditable(false);
-			textDNI.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
-			textDNI.setHorizontalAlignment(SwingConstants.CENTER);
-			textDNI.setBackground(new Color(176, 224, 230));
-			panel.add(textDNI);
-			textDNI.setColumns(10);
-			textDNI.setBorder(null);
+			JTextField textNombre = new JTextField();
+			textNombre.setEditable(false);
+			textNombre.setFont(new Font("Roboto Slab SemiBold", Font.PLAIN, 15));
+			textNombre.setHorizontalAlignment(SwingConstants.CENTER);
+			textNombre.setBackground(new Color(176, 224, 230));
+			panel.add(textNombre);
+			textNombre.setColumns(10);
+			textNombre.setBorder(null);
 			
 			JTextField textBox = new JTextField();
 			textBox.setEditable(false);
@@ -100,7 +100,7 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 			textBox.setColumns(10);
 			textBox.setBorder(null);
 			
-			textFieldsDNI.put(i, textDNI);
+			textFieldsNombre.put(i, textNombre);
 			textFieldsBox.put(i, textBox);
 		}
 		
@@ -108,7 +108,7 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 
 	@Override
 	public void cargarLlamado(Atencion atencion, Integer posicion) {
-		textFieldsDNI.get(posicion).setText(atencion.getDNI().toString());
+		textFieldsNombre.get(posicion).setText(atencion.getCliente().getNombre());
 		textFieldsBox.get(posicion).setText(atencion.getBox().toString());
 		AudioInputStream audioInputStream = null;
 		try {
@@ -124,10 +124,10 @@ public class LlamadosImpl extends JFrame implements VistaLlamados {
 	@Override
 	public void quitarLlamado(Integer posicion) {
 		for (int i = posicion; i < lugaresTelevisor - 1; i++) {
-			textFieldsDNI.get(i).setText(textFieldsDNI.get(i + 1).getText());
+			textFieldsNombre.get(i).setText(textFieldsNombre.get(i + 1).getText());
 			textFieldsBox.get(i).setText(textFieldsBox.get(i + 1).getText());
 		}
-		textFieldsDNI.get(lugaresTelevisor - 1).setText("");
+		textFieldsNombre.get(lugaresTelevisor - 1).setText("");
 		textFieldsBox.get(lugaresTelevisor - 1).setText("");
 	}
 

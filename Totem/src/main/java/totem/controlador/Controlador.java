@@ -65,7 +65,7 @@ public class Controlador implements ActionListener {
 			log.info("REGISTRO FALLIDO. " + informe.getMensaje());
 		}
 		UIFin.abrirVista();
-		UIFin.informarResultado(informe.isRegistroExitoso(), informe.getMensaje());
+		UIFin.informarResultado(informe);
 		UIFin.iniciarTimeout(TIEMPO_ESPERA_NUEVO_REGISTRO);
 	}
 

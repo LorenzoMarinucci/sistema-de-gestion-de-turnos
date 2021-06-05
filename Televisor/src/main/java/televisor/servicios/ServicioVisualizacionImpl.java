@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import televisor.configuracion.ConfiguracionTelevisor;
 import dependencias.atencion.Atencion;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import lombok.Synchronized;
-import televisor.vistas.JFrame.LlamadosImpl;
 import televisor.vistas.VistaLlamados;
 
 public class ServicioVisualizacionImpl implements ServicioVisualizacion {
@@ -39,13 +37,13 @@ public class ServicioVisualizacionImpl implements ServicioVisualizacion {
 	@Override
 	public void quitarAtencion(Atencion atencion) {
 		Optional<Atencion> OptionalAtencion = atencionesEnEspera.stream().filter(atencionFila ->
-				atencionFila.getDNI().equals(atencion.getDNI())).findFirst();
+				atencionFila.getCliente().getDNI().equals(atencion.getCliente().getDNI())).findFirst();
 		if (OptionalAtencion.isPresent()) {
 			atencionesEnEspera.remove(OptionalAtencion.get());
 		}
 		else {
 			OptionalAtencion = atencionesEnTelevisor.stream().filter(atencionTelevisor ->
-					atencionTelevisor.getDNI().equals(atencion.getDNI())).findFirst();
+					atencionTelevisor.getCliente().getDNI().equals(atencion.getCliente().getDNI())).findFirst();
 			if (OptionalAtencion.isPresent()) {
 				UILlamados.quitarLlamado(atencionesEnTelevisor.indexOf(OptionalAtencion.get()));
 				atencionesEnTelevisor.remove(OptionalAtencion.get());

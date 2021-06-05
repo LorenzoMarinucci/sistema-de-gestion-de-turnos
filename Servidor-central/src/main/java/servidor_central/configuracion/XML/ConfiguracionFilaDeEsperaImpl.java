@@ -24,7 +24,7 @@ public class ConfiguracionFilaDeEsperaImpl implements ConfiguracionFilaDeEspera 
     private Map<String, Integer> prioridades;
 
     @Getter
-    @XmlElement(name = "criterioprioridad")
+    @XmlElement(name = "criterioPrioridad")
     private String criterioPrioridad;
 
 }
