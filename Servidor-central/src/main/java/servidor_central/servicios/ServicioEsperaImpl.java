@@ -1,7 +1,9 @@
 package servidor_central.servicios;
 
 import dependencias.atencion.Atencion;
+import dependencias.atencion.Cliente;
 import dependencias.atencion.Estado;
+import dependencias.interfaces.clientes.ServicioClientes;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.interfaces.filaDeEspera.Sincronizacion;
@@ -17,9 +19,11 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, S
 
     private static final Logger log = Logger.getLogger("log.totem.servicioEspera");
     private FilaDeEspera filaDeEspera;
+    private ServicioClientes servicioClientes;
 
-    public ServicioEsperaImpl(FilaDeEspera filaDeEspera) {
+    public ServicioEsperaImpl(FilaDeEspera filaDeEspera, ServicioClientes servicioClientes) {
         this.filaDeEspera = filaDeEspera;
+        this.servicioClientes = servicioClientes;
     }
 
     @Override
@@ -60,7 +64,9 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, S
     public Registro agregarAtencion(Integer DNI) {
         log.info("REALIZANDO NUEVO REGISTRO. DNI: " + DNI);
         Registro informeRegistro = null;
-        informeRegistro = filaDeEspera.agregarAtencion(DNI);
+        Cliente cliente = servicioClientes.obtenerCliente(DNI);
+        informeRegistro = filaDeEspera.agregarAtencion(cliente);
+        informeRegistro.setCliente(cliente);
         if (informeRegistro.isRegistroExitoso()) {
             log.info("REGISTRO EXITOSO");
         } else {

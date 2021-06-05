@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <espera>
     <tamaño>10</tamaño>
+    <criterioPrioridad>DNIAscendente</criterioPrioridad>
     <prioridades>
         <entry>
             <key>NUEVA</key>

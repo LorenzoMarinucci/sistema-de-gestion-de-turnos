@@ -6,5 +6,6 @@ public interface ConfiguracionFilaDeEspera {
 
     Integer getTamañoFila();
     Map<String, Integer> getPrioridades();
+    String getCriterioPrioridad();
 
 }

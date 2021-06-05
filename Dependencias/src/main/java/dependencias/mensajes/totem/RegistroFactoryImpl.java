@@ -1,5 +1,7 @@
 package dependencias.mensajes.totem;
 
+import dependencias.atencion.Cliente;
+
 public class RegistroFactoryImpl implements RegistroFactory {
 
     private static final RegistroFactoryImpl INSTANCE = new RegistroFactoryImpl();
@@ -10,12 +12,12 @@ public class RegistroFactoryImpl implements RegistroFactory {
         return INSTANCE;
     }
 
-    public Registro nuevoRegistroExitoso(String mensaje) {
-        return new Registro(true, mensaje);
+    public Registro nuevoRegistroExitoso(String mensaje, Cliente cliente) {
+        return new Registro(true, mensaje, cliente);
     }
 
-    public Registro nuevoRegistroFallido(String mensaje) {
-        return new Registro(false, mensaje);
+    public Registro nuevoRegistroFallido(String mensaje, Cliente cliente) {
+        return new Registro(false, mensaje, cliente);
     }
 
 }

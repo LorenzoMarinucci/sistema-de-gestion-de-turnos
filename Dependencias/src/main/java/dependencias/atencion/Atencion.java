@@ -8,15 +8,15 @@ import java.util.Date;
 @Data
 public class Atencion implements Serializable {
 
-    private Integer DNI;
-    private Tipo tipo;
+    private Cliente cliente;
     private Integer box;
     private Estado estado;
     private Date llegada;
+    private Tipo tipo;
 
-    public Atencion(Integer DNI) {
-        this.DNI = DNI;
-        this.tipo = Tipo.NUEVA;
+    public Atencion(Cliente cliente) {
+        this.cliente = cliente;
         this.llegada = new Date();
+        this.tipo = Tipo.NUEVA;
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "monitor/comunicacion")
+@XmlRootElement(name = "comunicacion")
 @XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
 public class ConfiguracionMonitorImpl implements ConfiguracionMonitor {

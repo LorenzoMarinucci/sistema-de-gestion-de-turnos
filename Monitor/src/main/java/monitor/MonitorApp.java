@@ -1,3 +1,5 @@
+package monitor;
+
 import monitor.comunicacion.MonitoreoImpl;
 import monitor.configuracion.ConfiguracionMonitor;
 import monitor.configuracion.XML.ConfiguracionMonitorImpl;
