@@ -10,6 +10,7 @@ import servidor_central.comunicacion.visualizacion.ComunicacionVisualizacionFact
 import servidor_central.configuracion.XML.ConfiguracionComunicacionServerImpl;
 import servidor_central.configuracion.XML.ConfiguracionFilaDeEsperaImpl;
 import servidor_central.espera.queue.FilaDeEsperaFactory;
+import servidor_central.registro.ServicioRegistroImpl;
 import servidor_central.servicios.ServicioEsperaImpl;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleado;
 import servidor_central.servicios.listeners.empleado.ListenerEmpleadoFactory;
@@ -35,6 +36,8 @@ public class ServidorCentral {
 
     private static final String CLIENTES_PATH = "clientes.json";
 
+    private static final String REGISTRO_PATH = "registroServer.txt";
+
     public static void main(String[] args) {
         try {
             ConfiguracionComunicacionServerImpl configuracionComunicacionServer = cargarConfiguracionComunicacion();
@@ -47,10 +50,9 @@ public class ServidorCentral {
             ServicioEsperaImpl servicioEspera = new ServicioEsperaImpl(
                     FilaDeEsperaFactory.getInstance().crearFilaDeEspera(configuracionFilaDeEspera, sincronizacion),  new ServicioClientesImpl(CLIENTES_PATH), RegistroFactoryImpl.getInstance());
             ListenerEmpleado listenerEmpleado = ListenerEmpleadoFactory.getInstance().crearListenerEmpleado(
-                    servicioEspera, configuracionComunicacionServer, servicioVisualizacion);
+                    servicioEspera, configuracionComunicacionServer, servicioVisualizacion, new ServicioRegistroImpl(REGISTRO_PATH));
             ListenerTotem listenerTotem = ListenerTotemFactory.getInstance().crearListenerTotem(
-                    servicioEspera, configuracionComunicacionServer
-            );
+                    servicioEspera, configuracionComunicacionServer, new ServicioRegistroImpl(REGISTRO_PATH));
             ListenerSincronizacion listenerServidor = ListenerSincronizacionFactory.getInstance().crearListenerServidor(servicioEspera, configuracionComunicacionServer);
             ListenerMonitor listenerMonitor = ListenerMonitorFactory.getInstance().crearListenerMonitor(configuracionComunicacionServer, servicioEspera);
             listenerEmpleado.iniciar();

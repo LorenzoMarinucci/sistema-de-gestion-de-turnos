@@ -2,6 +2,7 @@ package servidor_central.servicios.listeners.totem;
 
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;
+import servidor_central.registro.ServicioRegistro;
 
 public class ListenerTotemFactory {
 
@@ -16,8 +17,9 @@ public class ListenerTotemFactory {
     }
 
     public ListenerTotem crearListenerTotem(RegistroTotem registroTotem,
-                                            ConfiguracionComunicacionServer configuracionComunicacionServer) {
-        return new ListenerTotem(registroTotem, configuracionComunicacionServer.getPuertoTotem());
+                                            ConfiguracionComunicacionServer configuracionComunicacionServer,
+                                            ServicioRegistro servicioRegistro) {
+        return new ListenerTotem(registroTotem, configuracionComunicacionServer.getPuertoTotem(), servicioRegistro);
     }
 
 }

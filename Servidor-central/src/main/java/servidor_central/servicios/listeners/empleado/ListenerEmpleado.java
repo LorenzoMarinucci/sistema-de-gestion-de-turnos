@@ -4,6 +4,7 @@ import dependencias.atencion.Atencion;
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import dependencias.mensajes.empleado.SolicitudEmpleado;
+import servidor_central.registro.ServicioRegistro;
 import servidor_central.servicios.listeners.Listener;
 
 import java.io.ObjectInputStream;
@@ -17,11 +18,14 @@ public class ListenerEmpleado extends Listener {
     private Logger log = Logger.getLogger("log.server.listenerTotem");
     private OperacionesEmpleado operacionesEmpleado;
     private ServicioVisualizacion servicioVisualizacion;
+    private ServicioRegistro servicioRegistro;
 
-    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer port, ServicioVisualizacion servicioVisualizacion) {
+    public ListenerEmpleado(OperacionesEmpleado operacionesEmpleado, Integer port, ServicioVisualizacion servicioVisualizacion,
+                            ServicioRegistro servicioRegistro) {
         this.port = port;
         this.operacionesEmpleado = operacionesEmpleado;
         this.servicioVisualizacion = servicioVisualizacion;
+        this.servicioRegistro = servicioRegistro;
     }
 
     private void comunicacionEmpleados() {
@@ -52,6 +56,7 @@ public class ListenerEmpleado extends Listener {
             atencion = operacionesEmpleado.solicitarAtencion(solicitud.getBox());
             solicitud.setAtencion(atencion);
             if (atencion != null) {
+                servicioRegistro.emitirRegistro("ASIGNACIÓN", atencion.getCliente(), atencion.getBox());
                 log.info("ATENCION ASIGNADA. DNI: " + atencion.getCliente().getDNI() + ", BOX: " + solicitud.getBox());
                 if (solicitud.getPrimario()){
                     servicioVisualizacion.mostrarAtencion(atencion);
@@ -64,19 +69,23 @@ public class ListenerEmpleado extends Listener {
             if (solicitud.getOrden().equals("FINALIZAR")) {
                 log.info("NUEVA SOLICITUD DE FINALIZACIÓN DESDE EMPLEADO");
                 operacionesEmpleado.finalizarAtencion(atencion);
+                servicioRegistro.emitirRegistro("FINALIZACIÓN", atencion.getCliente(), atencion.getBox());
                 log.info("ATENCION FINALIZADA. DNI: " + atencion.getCliente().getDNI());
             } else {
                 if (solicitud.getOrden().equals("CANCELAR")) {
                     log.info("NUEVA SOLICITUD DE CANCELACIÓN DESDE EMPLEADO");
                     operacionesEmpleado.cancelarAtencion(atencion);
+                    servicioRegistro.emitirRegistro("CANCELACIÓN", atencion.getCliente(), atencion.getBox());
                     log.info("ATENCION CANCELADA. DNI: " + atencion.getCliente().getDNI());
                 } else if (solicitud.getOrden().equals("ANULAR")) {
                     log.info("NUEVA SOLICITUD DE ANULACIÓN DESDE EMPLEADO");
                     operacionesEmpleado.anularAtencion(atencion);
+                    servicioRegistro.emitirRegistro("ANULACIÓN", atencion.getCliente(), atencion.getBox());
                     log.info("ATENCION ANULADA. DNI: " + atencion.getCliente().getDNI());
                 } else if (solicitud.getOrden().equals("CONFIRMAR")) {
                     log.info("NUEVA SOLICITUD DE CONFIRMACIÓN DESDE EMPLEADO");
                     operacionesEmpleado.confirmarAtencion(atencion);
+                    servicioRegistro.emitirRegistro("CONFIRMACIÓN", atencion.getCliente(), atencion.getBox());
                     log.info("ATENCION CONFIRMADA. DNI: " + atencion.getCliente().getDNI());
                 }
                 if (solicitud.getPrimario()){

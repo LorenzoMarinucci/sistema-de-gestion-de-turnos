@@ -1,4 +1,4 @@
-package dependencias.interfaces.clientes;
+package servidor_central.clientes;
 
 import dependencias.atencion.Cliente;
 
