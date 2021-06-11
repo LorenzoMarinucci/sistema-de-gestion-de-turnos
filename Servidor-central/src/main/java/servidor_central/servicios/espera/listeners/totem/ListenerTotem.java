@@ -1,10 +1,10 @@
-package servidor_central.servicios.listeners.totem;
+package servidor_central.servicios.espera.listeners.totem;
 
 import dependencias.interfaces.filaDeEspera.RegistroTotem;
 import dependencias.mensajes.totem.Registro;
 import dependencias.mensajes.totem.SolicitudTotem;
-import servidor_central.registro.ServicioRegistro;
-import servidor_central.servicios.listeners.Listener;
+import servidor_central.servicios.registro.ServicioRegistro;
+import servidor_central.servicios.espera.listeners.Listener;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -34,11 +34,11 @@ public class ListenerTotem extends Listener {
                     SolicitudTotem solicitud = (SolicitudTotem) in.readObject();
                     log.info("NUEVO MENSAJE TOTEM. DNI " + solicitud.getDNI());
                     Registro informeRegistro = registroTotem.agregarAtencion(solicitud.getDNI());
-                    if (informeRegistro.isRegistroExitoso()) {
-                        servicioRegistro.emitirRegistro("REGISTRO", informeRegistro.getCliente());
-                    }
                     if (solicitud.getPrimario()){
                         out.writeObject(informeRegistro);
+                        if (informeRegistro.isRegistroExitoso()) {
+                            servicioRegistro.emitirRegistro("REGISTRO", informeRegistro.getCliente());
+                        }
                     }
                 }
             } catch (Exception e) {

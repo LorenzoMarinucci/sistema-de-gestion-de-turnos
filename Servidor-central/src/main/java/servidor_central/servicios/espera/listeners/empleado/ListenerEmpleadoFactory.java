@@ -1,9 +1,9 @@
-package servidor_central.servicios.listeners.empleado;
+package servidor_central.servicios.espera.listeners.empleado;
 
 import dependencias.interfaces.filaDeEspera.OperacionesEmpleado;
 import dependencias.interfaces.televisor.ServicioVisualizacion;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;
-import servidor_central.registro.ServicioRegistro;
+import servidor_central.servicios.registro.ServicioRegistro;
 
 public class ListenerEmpleadoFactory {
 

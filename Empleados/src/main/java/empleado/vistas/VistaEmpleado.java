@@ -3,7 +3,6 @@ package empleado.vistas;
 import java.awt.event.ActionListener;
 
 import dependencias.atencion.Atencion;
-import empleado.sesion.Sesion;
 
 public interface VistaEmpleado {
 	

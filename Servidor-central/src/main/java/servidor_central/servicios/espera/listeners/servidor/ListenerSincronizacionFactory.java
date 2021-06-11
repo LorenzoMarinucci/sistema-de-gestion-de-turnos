@@ -1,4 +1,4 @@
-package servidor_central.servicios.listeners.servidor;
+package servidor_central.servicios.espera.listeners.servidor;
 
 import dependencias.interfaces.filaDeEspera.Sincronizacion;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;

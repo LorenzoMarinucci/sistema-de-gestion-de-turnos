@@ -1,4 +1,4 @@
-package servidor_central.servicios;
+package servidor_central.servicios.espera;
 
 import dependencias.atencion.Atencion;
 import dependencias.atencion.Cliente;
@@ -70,7 +70,7 @@ public class ServicioEsperaImpl implements RegistroTotem, OperacionesEmpleado, S
         Registro informeRegistro = null;
         Cliente cliente = servicioClientes.obtenerCliente(DNI);
         if (cliente == null) {
-            log.info("CLIENTE NO ENCONTRADO");
+            log.info("CLIENTE NO ENCONTRADO. DNI: " + DNI);
             informeRegistro = registroFactory.nuevoRegistroFallido("No hay ningun cliente registrado para el DNI " + DNI, cliente);
         } else {
             try {

@@ -1,4 +1,4 @@
-package servidor_central.servicios.listeners.monitor;
+package servidor_central.servicios.espera.listeners.monitor;
 
 import dependencias.interfaces.monitor.Monitoreo;
 import servidor_central.configuracion.ConfiguracionComunicacionServer;

@@ -1,4 +1,4 @@
-package servidor_central.servicios.listeners;
+package servidor_central.servicios.espera.listeners;
 
 public abstract class Listener {
 

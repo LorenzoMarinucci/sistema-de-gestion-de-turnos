@@ -1,4 +1,4 @@
-package servidor_central.registro;
+package servidor_central.servicios.registro;
 
 import dependencias.atencion.Cliente;
 
